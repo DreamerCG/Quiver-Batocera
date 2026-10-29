@@ -1,0 +1,8 @@
+[Game]
+Name=Gravity Rush 2
+Folder=gr2_pc-HayatoG
+Path=/userdata/system/Quiver/emulator/Apps/gr2_pc-HayatoG
+executable=Gravity Rush 2.exe
+args=--play
+mode=wine
+setting_file=users/steamuser/AppData/Roaming/gr2_pc-HayatoG/settings.jsonx

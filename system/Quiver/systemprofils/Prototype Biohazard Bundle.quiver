@@ -1,0 +1,8 @@
+[Game]
+name=Prototype Biohazard Bundle
+Folder=prototype-pc-slop-petrishevgeorgii-debug
+path=/userdata/system/Quiver/emulator/Apps/prototype-pc-slop-petrishevgeorgii-debug
+executable=Prototype.exe
+args=--play
+mode=wine
+setting_file = /userdata/system/Quiver/emulator/Apps/prototype-pc-slop-petrishevgeorgii-debug/settings.json

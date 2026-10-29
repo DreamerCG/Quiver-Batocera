@@ -1,5 +1,8 @@
 [Game]
 name=Killzone Shadowfall
-path=/userdata/system/Quiver/Apps/killzone-shadowfall-pc
-executable=/userdata/system/wine/custom/GE-Proton-10-25/bin/wine
-args="/userdata/system/Quiver/Apps/killzone-shadowfall-pc/Classic launcher.bat"
+Folder=killzone-shadowfall-pc
+Path=/userdata/system/Quiver/emulator/Apps/killzone-shadowfall-pc
+executable=Killzone Shadow Fall.exe
+args= --play
+mode=wine
+setting_file=/userdata/system/Quiver/emulator/Apps/killzone-shadowfall-pc/user/launcher.json

@@ -1,8 +1,8 @@
 [Game]
 name=Uncharted: The Nathan Drake Collection
-path=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
 Folder=UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
-executable=/userdata/system/wine/custom/GE-Proton-10-25/bin/wine
-args="/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort/Uncharted Launcher.exe" --play u2
-working_directory=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
-folder_name=UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
+Path=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
+executable=Uncharted Launcher.exe
+args=--play u2
+mode=wine
+setting_file=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort/settings.json

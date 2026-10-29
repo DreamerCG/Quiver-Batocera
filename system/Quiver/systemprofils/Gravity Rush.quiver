@@ -1,7 +1,8 @@
 [Game]
-name=Gravity Rush PC
-path=/userdata/system/Quiver/Apps/gravityrush_pc-LucaPazienza
-executable=/userdata/system/wine/custom/GE-Proton-10-25/bin/wine
-args="/userdata/system/Quiver/Apps/gravityrush_pc-LucaPazienza/Gravity Rush.exe"
-working_directory=/userdata/system/Quiver/Apps/gravityrush_pc-LucaPazienza
-folder_name=gravityrush_pc-LucaPazienza
+Name=Gravity Rush
+Folder=gravityrush_pc-LucaPazienza
+Path=/userdata/system/Quiver/emulator/Apps/gravityrush_pc-LucaPazienza
+executable=Gravity Rush.exe
+args=--play
+mode=wine
+setting_file=users/steamuser/AppData/Roaming/gravityrush-launcher/settings.jsonx

@@ -1,0 +1,7 @@
+[Game]
+name=Odin Sphere Leifthrasir
+Folder=odin-sphere-leifthrasir-pc--saulob
+path=/userdata/system/Quiver/emulator/Apps/odin-sphere-leifthrasir-pc--saulob
+executable=OdinSphereLeifthrasirPC-v0.1.0-x86_64.AppImage
+args= --play
+setting_file=/userdata/system/configs/Quiver/config/odin-sphere-leifthrasir-pc--saulob/user/osl.ini

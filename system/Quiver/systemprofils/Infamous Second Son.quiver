@@ -1,0 +1,8 @@
+[Game]
+name=Killzone Shadowfall
+Folder=killzone-shadowfall-pc
+Path=/userdata/system/Quiver/emulator/Apps/killzone-shadowfall-pc
+executable=Killzone Shadow Fall.exe
+args= --play
+mode=wine
+setting_file=/userdata/system/Quiver/emulator/Apps/killzone-shadowfall-pc/user/launcher.json
