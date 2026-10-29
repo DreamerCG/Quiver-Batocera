@@ -1,0 +1,8 @@
+[Game]
+Name=Drive Club
+Folder=DriveClub-DriveClubRecomp
+Path=/userdata/system/Quiver/emulator/Apps/DriveClub-DriveClubRecomp
+executable=DriveClub.exe
+args= --play
+runner=GE-Proton-10-25
+mode=wine

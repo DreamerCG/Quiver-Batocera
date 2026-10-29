@@ -1,0 +1,8 @@
+[Game]
+name=Killzone Shadowfall
+path=/userdata/system/Quiver/Apps/killzone-shadowfall-pc
+executable=/userdata/system/wine/custom/GE-Proton-10-25/bin/wine
+args="/userdata/system/Quiver/Apps/killzone-shadowfall-pc/Classic launcher.bat"
+
+[Launch]
+command=dbus-run-session

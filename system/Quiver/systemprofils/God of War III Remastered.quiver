@@ -1,0 +1,8 @@
+[Game]
+Name=God of War III Remastered
+Folder=GodOfWarIIIRemastered-Gow3Pc
+path=/userdata/system/Quiver/emulator/Apps/GodOfWarIIIRemastered-Gow3Pc
+executable=SpartanPort.exe
+args= --play
+runner=GE-Proton-10-25
+mode=wine

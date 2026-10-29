@@ -1,0 +1,10 @@
+[Game]
+name=The Last Guardian
+Folder=TheLastGuardian-TheLastGuardianNativePCPort
+path=/userdata/system/Quiver/emulator/Apps/TheLastGuardian-TheLastGuardianNativePCPort
+executable=/userdata/system/Quiver/emulator/Apps/TheLastGuardian-TheLastGuardianNativePCPort/The Last Guardian
+args= --play
+working_directory=/userdata/system/Quiver/emulator/Apps/TheLastGuardian-TheLastGuardianNativePCPort
+
+[Launch]
+command=dbus-run-session

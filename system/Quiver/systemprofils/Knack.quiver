@@ -1,0 +1,9 @@
+[Game]
+name=Knack
+Folder=Knack-AbdelmoumenDeghbouche
+path=/userdata/system/Quiver/emulator/Apps/Knack-AbdelmoumenDeghbouche
+executable=Knack.exe
+args= --play
+runner=GE-Proton-10-25
+mode=wine
+setting_file=users/steamuser/AppData/Roaming/knack-launcher/settings.json

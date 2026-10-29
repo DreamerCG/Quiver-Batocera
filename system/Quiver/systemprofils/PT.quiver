@@ -1,0 +1,9 @@
+[Game]
+name=P.T.
+Folder=PT-PTForPC
+path=/userdata/system/Quiver/emulator/Apps/PT-PTForPC
+executable=pt
+args=--game /userdata/roms/Quiver/CUSA01127/
+
+[Launch]
+command=dbus-run-session

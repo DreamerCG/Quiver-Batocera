@@ -1,0 +1,185 @@
+﻿{
+  "FirstStartup": false,
+  "IconFill": false,
+  "UseGridView": true,
+  "GridCompactCards": false,
+  "IconOpacity": 1,
+  "IconSize": 124,
+  "IconMargin": 0,
+  "SlotTextMargin": 0,
+  "SlotSize": 180,
+  "ListRowHeight": 96,
+  "ActionButtonSize": 36,
+  "ShowOSTopBar": true,
+  "HideWindowControls": true,
+  "InterfaceScalePercent": 100,
+  "DesktopSidebarCollapsed": false,
+  "PrimaryColor": "#18181b",
+  "SecondaryColor": "#404040",
+  "ThemeTextMode": 0,
+  "Platform": 0,
+  "HiddenApps": [],
+  "ManuallyHiddenApps": [],
+  "AppsPath": "",
+  "GitHubApiToken": "",
+  "GitLabApiToken": "",
+  "CodebergApiToken": "",
+  "SortBy": "LastPlayed",
+  "CustomAppListLocation": "",
+  "CatalogAiFilter": "",
+  "CatalogHideLibraryApps": true,
+  "ModsSortBy": "InstalledFirst",
+  "ModsIncludeNsfw": false,
+  "DismissedAnnouncementIds": [
+    "2026-10-15-351"
+  ],
+  "GitHubTokenBannerPermanentlyDismissed": false,
+  "GitHubTokenBannerSnoozedUntilUtc": null,
+  "GitLabTokenBannerPermanentlyDismissed": false,
+  "GitLabTokenBannerSnoozedUntilUtc": null,
+  "IgnoreArticlesWhenSorting": true,
+  "LibraryNameStyle": 4,
+  "TruncateLibraryCardTitles": true,
+  "LibraryTagDisplayMode": 0,
+  "LibraryCardTagMaxLines": 0,
+  "LibraryCardTagZeroMeansHidden": true,
+  "PinnedFilterTags": [],
+  "StartFullscreen": true,
+  "KioskMode": false,
+  "KioskPinSalt": "",
+  "KioskPinHash": "",
+  "DesktopWindowPlacement": {
+    "Width": 1298,
+    "Height": 738,
+    "X": 320,
+    "Y": 180,
+    "Maximized": true
+  },
+  "CloseAfterLaunch": true,
+  "CloseToTray": false,
+  "MouseWheelScrollSpeed": 1,
+  "BackgroundUpdateCheckEnabled": false,
+  "BackgroundUpdateCheckIntervalMinutes": 60,
+  "PromptAppUpdateReviews": false,
+  "AllowPrereleaseLauncherUpdates": false,
+  "AutoUpdateNewlyAddedApps": true,
+  "UsageDataEnabled": false,
+  "UsageDataAsked": true,
+  "UsageDataInstallId": "",
+  "BackgroundImagePath": "",
+  "LauncherMusicPath": "",
+  "MusicVolume": 0.2,
+  "BackgroundOpacity": 0.15,
+  "EnableGamepadInput": true,
+  "GamepadBindings": {
+    "Confirm": [
+      {
+        "Kind": 0,
+        "SdlCode": 0
+      }
+    ],
+    "Cancel": [
+      {
+        "Kind": 0,
+        "SdlCode": 1
+      }
+    ],
+    "Options": [
+      {
+        "Kind": 0,
+        "SdlCode": 3
+      }
+    ],
+    "NavUp": [
+      {
+        "Kind": 0,
+        "SdlCode": 11
+      },
+      {
+        "Kind": 2,
+        "SdlCode": 1
+      }
+    ],
+    "NavDown": [
+      {
+        "Kind": 0,
+        "SdlCode": 12
+      },
+      {
+        "Kind": 1,
+        "SdlCode": 1
+      }
+    ],
+    "NavLeft": [
+      {
+        "Kind": 0,
+        "SdlCode": 13
+      },
+      {
+        "Kind": 2,
+        "SdlCode": 0
+      }
+    ],
+    "NavRight": [
+      {
+        "Kind": 0,
+        "SdlCode": 14
+      },
+      {
+        "Kind": 1,
+        "SdlCode": 0
+      }
+    ]
+  },
+  "KeyboardBindings": {
+    "Confirm": [
+      {
+        "Key": 6,
+        "Modifiers": 0
+      }
+    ],
+    "Cancel": [
+      {
+        "Key": 13,
+        "Modifiers": 0
+      }
+    ],
+    "Options": [
+      {
+        "Key": 58,
+        "Modifiers": 0
+      }
+    ],
+    "NavUp": [
+      {
+        "Key": 24,
+        "Modifiers": 0
+      }
+    ],
+    "NavDown": [
+      {
+        "Key": 26,
+        "Modifiers": 0
+      }
+    ],
+    "NavLeft": [
+      {
+        "Key": 23,
+        "Modifiers": 0
+      }
+    ],
+    "NavRight": [
+      {
+        "Key": 25,
+        "Modifiers": 0
+      }
+    ]
+  },
+  "LinuxWindowsLaunchCommand": "",
+  "LocalFirstCatalogMigrationComplete": true,
+  "TagDisplayFilters": [],
+  "ActiveTagDisplayFilterId": null,
+  "ListScope": 0,
+  "UserAppTags": {},
+  "UserAppDisplayNames": {}
+}

@@ -1,0 +1,7 @@
+[Game]
+name=Bloodborne
+Folder=Bloodborne-BloodborneForLinux
+path=/userdata/system/Quiver/emulator/Apps/Bloodborne-BloodborneForLinux
+executable=Bloodborne-bbport-x86_64.AppImage
+setting_file = /userdata/system/configs/Quiver/config/bbport-launcher/settings.json
+args= --play

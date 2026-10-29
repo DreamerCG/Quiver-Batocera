@@ -1,0 +1,2 @@
+[batocera_launch.emulators]
+quiver = dcg_launch.quiver:Quiver

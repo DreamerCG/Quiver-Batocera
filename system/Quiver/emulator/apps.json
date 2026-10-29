@@ -1,0 +1,449 @@
+{
+  "apps": [
+    {
+      "name": "Knack",
+      "folderName": "Knack-AbdelmoumenDeghbouche",
+      "installPath": null,
+      "appIconUrl": null,
+      "repository": "AbdelmoumenDeghbouche/knack_pc",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "Knack",
+      "autoUpdate": true,
+      "tags": [
+        "ps4",
+        "decomp"
+      ]
+    },
+    {
+      "name": "Ratchet and Clanck",
+      "folderName": "RatchetPort-shehab4546",
+      "installPath": null,
+      "appIconUrl": null,
+      "repository": "shehab4546/RatchetPort",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "RatchetPort",
+      "autoUpdate": true,
+      "tags": [
+        "ps4",
+        "decomp"
+      ]
+    },
+    {
+      "name": "Killzone Shadowfall",
+      "folderName": "killzone-shadowfall-pc",
+      "installPath": null,
+      "appIconUrl": null,
+      "repository": "lesca-191204/killzone-shadowfall-pc",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "killzone-shadowfall-pc",
+      "autoUpdate": true,
+      "linuxRunner": "custom",
+      "linuxCustomLaunchCommand": "/userdata/system/wine/custom/GE-Proton-10-25/bin/wine",
+      "tags": [
+        "ps4",
+        "decomp"
+      ]
+    },
+    {
+      "name": "Gravity Rush Remastered",
+      "folderName": "gravityrush_pc-LucaPazienza",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/LucaPazienza/gravityrush_pc/037559123f7d8acd50eb08cdd935bfa79726ee92/launcher/gravityrush.ico",
+      "repository": "LucaPazienza/gravityrush_pc",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "Gravity Rush Remastered Native PC Port",
+      "autoUpdate": true,
+      "tags": [
+        "ps4",
+        "decomp",
+        "recreation",
+        "playstation",
+        "playstation 4",
+        "increased internal resolution",
+        "controller support",
+        "keyboard and mouse"
+      ],
+      "catalogEntryId": "k174s6mrjye2jk7d4d1e32syt18gye7v",
+      "catalog": {
+        "name": "Gravity Rush Remastered",
+        "project": "Gravity Rush Remastered Native PC Port",
+        "appIconUrl": "https://raw.githubusercontent.com/LucaPazienza/gravityrush_pc/037559123f7d8acd50eb08cdd935bfa79726ee92/launcher/gravityrush.ico",
+        "tags": [
+          "recreation",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "increased internal resolution",
+          "controller support",
+          "keyboard and mouse"
+        ]
+      }
+    },
+    {
+      "name": "Gravity Rush 2",
+      "folderName": "gr2_pc-HayatoG",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/HayatoG/gr2_pc/a2e69a1bc506865716cb4e16f2c50f047bf65e57/port/packaging/icon/gr2-icon-1024.png",
+      "repository": "HayatoG/gr2_pc",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "Gravity Rush 2 Native PC Port",
+      "autoUpdate": true,
+      "tags": [
+        "ps4",
+        "decomp",
+        "recomp",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "controller support",
+        "keyboard and mouse"
+      ],
+      "catalogEntryId": "k17dybj5v7jj6nrve6qt2ws02x8gynnd",
+      "catalog": {
+        "name": "Gravity Rush 2",
+        "project": "Gravity Rush 2 Native PC Port",
+        "appIconUrl": "https://raw.githubusercontent.com/HayatoG/gr2_pc/a2e69a1bc506865716cb4e16f2c50f047bf65e57/port/packaging/icon/gr2-icon-1024.png",
+        "tags": [
+          "recomp",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "controller support",
+          "keyboard and mouse"
+        ]
+      }
+    },
+    {
+      "name": "Bloodborne",
+      "folderName": "Bloodborne-BloodborneForLinux",
+      "installPath": null,
+      "appIconUrl": "https://cdn2.steamgriddb.com/icon/a512a13cba4f6c460635abf0b029fd63.png",
+      "repository": "ayozetr/bloodborne_linux",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "Bloodborne for Linux",
+      "autoUpdate": true,
+      "tags": [
+        "recomp",
+        "ps4",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "online co-op",
+        "split-screen co-op",
+        "split screen",
+        "ultrawide",
+        "increased internal resolution",
+        "controller support"
+      ],
+      "catalogEntryId": "k172zy6nbbrpqj77yk6ana0sen8gyhte",
+      "catalog": {
+        "name": "Bloodborne",
+        "project": "Bloodborne for Linux",
+        "appIconUrl": "https://cdn2.steamgriddb.com/icon/a512a13cba4f6c460635abf0b029fd63.png",
+        "tags": [
+          "recomp",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "online co-op",
+          "split-screen co-op",
+          "split screen",
+          "ultrawide",
+          "increased internal resolution",
+          "controller support"
+        ]
+      }
+    },
+    {
+      "name": "Crash Team Racing Nitro-Fueled",
+      "folderName": "CrashTeamRacingNitroFueled-CTRNitroFueledPC",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/Ryu7w7/OCTR-NitroFueled-PC/46c810b2a30451873034e5b17c8a61ddd780618f/packaging/windows/icons/ctr.ico",
+      "repository": "Ryu7w7/OCTR-NitroFueled-PC",
+      "preferredVersion": "v0.6.5",
+      "skippedUpdateVersion": "v0.6.4",
+      "project": "OCTR: Online CTR Nitro-Fueled PC",
+      "autoUpdate": true,
+      "tags": [
+        "recomp",
+        "ps4",
+        "crash",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "increased internal resolution",
+        "controller support",
+        "keyboard and mouse",
+        "split-screen co-op",
+        "split screen",
+        "online multiplayer"
+      ],
+      "catalogEntryId": "k17epgtp1gxe6ddrxp5q7es32x8gbdpm",
+      "catalog": {
+        "name": "Crash Team Racing Nitro-Fueled",
+        "project": "OCTR: Online CTR Nitro-Fueled PC",
+        "appIconUrl": "https://raw.githubusercontent.com/Ryu7w7/OCTR-NitroFueled-PC/46c810b2a30451873034e5b17c8a61ddd780618f/packaging/windows/icons/ctr.ico",
+        "tags": [
+          "recomp",
+          "ps4",
+          "crash",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "increased internal resolution",
+          "controller support",
+          "keyboard and mouse",
+          "split-screen co-op",
+          "split screen",
+          "online multiplayer"
+        ]
+      }
+    },
+    {
+      "name": "Uncharted: The Nathan Drake Collection",
+      "folderName": "UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/bc160201983/Uncharted-The-Nathan-Drake-Collection-PC-port/df44141ae5ba71b459ea283fd527a66851c03750/launcher/assets/icon.png",
+      "repository": "bc160201983/Uncharted-The-Nathan-Drake-Collection-PC-port",
+      "preferredVersion": "v0.7.1",
+      "skippedUpdateVersion": "v0.7.0",
+      "project": "Uncharted: The Nathan Drake Collection - PC port",
+      "autoUpdate": true,
+      "linuxRunner": "custom",
+      "linuxPrefixPath": "/userdata/system/Quiver/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort/.steam-compat-data",
+      "linuxCustomLaunchCommand": "/userdata/system/wine/custom/GE-Proton-10-25/bin/wine",
+      "tags": [
+        "decomp",
+        "ps4",
+        "uncharted",
+        "playstation",
+        "playstation 4",
+        "decompilation",
+        "unlocked framerate",
+        "increased internal resolution",
+        "controller support",
+        "keyboard and mouse",
+        "widescreen"
+      ],
+      "catalogEntryId": "k17ers8kf70gxjgpk0tfz55x218ghxz0",
+      "catalog": {
+        "name": "Uncharted: The Nathan Drake Collection",
+        "project": "Uncharted: The Nathan Drake Collection - PC port",
+        "appIconUrl": "https://raw.githubusercontent.com/bc160201983/Uncharted-The-Nathan-Drake-Collection-PC-port/df44141ae5ba71b459ea283fd527a66851c03750/launcher/assets/icon.png",
+        "tags": [
+          "decomp",
+          "ps4",
+          "uncharted",
+          "playstation",
+          "playstation 4",
+          "decompilation",
+          "unlocked framerate",
+          "increased internal resolution",
+          "controller support",
+          "keyboard and mouse",
+          "widescreen"
+        ]
+      }
+    },
+    {
+      "name": "God of War III Remastered",
+      "folderName": "GodOfWarIIIRemastered-Gow3Pc",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/FelipePrado0/gow3_pc/ec9b416f2415fc5a0469076aecc230c6d6027ac0/launcher/gow3.ico",
+      "repository": "FelipePrado0/SpartanPort",
+      "preferredVersion": null,
+      "skippedUpdateVersion": "windows-v2.7.0",
+      "project": "gow3_pc",
+      "autoUpdate": true,
+      "tags": [
+        "recomp",
+        "ps4",
+        "god of war",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "unlocked framerate",
+        "increased internal resolution",
+        "controller support",
+        "keyboard and mouse",
+        "mod support"
+      ],
+      "catalogEntryId": "k174tm6gh93z1exj7ex7hesmf98g7asw",
+      "catalog": {
+        "name": "God of War III Remastered",
+        "project": "gow3_pc",
+        "appIconUrl": "https://raw.githubusercontent.com/FelipePrado0/gow3_pc/ec9b416f2415fc5a0469076aecc230c6d6027ac0/launcher/gow3.ico",
+        "tags": [
+          "recomp",
+          "ps4",
+          "god of war",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "unlocked framerate",
+          "increased internal resolution",
+          "controller support",
+          "keyboard and mouse",
+          "mod support"
+        ]
+      }
+    },
+    {
+      "name": "The Last Guardian",
+      "folderName": "TheLastGuardian-TheLastGuardianNativePCPort",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/HayatoG/tlg_pc/0fdc07e0189ffdd7b12d8557c823af5dcba2d20e/port/packaging/icon/tlg-icon-1024.png",
+      "repository": "HayatoG/tlg_pc",
+      "preferredVersion": "v2026.10.27-4825a99",
+      "skippedUpdateVersion": "v2026.10.24-1a130dd",
+      "project": "The Last Guardian \u2014 native PC port",
+      "autoUpdate": true,
+      "tags": [
+        "recomp",
+        "ps4",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "unlocked framerate"
+      ],
+      "catalogEntryId": "k176sa320v5b18at2gesevb3ch8gaa8h",
+      "catalog": {
+        "name": "The Last Guardian",
+        "project": "The Last Guardian \u2014 native PC port",
+        "appIconUrl": "https://raw.githubusercontent.com/HayatoG/tlg_pc/0fdc07e0189ffdd7b12d8557c823af5dcba2d20e/port/packaging/icon/tlg-icon-1024.png",
+        "tags": [
+          "recomp",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "unlocked framerate"
+        ]
+      }
+    },
+    {
+      "name": "The Order: 1886",
+      "folderName": "TheOrder1886-Theorder1886Port",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/mateussmeneses/theorder1886-port/d5534c570f5de681596d0f4f3963bb915db676be/launcher/theorder.ico",
+      "repository": "mateussmeneses/theorder1886-port",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "The Order: 1886 PC Native Port",
+      "autoUpdate": true,
+      "tags": [
+        "recreation",
+        "ps4",
+        "playstation",
+        "playstation 4",
+        "unlocked framerate",
+        "widescreen",
+        "ultrawide",
+        "controller support",
+        "keyboard and mouse"
+      ],
+      "catalogEntryId": "k17eq2e5gp0prws0vtg8svhx918gw014",
+      "catalog": {
+        "name": "The Order: 1886",
+        "project": "The Order: 1886 PC Native Port",
+        "appIconUrl": "https://raw.githubusercontent.com/mateussmeneses/theorder1886-port/d5534c570f5de681596d0f4f3963bb915db676be/launcher/theorder.ico",
+        "tags": [
+          "recreation",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "unlocked framerate",
+          "widescreen",
+          "ultrawide",
+          "controller support",
+          "keyboard and mouse"
+        ]
+      }
+    },
+    {
+      "name": "DriveClub",
+      "folderName": "DriveClub-DriveClubRecomp",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/OverkillLabs3/driveclub-recomp/ed958ca9ca98fbaec7b46c18edfccda4c3162b7c/launcher/driveclub.ico",
+      "repository": "OverkillLabs3/driveclub-recomp",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "DriveClub Recomp",
+      "autoUpdate": true,
+      "linuxRunner": "custom",
+      "linuxPrefixPath": "/userdata/system/Quiver/Apps/DriveClub-DriveClubRecomp/.steam-compat-data",
+      "linuxCustomLaunchCommand": "/userdata/system/wine/custom/GE-Proton-10-25/bin/wine",
+      "tags": [
+        "recomp",
+        "ps4",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "unlocked framerate",
+        "increased internal resolution",
+        "controller support",
+        "keyboard and mouse",
+        "ultrawide"
+      ],
+      "catalogEntryId": "k175wdmq8055rv57jggtdf7rwx8gc5t1",
+      "catalog": {
+        "name": "DriveClub",
+        "project": "DriveClub Recomp",
+        "appIconUrl": "https://raw.githubusercontent.com/OverkillLabs3/driveclub-recomp/ed958ca9ca98fbaec7b46c18edfccda4c3162b7c/launcher/driveclub.ico",
+        "tags": [
+          "recomp",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "unlocked framerate",
+          "increased internal resolution",
+          "controller support",
+          "keyboard and mouse",
+          "ultrawide"
+        ]
+      }
+    },
+    {
+      "name": "P.T.",
+      "folderName": "PT-PTForPC",
+      "installPath": null,
+      "appIconUrl": "https://cdn2.steamgriddb.com/icon/413b3c848ce6956827c9c877d400f18c.png",
+      "repository": "LoreanXavier/pt-pc",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "P.T. for PC",
+      "autoUpdate": true,
+      "tags": [
+        "recreation",
+        "ps4",
+        "playstation",
+        "playstation 4",
+        "keyboard and mouse",
+        "mod support"
+      ],
+      "catalogEntryId": "k1720q2tbeca62v3psq6e2n24n8fttds",
+      "catalog": {
+        "name": "P.T.",
+        "project": "P.T. for PC",
+        "appIconUrl": "https://cdn2.steamgriddb.com/icon/413b3c848ce6956827c9c877d400f18c.png",
+        "tags": [
+          "recreation",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "keyboard and mouse",
+          "mod support"
+        ]
+      }
+    }
+  ]
+}
