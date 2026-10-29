@@ -1,5 +1,6 @@
 [Game]
 Name=The Order: 1886
+Folder=TheOrder1886-Theorder1886Port
 Path=/userdata/system/Quiver/Apps/TheOrder1886-Theorder1886Port
 executable=/userdata/system/wine/custom/GE-Proton-10-25/bin/wine
 args="/userdata/system/Quiver/Apps/TheOrder1886-Theorder1886Port/The Order 1886.exe" --play
