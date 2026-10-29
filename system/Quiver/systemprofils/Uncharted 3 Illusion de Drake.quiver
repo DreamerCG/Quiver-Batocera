@@ -5,4 +5,4 @@ Path=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-Unc
 executable=Uncharted Launcher.exe
 args=--play u3
 mode=wine
-setting_file=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort/settings.json
+setting_file=/userdata/system/configs/Quiver/wine/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort/.local/share/uncharted-launcher/launcher.json

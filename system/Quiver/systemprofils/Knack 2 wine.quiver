@@ -1,0 +1,8 @@
+[Game]
+name=Knack 2
+Folder=Knack-II-pc-port-Hyant4
+path=/userdata/system/Quiver/emulator/Apps/Knack-II-pc-port-Hyant4
+executable=Knack II.exe
+args=
+setting_file=/userdata/system/configs/Quiver/data/knack-ii-pc/launcher_settings.jsonx
+mode=wine
