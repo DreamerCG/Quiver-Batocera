@@ -75,9 +75,6 @@ VERSION="$(head -n 1 "${SOURCE_DIR}/VERSION" | tr -d '\r\n[:space:]')"
 # Les données personnelles de Quiver sont exclues pour éviter de les écraser.
 log "Installation des fichiers système..."
 
-    # --exclude='/Quiver/emulator/apps.json' \
-    # --exclude='/Quiver/emulator/apps.json.lock' \
-    # --exclude='/Quiver/emulator/settings.json' \
 
 rsync -a \
     --exclude='/Quiver/emulator/apps.json.lock' \
