@@ -80,7 +80,6 @@ log "Installation des fichiers système..."
     # --exclude='/Quiver/emulator/settings.json' \
 
 rsync -a \
-    --exclude='/Quiver/emulator/apps.json' \
     --exclude='/Quiver/emulator/apps.json.lock' \
     --exclude='/Quiver/emulator/Apps/' \
     --exclude='/Quiver/emulator/Backups/' \
