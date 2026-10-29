@@ -75,15 +75,16 @@ VERSION="$(head -n 1 "${SOURCE_DIR}/VERSION" | tr -d '\r\n[:space:]')"
 # Les données personnelles de Quiver sont exclues pour éviter de les écraser.
 log "Installation des fichiers système..."
 
-# rsync -a \
-#     --exclude='/Quiver/emulator/apps.json' \
-#     --exclude='/Quiver/emulator/apps.json.lock' \
-#     --exclude='/Quiver/emulator/settings.json' \
-#     --exclude='/Quiver/emulator/Apps/' \
-#     --exclude='/Quiver/emulator/Backups/' \
-#     --exclude='/Quiver/emulator/Cache/' \
-#     "${SOURCE_DIR}/system/" "${BASE_DIR}/system/" \
-#     || die "Échec de la copie de system/."
+    # --exclude='/Quiver/emulator/apps.json' \
+    # --exclude='/Quiver/emulator/apps.json.lock' \
+    # --exclude='/Quiver/emulator/settings.json' \
+
+rsync -a \
+    --exclude='/Quiver/emulator/Apps/' \
+    --exclude='/Quiver/emulator/Backups/' \
+    --exclude='/Quiver/emulator/Cache/' \
+    "${SOURCE_DIR}/system/" "${BASE_DIR}/system/" \
+    || die "Échec de la copie de system/."
 
 # Copie des fichiers ROM sans écraser ceux déjà présents.
 log "Installation des définitions de lancement..."
