@@ -80,11 +80,36 @@ log "Installation des fichiers système..."
     # --exclude='/Quiver/emulator/settings.json' \
 
 rsync -a \
+    --exclude='/Quiver/emulator/apps.json' \
+    --exclude='/Quiver/emulator/apps.json.lock' \
     --exclude='/Quiver/emulator/Apps/' \
     --exclude='/Quiver/emulator/Backups/' \
     --exclude='/Quiver/emulator/Cache/' \
     "${SOURCE_DIR}/system/" "${BASE_DIR}/system/" \
     || die "Échec de la copie de system/."
+
+log "Fusion de apps.json..."
+try:
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        json.dump(merged, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    os.replace(temp_path, target_path)
+except Exception:
+    try:
+        os.unlink(temp_path)
+    except OSError:
+        pass
+    raise
+
+print(f"{added} application(s) ajoutée(s).")
+PY
+        [[ $? -eq 0 ]] || die "Échec de la fusion de apps.json."
+    else
+        cp "$SOURCE_APPS" "$TARGET_APPS" \
+            || die "Impossible d'installer apps.json."
+    fi
+fi
+
 
 # Copie des fichiers ROM sans écraser ceux déjà présents.
 log "Installation des définitions de lancement..."
