@@ -7,6 +7,3 @@ args="/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-Un
 working_directory=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
 folder_name=UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
 
-[Launch]
-command=dbus-run-session
-

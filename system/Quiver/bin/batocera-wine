@@ -1035,8 +1035,8 @@ init_wine() {
     SYSTEM_DISPLAY_MODE=$(batocera-resolution getDisplayMode)
 
     ## Wine detection
-    WINE_RUNNER="$(/usr/bin/batocera-settings-get windows.wine-runner)"
-    [[ -z "$WINE_RUNNER" ]] && WINE_RUNNER="wine-tkg"
+    WINE_RUNNER="$(/usr/bin/batocera-settings-get quiver.wine-runner)"
+    [[ -z "$WINE_RUNNER" ]] && WINE_RUNNER="wine-proton"
 
     if [[ -n "${QUIVER_WINE_RUNNER:-}" ]]; then
         WINE_VERSION="${QUIVER_WINE_RUNNER}"

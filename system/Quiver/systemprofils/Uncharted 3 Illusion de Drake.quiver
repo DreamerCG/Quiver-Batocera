@@ -6,7 +6,3 @@ executable=/userdata/system/wine/custom/GE-Proton-10-25/bin/wine
 args="/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort/Uncharted Launcher.exe" --play u3
 working_directory=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
 folder_name=UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
-
-[Launch]
-command=dbus-run-session
-

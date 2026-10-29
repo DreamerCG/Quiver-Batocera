@@ -3,8 +3,3 @@ Name=The Order: 1886
 Path=/userdata/system/Quiver/Apps/TheOrder1886-Theorder1886Port
 executable=/userdata/system/wine/custom/GE-Proton-10-25/bin/wine
 args="/userdata/system/Quiver/Apps/TheOrder1886-Theorder1886Port/The Order 1886.exe" --play
-working_directory=/userdata/system/Quiver/Apps/TheOrder1886-Theorder1886Port
-folder_name=TheOrder1886-Theorder1886Port
-
-[Launch]
-command=dbus-run-session

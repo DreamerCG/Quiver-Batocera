@@ -168,8 +168,8 @@
       "installPath": null,
       "appIconUrl": "https://raw.githubusercontent.com/Ryu7w7/OCTR-NitroFueled-PC/46c810b2a30451873034e5b17c8a61ddd780618f/packaging/windows/icons/ctr.ico",
       "repository": "Ryu7w7/OCTR-NitroFueled-PC",
-      "preferredVersion": "v0.6.5",
-      "skippedUpdateVersion": "v0.6.4",
+      "preferredVersion": "v0.7.1",
+      "skippedUpdateVersion": "v0.6.5",
       "project": "OCTR: Online CTR Nitro-Fueled PC",
       "autoUpdate": true,
       "tags": [
@@ -442,6 +442,82 @@
           "playstation 4",
           "keyboard and mouse",
           "mod support"
+        ]
+      }
+    },
+    {
+      "name": "inFAMOUS Second Son",
+      "folderName": "InFAMOUSSecondSon-IssPc",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/HayatoG/iss_pc/1898d449a7edf506d12ef63445f8fc5432e60105/port/packaging/icon/infamous-icon-1024.png",
+      "repository": "HayatoG/iss_pc",
+      "preferredVersion": "v2026.10.21-da39b0b",
+      "skippedUpdateVersion": "v2026.10.22-cde38af",
+      "project": "iss_pc",
+      "autoUpdate": true,
+      "tags": [
+        "recomp",
+        "ps4",
+        "infamous",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "unlocked framerate",
+        "controller support"
+      ],
+      "catalogEntryId": "k172fheypxgnx9jsnrna6v23k18gefvw",
+      "catalog": {
+        "name": "inFAMOUS Second Son",
+        "project": "iss_pc",
+        "appIconUrl": "https://raw.githubusercontent.com/HayatoG/iss_pc/1898d449a7edf506d12ef63445f8fc5432e60105/port/packaging/icon/infamous-icon-1024.png",
+        "tags": [
+          "recomp",
+          "ps4",
+          "infamous",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "unlocked framerate",
+          "controller support"
+        ]
+      }
+    },
+    {
+      "name": "Dragon\u0027s Crown Pro",
+      "folderName": "DragonsCrownPro-DragonsCrownProPCPort",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/saulob/dragons-crown-pro-pc/a05846c93ee454ac8a17be4de24fac4b3f08d58f/packaging/icons/app-icon-512.png",
+      "repository": "saulob/dragons-crown-pro-pc",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "Dragon\u0027s Crown Pro PC Port",
+      "autoUpdate": true,
+      "tags": [
+        "ps4",
+        "dragons-crown",
+        "playstation",
+        "playstation 4",
+        "widescreen",
+        "unlocked framerate",
+        "increased internal resolution",
+        "controller support",
+        "keyboard and mouse"
+      ],
+      "catalogEntryId": "k170hyjhjcf1madckm5472ym3d8gb4ym",
+      "catalog": {
+        "name": "Dragon\u0027s Crown Pro",
+        "project": "Dragon\u0027s Crown Pro PC Port",
+        "appIconUrl": "https://raw.githubusercontent.com/saulob/dragons-crown-pro-pc/a05846c93ee454ac8a17be4de24fac4b3f08d58f/packaging/icons/app-icon-512.png",
+        "tags": [
+          "ps4",
+          "dragons-crown",
+          "playstation",
+          "playstation 4",
+          "widescreen",
+          "unlocked framerate",
+          "increased internal resolution",
+          "controller support",
+          "keyboard and mouse"
         ]
       }
     }

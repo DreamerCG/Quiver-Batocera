@@ -5,6 +5,3 @@ executable=/userdata/system/Quiver/Apps/gr2_pc-HayatoG/Gravity Rush 2
 args= --play
 working_directory=/userdata/system/Quiver/Apps/gr2_pc-HayatoG
 folder_name=gr2_pc-HayatoG
-
-[Launch]
-command=dbus-run-session

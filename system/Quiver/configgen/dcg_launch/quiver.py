@@ -54,7 +54,46 @@ def _resolve_executable(value: str, workdir: Path) -> Path:
     if not executable.is_absolute():
         executable = workdir / executable
 
-    return executable.resolve()
+    executable = executable.resolve()
+
+    # Le fichier exact existe : comportement habituel.
+    if executable.is_file():
+        return executable
+
+    # Si l'exécutable attendu est une AppImage, rechercher
+    # automatiquement une version mise à jour dans le dossier du jeu.
+    if executable.suffix.lower() == ".appimage":
+        candidates = sorted(
+            path.resolve()
+            for path in executable.parent.glob("*.AppImage")
+            if path.is_file()
+        )
+
+        if len(candidates) == 1:
+            _logger.info(
+                "AppImage introuvable (%s), utilisation de la version disponible : %s",
+                executable.name,
+                candidates[0].name,
+            )
+            return candidates[0]
+
+        if len(candidates) > 1:
+            # Privilégier les fichiers partageant le préfixe du nom attendu.
+            prefix = executable.name.split("-v", 1)[0]
+            matching = [
+                path for path in candidates
+                if path.name.startswith(prefix)
+            ]
+
+            if len(matching) == 1:
+                _logger.info(
+                    "AppImage introuvable (%s), utilisation de : %s",
+                    executable.name,
+                    matching[0].name,
+                )
+                return matching[0]
+
+    return executable
 
 
 @cached_dataclass
@@ -97,10 +136,44 @@ class Quiver(Emulator):
             "Game", "mode", fallback="auto"
         ).strip().lower()
 
-        # Nom du runner personnalisé, par exemple GE-Proton11-10-x86_64.
+        # Runner défini dans le profil du jeu : priorité maximale.
         runner = parser.get(
             "Game", "runner", fallback=""
         ).strip()
+
+        # Runner choisi dans les options EmulationStation.
+        feature_runner = self.config.get("wine-runner", "").strip()
+
+        try:
+            result = subprocess.run(
+                [
+                    "/usr/bin/batocera-settings-get",
+                    'quiver["Drive Club.quiver"].wine-runner',
+                    "quiver.wine-runner",
+                    "global.wine-runner",
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            print(
+                f"[QUIVER DEBUG] Runner batocera-settings-get : "
+                f"stdout={result.stdout!r}, stderr={result.stderr!r}, "
+                f"returncode={result.returncode}",
+                file=sys.stderr,
+                flush=True,
+            )
+        except Exception as error:
+            print(
+                f"[QUIVER DEBUG] Lecture du runner impossible : {error}",
+                file=sys.stderr,
+                flush=True,
+            )
+
+
+        if not runner and feature_runner:
+            if feature_runner.lower() not in ("auto", "default", "none"):
+                runner = feature_runner
 
         # Le répertoire du jeu sert de répertoire de travail par défaut.
         if not working_directory:
@@ -189,8 +262,7 @@ class Quiver(Emulator):
             )
 
 
-
-        # Gestion du launcher Quiver - DEBUG stderr
+        # Gestion du launcher Quiver
         setting_path = None
 
         if setting_file:
@@ -198,16 +270,23 @@ class Quiver(Emulator):
 
             if setting_relative_path.is_absolute():
                 setting_path = setting_relative_path
+
             elif mode == "wine":
+                # En Auto, le runner par défaut est wine-proton.
+                effective_runner = runner or "wine-proton"
+
                 setting_path = (
                     Path("/userdata/system/wine-bottles/quiver")
-                    / runner
+                    / effective_runner
                     / f"{_safe_name(name)}.wine"
                     / "drive_c"
                     / setting_relative_path
                 )
+
             else:
-                setting_path = setting_relative_path
+                setting_path = (
+                    workdir / setting_relative_path
+                ).resolve()
 
         settings_exists = bool(
             setting_path and setting_path.is_file()
@@ -336,17 +415,6 @@ class Quiver(Emulator):
                 *app_args,
             ]
 
-        # # Conserver le répertoire de travail du jeu.
-        # # Command ne recevant pas ici de paramètre cwd,
-        # # le changement de répertoire est effectué par un shell minimal.
-        # command = [
-        #     "/bin/sh",
-        #     "-c",
-        #     'cd "$1" || exit 1; shift; exec "$@"',
-        #     "quiver",
-        #     str(workdir),
-        #     *command,
-        # ]
 
         _logger.info("Quiver : jeu=%s", name)
         _logger.info("Quiver : mode=%s", mode)
@@ -362,6 +430,46 @@ class Quiver(Emulator):
         )
         print(
             f"[QUIVER] Commande={shlex.join(command)}",
+            file=sys.stderr,
+            flush=True,
+        )
+
+
+        # print(
+        #     "[QUIVER DEBUG] ===== ENV COMPLET =====",
+        #     file=sys.stderr,
+        #     flush=True,
+        # )
+
+        # for key, value in sorted(env.items()):
+        #     print(
+        #         f"[QUIVER DEBUG] ENV {key}={value!r}",
+        #         file=sys.stderr,
+        #         flush=True,
+        #     )
+
+        # print(
+        #     "[QUIVER DEBUG] ===== FIN ENV =====",
+        #     file=sys.stderr,
+        #     flush=True,
+        # )
+
+        print(
+            f"[QUIVER DEBUG] QUIVER_WINE_RUNNER="
+            f"{env.get('QUIVER_WINE_RUNNER', '<absent>')!r}",
+            file=sys.stderr,
+            flush=True,
+        )
+
+        print(
+            f"[QUIVER DEBUG] WINEPREFIX="
+            f"{env.get('WINEPREFIX', '<absent>')!r}",
+            file=sys.stderr,
+            flush=True,
+        )
+
+        print(
+            f"[QUIVER DEBUG] HOME={env.get('HOME', '<absent>')!r}",
             file=sys.stderr,
             flush=True,
         )

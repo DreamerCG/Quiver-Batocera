@@ -4,6 +4,5 @@ Folder=RatchetPort-shehab4546
 path=/userdata/system/Quiver/emulator/Apps/RatchetPort-shehab4546
 executable=RatchetPort.exe
 args=--play
-runner=GE-Proton-10-25
 mode=wine
 setting_file = /userdata/system/Quiver/emulator/Apps/RatchetPort-shehab4546/settings.json

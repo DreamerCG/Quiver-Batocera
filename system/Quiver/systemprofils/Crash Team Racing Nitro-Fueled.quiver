@@ -2,6 +2,6 @@
 name=Crash Team Racing Nitro - Fueled
 Folder=CrashTeamRacingNitroFueled-CTRNitroFueledPC
 path=/userdata/system/Quiver/emulator/Apps/CrashTeamRacingNitroFueled-CTRNitroFueledPC
+setting_file=/userdata/system/configs/Quiver/config/sacredfire-launcher/settings.json
 executable=SacredFire-v0.6.5-x86_64.AppImage
-setting_file = /userdata/system/configs/Quiver/config/bbport-launcher/settings.json
 args= --play
