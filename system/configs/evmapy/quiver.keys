@@ -4,7 +4,7 @@
             "trigger": ["hotkey", "start"],
             "type": "exec",
             "target": [
-                "batocera-mouse hide && sh /userdata/system/Quiver/emulator/kill_quiver.sh && pkill -f Quiver 2>/dev/null"
+                "batocera-mouse hide && sh /userdata/system/Quiver/emulator/exit_quiver.sh && pkill -f Quiver 2>/dev/null"
             ]
         }
     ]
