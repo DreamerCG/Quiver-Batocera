@@ -89,6 +89,49 @@ rsync -a \
     || die "Échec de la copie de system/."
 
 log "Fusion de apps.json..."
+
+
+# Fusion de apps.json sans doublons
+SOURCE_APPS="${SOURCE_DIR}/system/Quiver/emulator/apps.json"
+TARGET_APPS="${INSTALL_DIR}/emulator/apps.json"
+
+if [[ -f "$SOURCE_APPS" ]]; then
+    log "Fusion de apps.json..."
+
+    if [[ -f "$TARGET_APPS" ]]; then
+        python3 - "$SOURCE_APPS" "$TARGET_APPS" <<'PY' \
+            || die "Échec de la fusion de apps.json."
+import json
+import os
+import sys
+import tempfile
+
+source_path, target_path = sys.argv[1:3]
+
+def load_json(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+source = load_json(source_path)
+target = load_json(target_path)
+
+if not isinstance(source, list) or not isinstance(target, list):
+    raise SystemExit("Format apps.json invalide : une liste JSON est attendue.")
+
+merged = list(target)
+seen = {json.dumps(item, sort_keys=True, ensure_ascii=False) for item in target}
+added = 0
+
+for app in source:
+    key = json.dumps(app, sort_keys=True, ensure_ascii=False)
+    if key not in seen:
+        merged.append(app)
+        seen.add(key)
+        added += 1
+
+directory = os.path.dirname(target_path)
+fd, temp_path = tempfile.mkstemp(prefix=".apps.json.", suffix=".tmp", dir=directory)
+
 try:
     with os.fdopen(fd, "w", encoding="utf-8") as f:
         json.dump(merged, f, ensure_ascii=False, indent=2)
@@ -100,6 +143,16 @@ except Exception:
     except OSError:
         pass
     raise
+
+print(f"{added} application(s) ajoutée(s).")
+PY
+    else
+        cp "$SOURCE_APPS" "$TARGET_APPS" \
+            || die "Impossible d'installer apps.json."
+    fi
+fi
+
+
 
 print(f"{added} application(s) ajoutée(s).")
 PY
