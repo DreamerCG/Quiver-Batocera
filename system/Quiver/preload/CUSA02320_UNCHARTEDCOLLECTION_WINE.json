@@ -1,0 +1,325 @@
+{
+  "game": "u1",
+  "diagnostics": true,
+  "game_dir": "Z:/userdata/roms/quiver/GAME/CUSA02320 - Uncharted Drake Collection",
+  "check_updates": true,
+  "language": "2",
+  "unlock": false,
+  "games": {
+    "u1": {
+      "preset": "medium",
+      "resolution": "1920x1080",
+      "aspect": "16:9",
+      "multithreaded": false,
+      "save_profile": "1",
+      "async_readback": false,
+      "controls": {
+        "ls_up": [
+          "key:W"
+        ],
+        "ls_down": [
+          "key:S"
+        ],
+        "ls_left": [
+          "key:A"
+        ],
+        "ls_right": [
+          "key:D"
+        ],
+        "rs_up": [
+          "key:Up"
+        ],
+        "rs_down": [
+          "key:Down"
+        ],
+        "rs_left": [
+          "key:Left"
+        ],
+        "rs_right": [
+          "key:Right"
+        ],
+        "left": [
+          "key:1",
+          "mouse:wheel_down"
+        ],
+        "right": [
+          "key:2",
+          "mouse:wheel_up"
+        ],
+        "up": [
+          "key:3"
+        ],
+        "down": [
+          "key:4"
+        ],
+        "cross": [
+          "key:Space"
+        ],
+        "circle": [
+          "key:Left Ctrl"
+        ],
+        "square": [
+          "key:F"
+        ],
+        "triangle": [
+          "key:R"
+        ],
+        "l2": [
+          "mouse:right"
+        ],
+        "r2": [
+          "mouse:left"
+        ],
+        "l1": [
+          "key:Q",
+          "mouse:x1"
+        ],
+        "r1": [
+          "key:E",
+          "mouse:x2"
+        ],
+        "l3": [
+          "key:Left Shift"
+        ],
+        "r3": [
+          "key:V",
+          "mouse:middle"
+        ],
+        "options": [
+          "key:Escape",
+          "key:Return"
+        ],
+        "touchpad_left": [
+          "key:Tab"
+        ],
+        "touchpad_right": [
+          "key:Backspace"
+        ]
+      },
+      "mouse": true,
+      "mouse_sens": "1.0",
+      "mouse_invert": false,
+      "prompts": "auto",
+      "mouse_aim_sens": "1.0",
+      "mouse_vertical": "1.0",
+      "mouse_invert_x": false,
+      "vibration": true,
+      "pad_controls": {},
+      "aa": "off",
+      "upscale": "off"
+    },
+    "u2": {
+      "preset": "medium",
+      "resolution": "1920x1080",
+      "aspect": "16:9",
+      "multithreaded": false,
+      "save_profile": "1",
+      "async_readback": false,
+      "controls": {
+        "ls_up": [
+          "key:W"
+        ],
+        "ls_down": [
+          "key:S"
+        ],
+        "ls_left": [
+          "key:A"
+        ],
+        "ls_right": [
+          "key:D"
+        ],
+        "rs_up": [
+          "key:Up"
+        ],
+        "rs_down": [
+          "key:Down"
+        ],
+        "rs_left": [
+          "key:Left"
+        ],
+        "rs_right": [
+          "key:Right"
+        ],
+        "left": [
+          "key:1",
+          "mouse:wheel_down"
+        ],
+        "right": [
+          "key:2",
+          "mouse:wheel_up"
+        ],
+        "up": [
+          "key:3"
+        ],
+        "down": [
+          "key:4"
+        ],
+        "cross": [
+          "key:Space"
+        ],
+        "circle": [
+          "key:Left Ctrl"
+        ],
+        "square": [
+          "key:F"
+        ],
+        "triangle": [
+          "key:R"
+        ],
+        "l2": [
+          "mouse:right"
+        ],
+        "r2": [
+          "mouse:left"
+        ],
+        "l1": [
+          "key:Q",
+          "mouse:x1"
+        ],
+        "r1": [
+          "key:E",
+          "mouse:x2"
+        ],
+        "l3": [
+          "key:Left Shift"
+        ],
+        "r3": [
+          "key:V",
+          "mouse:middle"
+        ],
+        "options": [
+          "key:Escape",
+          "key:Return"
+        ],
+        "touchpad_left": [
+          "key:Tab"
+        ],
+        "touchpad_right": [
+          "key:Backspace"
+        ]
+      },
+      "mouse": true,
+      "mouse_sens": "1.0",
+      "mouse_invert": false,
+      "prompts": "auto",
+      "mouse_aim_sens": "1.0",
+      "mouse_vertical": "1.0",
+      "mouse_invert_x": false,
+      "vibration": true,
+      "pad_controls": {},
+      "aa": "off",
+      "upscale": "off"
+    },
+    "u3": {
+      "preset": "custom",
+      "resolution": "1920x1080",
+      "aspect": "16:9",
+      "multithreaded": true,
+      "save_profile": "1",
+      "async_readback": false,
+      "controls": {
+        "ls_up": [
+          "key:W"
+        ],
+        "ls_down": [
+          "key:S"
+        ],
+        "ls_left": [
+          "key:A"
+        ],
+        "ls_right": [
+          "key:D"
+        ],
+        "rs_up": [
+          "key:Up"
+        ],
+        "rs_down": [
+          "key:Down"
+        ],
+        "rs_left": [
+          "key:Left"
+        ],
+        "rs_right": [
+          "key:Right"
+        ],
+        "left": [
+          "key:1",
+          "mouse:wheel_down"
+        ],
+        "right": [
+          "key:2",
+          "mouse:wheel_up"
+        ],
+        "up": [
+          "key:3"
+        ],
+        "down": [
+          "key:4"
+        ],
+        "cross": [
+          "key:Space"
+        ],
+        "circle": [
+          "key:Left Ctrl"
+        ],
+        "square": [
+          "key:F"
+        ],
+        "triangle": [
+          "key:R"
+        ],
+        "l2": [
+          "mouse:right"
+        ],
+        "r2": [
+          "mouse:left"
+        ],
+        "l1": [
+          "key:Q",
+          "mouse:x1"
+        ],
+        "r1": [
+          "key:E",
+          "mouse:x2"
+        ],
+        "l3": [
+          "key:Left Shift"
+        ],
+        "r3": [
+          "key:V",
+          "mouse:middle"
+        ],
+        "options": [
+          "key:Escape",
+          "key:Return"
+        ],
+        "touchpad_left": [
+          "key:Tab"
+        ],
+        "touchpad_right": [
+          "key:Backspace"
+        ]
+      },
+      "mouse": true,
+      "mouse_sens": "1.0",
+      "mouse_invert": false,
+      "prompts": "auto",
+      "mouse_aim_sens": "1.0",
+      "mouse_vertical": "1.0",
+      "mouse_invert_x": false,
+      "vibration": true,
+      "pad_controls": {},
+      "upscale": "off"
+    }
+  },
+  "version": 8,
+  "tab": "display",
+  "window_xy": [
+    0,
+    0
+  ],
+  "speakers": "auto",
+  "anisotropy": "0",
+  "game_dir_unix": "/userdata/roms/quiver/GAME/CUSA02320 - Uncharted Drake Collection",
+  "gpu": "AMD Radeon 780M Graphics (RADV PHOENIX)"
+}
