@@ -1,0 +1,18 @@
+[Game]
+Name=Shadow of the Colossus
+Folder=ShadowOfTheColossus-ShadowOfTheColossusPC
+
+[Launcher]
+Path=/userdata/system/Quiver/emulator/Apps/ShadowOfTheColossus-ShadowOfTheColossusPC
+executable=SotC.exe
+args= --play
+mode=wine
+
+[Config]
+setting_file=/userdata/system/Quiver/emulator/Apps/ShadowOfTheColossus-ShadowOfTheColossusPC/user/launcher_settings.json
+preload_file=CUSA08809_SOTC_WINE.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA08809 - Shadow of the Colossus
+dlc_directory=/userdata/roms/quiver/DLC/CUSA08809 - Shadow of the Colossus
+mods_directory=/userdata/roms/quiver/MODS/CUSA08809 - Shadow of the Colossus
