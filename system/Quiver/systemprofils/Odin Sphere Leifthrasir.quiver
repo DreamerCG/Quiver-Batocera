@@ -1,7 +1,17 @@
 [Game]
 name=Odin Sphere Leifthrasir
 Folder=odin-sphere-leifthrasir-pc--saulob
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/odin-sphere-leifthrasir-pc--saulob
 executable=OdinSphereLeifthrasirPC-v0.1.0-x86_64.AppImage
-args= --play
-setting_file=/userdata/system/configs/Quiver/config/odin-sphere-leifthrasir-pc--saulob/user/osl.ini
+args=
+
+[Config]
+setting_file=/userdata/system/Quiver/emulator/Apps/odin-sphere-leifthrasir-pc--saulob/user/osl.ini
+preload_file=CUSA03627_OdinSphereLeifthrasir_linux.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA05083 - Odin Sphere Leifthrasir
+dlc_directory=/userdata/roms/quiver/DLC/CUSA05083 - Odin Sphere Leifthrasir
+mods_directory=/userdata/roms/quiver/MODS/CUSA05083 - Odin Sphere Leifthrasir

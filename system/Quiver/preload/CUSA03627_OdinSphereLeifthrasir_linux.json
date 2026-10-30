@@ -1,0 +1,16 @@
+# Odin Sphere Leifthrasir user settings (the launcher and the game write this file).
+# Remove a line to use the default.
+
+# Set from the launcher
+display_mode = borderless
+graphics_card = AMD Radeon 780M Graphics (RADV PHOENIX)
+smaa = 1
+
+# Set from the launcher
+anisotropy = 0
+
+# Set from the launcher
+show_launcher = 0
+
+# Set from the launcher
+vsync = 1
