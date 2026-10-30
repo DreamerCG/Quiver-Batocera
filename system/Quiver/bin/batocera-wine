@@ -5,7 +5,23 @@ GAMENAME="$3"                                                                   
 TRICK=${4,,}                                                                         # WINE-tricks, see https://github.com/Winetricks/winetricks
 ROMGAMENAME=$(basename "${GAMENAME}")                                                # gamedir or gameexecutable: e.g. "Age of Empires.wine" or "AoE_inst.exe"
 ROMBASEDIR=$(dirname "${GAMENAME}")                                                  # gamedir or rootdir: eg "/userdata/roms/windows" if AoE is a wine.dir
-GAMEEXT="${GAMENAME##*.}"                                                            # gameextension: pc, wine, exe, msi
+GAMEEXT="${GAMENAME##*.}"               
+
+# Nom du préfixe Wine : nom du jeu Quiver si disponible,
+# sinon comportement Batocera habituel.
+WINE_PREFIX_NAME="${ROMGAMENAME}"
+
+if [[ "${GAMEEXT,,}" == "exe" ]]; then
+    WINE_PREFIX_NAME="${ROMGAMENAME%.exe}"
+fi
+
+if [[ "${SYSTEM}" == "quiver" && -n "${QUIVER_GAME_NAME:-}" ]]; then
+    WINE_PREFIX_NAME=$(printf '%s' "${QUIVER_GAME_NAME}" \
+        | sed 's/[^[:alnum:]_.-]/_/g; s/^[.]*//; s/[.]*$//')
+
+    [[ -n "${WINE_PREFIX_NAME}" ]] || WINE_PREFIX_NAME="game"
+fi
+                                             # gameextension: pc, wine, exe, msi
 # log scripts (aka winserver) running time with bash builtin command
 SECONDS=0
 
@@ -97,7 +113,8 @@ stopWineServer() {
 
 # Arguments: key, system, game
 get_setting() {
-    /usr/bin/batocera-settings-get "$2[\"$3\"].$1" "$2.$1" "global.$1"
+    local game="${QUIVER_GAME_NAME:-$3}"
+    /usr/bin/batocera-settings-get "$2[\"$game\"].$1" "$2.$1" "global.$1"
 }
 
 find_wine_dir() {
@@ -1148,12 +1165,12 @@ case "${ACTION}" in
 		play_wine "${GAMENAME}" "${GAMENAME}"
 		;;
 	    "pc")
-		requestFileSystem "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${ROMGAMENAME}.wine"
-		play_pc "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${ROMGAMENAME}.wine"
+		requestFileSystem "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${WINE_PREFIX_NAME}.wine"
+		play_pc "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${WINE_PREFIX_NAME}.wine"
 		;;
 	    "exe")
-		requestFileSystem "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${ROMGAMENAME}.wine"
-        play_exe "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${ROMGAMENAME}.wine" "${GAME_ARGS[@]}"
+		requestFileSystem "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${WINE_PREFIX_NAME}.wine"
+        play_exe "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${WINE_PREFIX_NAME}.wine" "${GAME_ARGS[@]}"
 
 		;;
 #	    "iso")
@@ -1161,12 +1178,12 @@ case "${ACTION}" in
 #		;;
 	    "wsquashfs")
 		#Arguments, ROMNAME, WINEPREFIX as squashfs, SAVEDIR, WORKDIR
-		requestFileSystem "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${ROMGAMENAME}.wine"
-		play_squashfs "${GAMENAME}" "/var/run/wine/${ROMGAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${ROMGAMENAME}.wine" "${WINE_BOTTLE_DIR}/${ROMGAMENAME}.work"
+		requestFileSystem "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${WINE_PREFIX_NAME}.wine"
+		play_squashfs "${GAMENAME}" "/var/run/wine/${ROMGAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${WINE_PREFIX_NAME}.wine" "${WINE_BOTTLE_DIR}/${ROMGAMENAME}.work"
 		;;
 	    "wtgz")
-		requestFileSystem "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${ROMGAMENAME}.wine"
-		play_winetgz "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${ROMGAMENAME}.wine"
+		requestFileSystem "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${WINE_PREFIX_NAME}.wine"
+		play_winetgz "${GAMENAME}" "${WINE_BOTTLE_DIR}/${WINE_VERSION}/${WINE_PREFIX_NAME}.wine"
 		;;
 	    *)
                 requestFileSystem "${GAMENAME}"
@@ -1200,7 +1217,7 @@ case "${ACTION}" in
                 setPrefixArch "${GAMENAME}" "${WINE_VERSION}" "${ACTION}"
                 ;;
             "wtqz"|"pc"|"exe"|"wsquashfs")
-                l_PREFIX="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${ROMGAMENAME}.wine"
+                l_PREFIX="${WINE_BOTTLE_DIR}/${WINE_VERSION}/${WINE_PREFIX_NAME}.wine"
                 setPrefixArch "${l_PREFIX}" "${WINE_VERSION}" "${ACTION}"
                 test -d "${l_PREFIX}" && echo "WINEPREFIX: '$_' already found!" || { createWineDirectory "$_" && echo "WINEPREFIX: '$_' created!"; }
                 ;;

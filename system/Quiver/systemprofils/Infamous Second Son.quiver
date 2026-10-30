@@ -1,8 +1,7 @@
 [Game]
-name=Killzone Shadowfall
-Folder=killzone-shadowfall-pc
-Path=/userdata/system/Quiver/emulator/Apps/killzone-shadowfall-pc
-executable=Killzone Shadow Fall.exe
+name=Infamous Second Son
+Folder=InFAMOUSSecondSon-IssPc
+path=/userdata/system/Quiver/emulator/Apps/InFAMOUSSecondSon-IssPc
+executable=inFAMOUS Second Son
+setting_file=/userdata/system/configs/Quiver/config/InFAMOUSSecondSon-IssPc/settings.json
 args= --play
-mode=wine
-setting_file=/userdata/system/Quiver/emulator/Apps/killzone-shadowfall-pc/user/launcher.json

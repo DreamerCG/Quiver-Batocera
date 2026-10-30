@@ -329,6 +329,11 @@ class Quiver(Emulator):
         # Préparer la commande selon le type de jeu.
         env = os.environ.copy()
 
+        if mode == "wine":
+            env["QUIVER_GAME_NAME"] = name
+        else:
+            env.pop("QUIVER_GAME_NAME", None)
+
         # Transmission de la configuration des manettes Batocera à SDL/Wine.
         try:
             controllers = list(self.controllers)

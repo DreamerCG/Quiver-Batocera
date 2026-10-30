@@ -2,6 +2,7 @@
 name=Gravity Rush 2
 Folder=gr2_pc-HayatoG
 path=/userdata/system/Quiver/emulator/Apps/gr2_pc-HayatoG
-executable=Gravity Rush 2
+executable=Gravity Rush 2 (classic).exe
 args= --play
-setting_file=/userdata/system/configs/Quiver/config/gr2-launcher/settings.json
+mode=wine
+setting_file=users/steamuser/AppData/Roaming/gr2-launcher/settings.json
