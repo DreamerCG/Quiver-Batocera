@@ -3,5 +3,5 @@ name=Infamous Second Son
 Folder=InFAMOUSSecondSon-IssPc
 path=/userdata/system/Quiver/emulator/Apps/InFAMOUSSecondSon-IssPc
 executable=inFAMOUS Second Son
-setting_file=/userdata/system/configs/Quiver/config/InFAMOUSSecondSon-IssPc/settings.json
+setting_file=/userdata/system/configs/Quiver/config/infamous-launcher/settings.json
 args= --play
