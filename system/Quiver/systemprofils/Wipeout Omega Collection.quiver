@@ -1,0 +1,18 @@
+[Game]
+Name=Wipeout Omega Collection
+Folder=WipEoutOmegaCollection-WipeoutPc
+
+[Launcher]
+Path=/userdata/system/Quiver/emulator/Apps/WipEoutOmegaCollection-WipeoutPc
+executable=WipEout.exe
+args= --play
+mode=wine
+
+[Config]
+setting_file=users/steamuser/AppData/Roaming/wipeout-launcher/settings.json
+preload_file=CUSA05670_WIPEOUTOMEGA.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA05670 - Wipeout Omega Collection
+dlc_directory=/userdata/roms/quiver/DLC/CUSA05670 - Wipeout Omega Collection
+mods_directory=/userdata/roms/quiver/MODS/CUSA05670 - Wipeout Omega Collection
