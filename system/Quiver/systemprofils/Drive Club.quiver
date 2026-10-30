@@ -1,8 +1,18 @@
 [Game]
 Name=Drive Club
 Folder=DriveClub-DriveClubRecomp
+
+[Launcher]
 Path=/userdata/system/Quiver/emulator/Apps/DriveClub-DriveClubRecomp
 executable=DriveClub.exe
 args= --play
 mode=wine
+
+[Config]
 setting_file = /userdata/system/Quiver/emulator/Apps/DriveClub-DriveClubRecomp/launcher.ini
+preload_file = CUSA00093_DriceClub_Wine.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA00093 - DriveClub
+dlc_directory=/userdata/roms/quiver/DLC/CUSA00093 - DriveClub
+mods_directory=/userdata/roms/quiver/MODS/CUSA00093 - DriveClub

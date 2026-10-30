@@ -1,7 +1,17 @@
 [Game]
 name=Bloodborne
 Folder=Bloodborne-BloodborneForLinux
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/Bloodborne-BloodborneForLinux
 executable=Bloodborne-bbport-x86_64.AppImage
-setting_file = /userdata/system/configs/Quiver/config/bbport-launcher/settings.json
 args= --play
+
+[Config]
+setting_file = /userdata/system/configs/Quiver/config/bbport-launcher/settings.json
+preload_file = CUSA03173_Bloodborne_bbport_linux.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA03173 - Bloodborne
+dlc_directory=/userdata/roms/quiver/DLC/CUSA03173 - Bloodborne
+mods_directory=/userdata/roms/quiver/MODS/CUSA03173 - Bloodborne

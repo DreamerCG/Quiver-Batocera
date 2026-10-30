@@ -1,0 +1,53 @@
+{
+  "ui_language": "fr",
+  "ui_scale": "auto",
+  "game_dir": "Z:\\userdata\\roms\\quiver\\GAME\\CUSA01715 - God Of War III Remastered",
+  "update_dir": "",
+  "experimental_upscaler": false,
+  "video_backend": "auto",
+  "gamemode": false,
+  "mangohud": false,
+  "desktop_integration": true,
+  "user_dir": "Z:\\userdata\\saves\\quiver\\CUSA01715 - God Of War III Remastered",
+  "mods_dir": "Z:\\userdata\\roms\\quiver\\MODS\\CUSA01715 - God Of War III Remastered",
+  "mods_enabled": true,
+  "patches_dir": "",
+  "language": "2",
+  "hdr": false,
+  "draw_pipe": "",
+  "readbacks": "",
+  "no_msaa": "",
+  "stream_memory": "cached",
+  "gpu_id": "",
+  "monitor": "",
+  "partial_height_views": true,
+  "disk_shaders": true,
+  "shader_prefetch": true,
+  "shader_notes": false,
+  "background_warmup": true,
+  "parallel_warmup": true,
+  "pipeline_binary_cache": true,
+  "perf_diag": false,
+  "frame_capture_key": false,
+  "frame_stats": false,
+  "gpu_profile": false,
+  "vk_validation": false,
+  "close_on_play": true,
+  "discord_rpc": false,
+  "check_updates": true,
+  "game_patches": {
+    "CUSA01715": [
+      "Bug Fix - Texture Corruption Fix",
+      "Skip Any Video With X Button"
+    ]
+  },
+  "controls": {
+    "key": {},
+    "pad": {}
+  },
+  "pad_style": "playstation",
+  "rage_one_input": true,
+  "stick_prompts": "keyboard",
+  "controls_layout": 2,
+  "glyph_style": "off"
+}

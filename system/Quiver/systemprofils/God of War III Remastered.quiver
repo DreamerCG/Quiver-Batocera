@@ -1,8 +1,18 @@
 [Game]
 Name=God of War III Remastered
 Folder=GodOfWarIIIRemastered-Gow3Pc
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/GodOfWarIIIRemastered-Gow3Pc
 executable=SpartanPort.exe
-setting_file=/userdata/system/Quiver/emulator/Apps/GodOfWarIIIRemastered-Gow3Pc/settings.json
 args= --play
 mode=wine
+
+[Config]
+setting_file=/userdata/system/Quiver/emulator/Apps/GodOfWarIIIRemastered-Gow3Pc/settings.json
+preload_file = CUSA00093_GOW3Remastered_Wine.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA01715 - God Of War III Remastered
+dlc_directory=/userdata/roms/quiver/DLC/CUSA01715 - God Of War III Remastered
+mods_directory=/userdata/roms/quiver/MODS/CUSA01715 - God Of War III Remastered

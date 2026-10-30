@@ -1,0 +1,16 @@
+{
+  "game_dir": "Z:/userdata/roms/quiver/GAME/CUSA04943 - Gravity Rush 2",
+  "user_dir": "Z:\\userdata\\saves\\quiver\\CUSA04943 - Gravity Rush 2",
+  "system_lib_dir": "Z:\\userdata\\system\\Quiver\\emulator\\Apps\\gr2_pc-HayatoG\\system_lib",
+  "gs_outline_off": true,
+  "game_language": "fr_CA",
+  "ui_language": "auto",
+  "show_fps": false,
+  "display_mode": "Borderless",
+  "vsync": false,
+  "vram_budget_mb": 5600,
+  "native_audio": true,
+  "stick_deadzone": 10,
+  "close_on_play": true,
+  "reopen_launcher": true
+}

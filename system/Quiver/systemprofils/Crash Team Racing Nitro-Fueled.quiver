@@ -1,7 +1,17 @@
 [Game]
 name=Crash Team Racing Nitro - Fueled
 Folder=CrashTeamRacingNitroFueled-CTRNitroFueledPC
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/CrashTeamRacingNitroFueled-CTRNitroFueledPC
-setting_file=/userdata/system/configs/Quiver/config/sacredfire-launcher/settings.json
 executable=SacredFire-v0.6.5-x86_64.AppImage
 args= --play
+
+[Config]
+setting_file=/userdata/system/configs/Quiver/config/sacredfire-launcher/settings.json
+preload_file = CUSA03173_CTR_linux.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA13795 - Crash Team Racing Nitro
+dlc_directory=/userdata/roms/quiver/DLC/CUSA13795 - Crash Team Racing Nitro
+mods_directory=/userdata/roms/quiver/MODS/CUSA13795 - Crash Team Racing Nitro

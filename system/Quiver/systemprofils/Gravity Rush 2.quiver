@@ -1,8 +1,18 @@
 [Game]
 name=Gravity Rush 2
 Folder=gr2_pc-HayatoG
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/gr2_pc-HayatoG
 executable=Gravity Rush 2 (classic).exe
 args= --play
 mode=wine
+
+[Config]
 setting_file=users/steamuser/AppData/Roaming/gr2-launcher/settings.json
+preload_file = CUSA04943_GravrityRush2_Wine.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA04943 - Gravity Rush 2
+dlc_directory=/userdata/roms/quiver/DLC/CUSA04943 - Gravity Rush 2
+mods_directory=/userdata/roms/quiver/MODS/CUSA04943 - Gravity Rush 2
