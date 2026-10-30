@@ -107,7 +107,6 @@ if [[ -d "${INSTALL_DIR}/bin" ]]; then
     find "${INSTALL_DIR}/bin" -maxdepth 1 -type f -exec chmod +x {} +
 fi
 
-
 # Version enregistrée uniquement après les opérations réussies
 log "Enregistrement de la version ${VERSION}..."
 
