@@ -1,5 +1,0 @@
-[Game]
-name=Quiver Launcher
-path=/userdata/system/Quiver/emulator/
-executable=QuiverLauncher-linux-x64.AppImage
-args=
