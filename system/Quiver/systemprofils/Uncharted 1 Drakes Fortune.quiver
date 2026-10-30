@@ -1,8 +1,18 @@
 [Game]
 name=Uncharted: The Nathan Drake Collection
 Folder=UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
+
+[Launcher]
 Path=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
 executable=Uncharted Launcher.exe
 args=--play u1
 mode=wine
+
+[Config]
 setting_file=/userdata/system/configs/Quiver/wine/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort/.local/share/uncharted-launcher/launcher.json
+preload_file=CUSA02320_UNCHARTEDCOLLECTION_WINE.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA02320 - Uncharted Drake Collection
+dlc_directory=/userdata/roms/quiver/DLC/CUSA02320 - Uncharted Drake Collection
+mods_directory=/userdata/roms/quiver/MODS/CUSA02320 - Uncharted Drake Collection

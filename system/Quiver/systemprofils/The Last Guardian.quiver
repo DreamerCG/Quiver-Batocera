@@ -1,6 +1,17 @@
 [Game]
 name=The Last Guardian
 Folder=TheLastGuardian-TheLastGuardianNativePCPort
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/TheLastGuardian-TheLastGuardianNativePCPort
 executable=/userdata/system/Quiver/emulator/Apps/TheLastGuardian-TheLastGuardianNativePCPort/The Last Guardian
 args= --play
+
+[Config]
+setting_file=/userdata/system/configs/Quiver/config/tlg-launcher/settings.json
+preload_file=CUSA03627_TheLastGuardian_linux.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA03627 - The Last Guardian
+dlc_directory=/userdata/roms/quiver/DLC/CUSA03627 - The Last Guardian
+mods_directory=/userdata/roms/quiver/MODS/CUSA03627 - The Last Guardian
