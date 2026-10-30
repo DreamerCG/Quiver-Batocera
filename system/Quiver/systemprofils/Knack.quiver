@@ -1,8 +1,18 @@
 [Game]
 name=Knack
 Folder=Knack-AbdelmoumenDeghbouche
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/Knack-AbdelmoumenDeghbouche
 executable=Knack.exe
 args= --play
 mode=wine
+
+[Config]
 setting_file=users/steamuser/AppData/Roaming/knack-launcher/settings.json
+preload_file=CUSA00068_Knack_wine.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA00068 - Knack
+dlc_directory=/userdata/roms/quiver/DLC/CUSA00068 - Knack
+mods_directory=/userdata/roms/quiver/MODS/CUSA00068 - Knack

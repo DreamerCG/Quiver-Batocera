@@ -1,7 +1,18 @@
 [Game]
 name=Infamous Second Son
 Folder=InFAMOUSSecondSon-IssPc
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/InFAMOUSSecondSon-IssPc
-executable=inFAMOUS Second Son
-setting_file=/userdata/system/configs/Quiver/config/infamous-launcher/settings.json
+executable=inFAMOUS Second Son (classic).exe
 args= --play
+mode=wine
+
+[Config]
+setting_file=users/steamuser/AppData/Roaming/infamous-launcher/settings.json
+preload_file=CUSA00223_InfamousSecondSon.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA00223 - Infamous Second Son
+dlc_directory=/userdata/roms/quiver/DLC/CUSA00223 - Infamous Second Son
+mods_directory=/userdata/roms/quiver/MODS/CUSA00223 - Infamous Second Son

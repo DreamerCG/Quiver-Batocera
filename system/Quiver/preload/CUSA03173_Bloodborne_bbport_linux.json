@@ -81,6 +81,8 @@
   "atlas_items": true,
   "ask_online_off": true,
   "pad_deadzone": 4,
+  "pad_lightbar": false,
+  "pad_lightbar_colour": "#b00000",
   "saves_auto_backup": false,
   "saves_auto_backup_keep": 5
 }

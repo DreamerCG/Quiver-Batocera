@@ -1,0 +1,22 @@
+{
+  "game_dir": "Z:/userdata/roms/quiver/GAME/CUSA00223 - Infamous Second Son",
+  "user_dir": "Z:/userdata/saves/quiver/CUSA00223 - Infamous Second Son",
+  "dlc_dir": "Z:/userdata/roms/quiver/DLC/CUSA00223 - Infamous Second Son",
+  "mods_dir": "Z:/userdata/roms/quiver/MODS/CUSA00223 - Infamous Second Son",  
+  "game_language": "fr_CA",
+  "ui_language": "auto",
+  "show_fps": false,
+  "display_mode": "Borderless",
+  "vsync": false,
+  "vram_budget_mb": 5100,
+  "stick_deadzone": 10,
+  "eager_readback": false,
+  "write_merge": true,
+  "deferred_readback": true,
+  "precompile_shaders": true,
+  "close_on_play": true,
+  "reopen_launcher": true,
+  "gpu_readbacks": "2",
+  "settings_rev": 2,
+  "backports_notice_seen": true
+}

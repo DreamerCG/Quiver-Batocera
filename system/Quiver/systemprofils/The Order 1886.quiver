@@ -1,8 +1,17 @@
 [Game]
-Name=The Order: 1886
-Folder=TheOrder1886-Theorder1886Port
+Name=The Order 1886
+
+[Launcher]
 Path=/userdata/system/Quiver/emulator/Apps/TheOrder1886-Theorder1886Port
 executable=The Order 1886.exe
-args=--play
+args= --play
 mode=wine
+
+[Config]
 setting_file=/userdata/system/Quiver/emulator/Apps/TheOrder1886-Theorder1886Port/settings.json
+preload_file=CUSA00076_THEORDER_WINE.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA00076 - The Order
+dlc_directory=/userdata/roms/quiver/DLC/CUSA00076 - The Order
+mods_directory=/userdata/roms/quiver/MODS/CUSA00076 - The Order

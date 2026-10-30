@@ -1,0 +1,42 @@
+{
+  "ui_language": "fr",
+  "game_dir": "Z:\\userdata\\roms\\quiver\\GAME\\CUSA00076 - The Order",
+  "user_dir": "Z:\\userdata\\saves\\quiver\\CUSA00076 - The Order",
+  "mods_dir": "Z:\\userdata\\roms\\quiver\\MODS\\CUSA00076 - The Order",
+  "dlc_dir": "Z:\\userdata\\saves\\quiver\\CUSA00076 - The Order",
+  "update_dir": "",
+  "experimental_upscaler": false,
+  "video_backend": "auto",
+  "gamemode": false,
+  "mangohud": false,
+  "desktop_integration": true,
+  "mods_enabled": true,
+  "patches_dir": "",
+  "language": "2",
+  "player_name": "",
+  "hdr": false,
+  "draw_pipe": "",
+  "readbacks": "",
+  "no_msaa": "",
+  "stream_memory": "cached",
+  "gpu_id": "",
+  "background_warmup": true,
+  "parallel_warmup": true,
+  "pipeline_binary_cache": true,
+  "perf_diag": false,
+  "frame_capture_key": false,
+  "frame_stats": false,
+  "gpu_profile": false,
+  "vk_validation": false,
+  "close_on_play": true,
+  "check_updates": true,
+  "last_version": "0.7.9",
+  "game_patches": {
+    "CUSA00076": []
+  },
+  "controls": {
+    "key": {},
+    "pad": {}
+  },
+  "pad_style": "playstation"
+}

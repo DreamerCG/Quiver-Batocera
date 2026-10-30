@@ -1,0 +1,39 @@
+{
+  "game_dir": "Z:\\userdata\\roms\\quiver\\GAME\\CUSA06545 - Prototype Biohazard Bundle",
+  "anisotropy": 0,
+  "fsr1": true,
+  "rcas": true,
+  "rcas_strength": 60,
+  "display_mode": "borderless",
+  "vsync": false,
+  "show_fps": false,
+  "language": 1,
+  "panel": "GAME",
+  "controls": {},
+  "prompts": "auto",
+  "controls_group": "move",
+  "mouse_look": true,
+  "mouse_sensitivity": 100,
+  "vibration": 100,
+  "light_bar": true,
+  "menu_vibration": 1,
+  "extra_vibration": true,
+  "haptics": true,
+  "haptics_sound": 2,
+  "discord": false,
+  "ui_language": "en",
+  "menu_mouse": true,
+  "game": "p2",
+  "per_game": {
+    "p1": {
+      "render_res": "1920x1080",
+      "fps60": true,
+      "tendril_fix": true
+    },
+    "p2": {
+      "render_res": "1920x1080",
+      "fps60": true
+    }
+  },
+  "settings_version": 2
+}

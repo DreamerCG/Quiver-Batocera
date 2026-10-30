@@ -275,7 +275,7 @@ class Quiver(Emulator):
         elif mode == "auto":
             mode = (
                 "wine"
-                if executable.suffix.lower() == ".exe"
+                if executable.suffix.lower() in (".exe", ".bat")
                 else "native"
             )
 
@@ -290,10 +290,10 @@ class Quiver(Emulator):
                 f"{name} : exécutable introuvable : {executable}"
             )
 
-        if mode == "wine" and executable.suffix.lower() != ".exe":
+        if mode == "wine" and executable.suffix.lower() not in (".exe", ".bat"):
             raise RuntimeError(
                 f"{name} : en mode Wine, executable doit désigner "
-                f"le fichier .exe du jeu : {executable}"
+                f"un fichier .exe ou .bat : {executable}"
             )
 
         if mode == "wine" and not BATOCERA_WINE.is_file():

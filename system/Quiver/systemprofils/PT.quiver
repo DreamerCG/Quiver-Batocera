@@ -1,6 +1,17 @@
 [Game]
 name=P.T.
 Folder=PT-PTForPC
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/PT-PTForPC
 executable=pt
-args=--game /userdata/roms/Quiver/CUSA01127/
+args= --game /userdata/roms/quiver/GAME/CUSA01127-PT
+
+[Config]
+setting_file=
+preload_file=
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA01127-PT
+dlc_directory= 
+mods_directory=

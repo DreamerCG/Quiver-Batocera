@@ -1,8 +1,18 @@
 [Game]
 name=Prototype Biohazard Bundle
 Folder=prototype-pc-slop-petrishevgeorgii-debug
+
+[Launcher]
 path=/userdata/system/Quiver/emulator/Apps/prototype-pc-slop-petrishevgeorgii-debug
 executable=Prototype.exe
 args= --play
 mode=wine
-setting_file = users/steamuser/AppData/Roaming/prototype-port/launcher.json
+
+[Config]
+setting_file=users/steamuser/AppData/Roaming/prototype-port/launcher.json
+preload_file=CUSA06545_PrototypeBundle_wine.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA06545 - Prototype Biohazard Bundle
+dlc_directory=/userdata/roms/quiver/DLC/CUSA06545 - Prototype Biohazard Bundle
+mods_directory=/userdata/roms/quiver/MODS/CUSA06545 - Prototype Biohazard Bundle

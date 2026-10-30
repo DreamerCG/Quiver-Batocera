@@ -1,8 +1,18 @@
 [Game]
 Name=Gravity Rush
 Folder=gravityrush_pc-LucaPazienza
+
+[Launcher]
 Path=/userdata/system/Quiver/emulator/Apps/gravityrush_pc-LucaPazienza
 executable=Gravity Rush.exe
-args=--play
+args= --play
 mode=wine
-setting_file=users/steamuser/AppData/Roaming/gravityrush-launcher/settings.jsonx
+
+[Config]
+setting_file=users/steamuser/AppData/Roaming/gravityrush-launcher/settings.json
+preload_file=CUSA01113_GravrityRush_Wine.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA01113 - Gravity Rush
+dlc_directory=/userdata/roms/quiver/DLC/CUSA01113 - Gravity Rush
+mods_directory=/userdata/roms/quiver/MODS/CUSA01113 - Gravity Rush

@@ -16,6 +16,21 @@
       ]
     },
     {
+      "name": "Knack 2",
+      "folderName": "Knack-II-pc-port-Hyant4",
+      "installPath": null,
+      "appIconUrl": null,
+      "repository": "Hyant4/Knack-II-pc-port",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "Knack 2",
+      "autoUpdate": true,
+      "tags": [
+        "ps4",
+        "decomp"
+      ]
+    },    
+    {
       "name": "Ratchet and Clanck",
       "folderName": "RatchetPort-shehab4546",
       "installPath": null,
@@ -37,7 +52,7 @@
       "appIconUrl": null,
       "repository": "lesca-191204/killzone-shadowfall-pc",
       "preferredVersion": null,
-      "skippedUpdateVersion": null,
+      "skippedUpdateVersion": "v0.6.0",
       "project": "killzone-shadowfall-pc",
       "autoUpdate": true,
       "linuxRunner": "custom",
