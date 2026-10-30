@@ -1,0 +1,33 @@
+{
+  "ui_language": "fr",
+  "game_dir": "Z:\\userdata\\roms\\quiver\\GAME\\CUSA12982 - Medievil",
+  "user_dir": "Z:\\userdata\\saves\\quiver\\CUSA12982 - Medievil",
+  "mods_dir": "Z:\\userdata\\roms\\quiver\\MODS\\CUSA12982 - Medievil",
+  "mods_enabled": true,
+  "patches_dir": "",
+  "language": "2",
+  "player_name": "Quiver",
+  "hdr": false,
+  "draw_pipe": "",
+  "readbacks": "",
+  "vulkan_compat": false,
+  "background_warmup": true,
+  "parallel_warmup": true,
+  "pipeline_binary_cache": true,
+  "perf_diag": false,
+  "frame_capture_key": false,
+  "frame_stats": false,
+  "gpu_profile": false,
+  "vk_validation": false,
+  "close_on_play": true,
+  "update_check": true,
+  "overlay_layout": false,
+  "game_patches": {},
+  "controls": {
+    "key": {},
+    "pad": {}
+  },
+  "pad_style": "playstation",
+  "stick_range": "",
+  "last_pkg": ""
+}

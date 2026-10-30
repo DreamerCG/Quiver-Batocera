@@ -1,0 +1,18 @@
+[Game]
+Name=Medievil
+Folder=MediEvil-Medievil2019PcPort
+
+[Launcher]
+Path=/userdata/system/Quiver/emulator/Apps/MediEvil-Medievil2019PcPort
+executable=MediEvil.exe
+args= --play
+mode=wine
+
+[Config]
+setting_file=users/steamuser/AppData/Roaming/medievil-launcher/settings.json
+preload_file=CUSA12982_MEDIEVILPS4_WINE.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA12982 - Medievil
+dlc_directory=/userdata/roms/quiver/DLC/CUSA12982 - Medievil
+mods_directory=/userdata/roms/quiver/MODS/CUSA12982 - Medievil
