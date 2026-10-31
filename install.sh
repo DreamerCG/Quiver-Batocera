@@ -93,12 +93,69 @@ log "Installation des fichiers système..."
 
 
 rsync -a \
+    --exclude='/Quiver/emulator/apps.json' \
+    --exclude='/Quiver/emulator/settings.json' \
     --exclude='/Quiver/emulator/apps.json.lock' \
     --exclude='/Quiver/emulator/Apps/' \
     --exclude='/Quiver/emulator/Backups/' \
     --exclude='/Quiver/emulator/Cache/' \
     "${SOURCE_DIR}/system/" "${BASE_DIR}/system/" \
     || die "Échec de la copie de system/."
+
+# settings.json / apps.json : ne jamais écraser les données utilisateur
+SRC_EMU="${SOURCE_DIR}/system/Quiver/emulator"
+DST_EMU="${INSTALL_DIR}/emulator"
+mkdir -p "$DST_EMU"
+
+if [[ -f "${SRC_EMU}/settings.json" && ! -f "${DST_EMU}/settings.json" ]]; then
+    log "Installation de settings.json (absent)."
+    cp "${SRC_EMU}/settings.json" "${DST_EMU}/settings.json" \
+        || die "Impossible de copier settings.json."
+fi
+
+if [[ -f "${SRC_EMU}/apps.json" ]]; then
+    if [[ ! -f "${DST_EMU}/apps.json" ]]; then
+        log "Installation de apps.json (absent)."
+        cp "${SRC_EMU}/apps.json" "${DST_EMU}/apps.json" \
+            || die "Impossible de copier apps.json."
+    else
+        log "Fusion de apps.json (sans doublon)..."
+        command -v python3 >/dev/null 2>&1 || die "python3 est nécessaire pour fusionner apps.json."
+        python3 - "${SRC_EMU}/apps.json" "${DST_EMU}/apps.json" <<'PY' \
+            || die "Échec de la fusion de apps.json (fichier existant conservé)."
+import json, os, shutil, sys, tempfile
+
+src_path, dst_path = sys.argv[1], sys.argv[2]
+
+def load(path):
+    with open(path, encoding="utf-8-sig") as f:  # tolère le BOM
+        data = json.load(f)
+    if not isinstance(data.get("apps"), list):
+        raise ValueError(f"{path} : clé 'apps' absente ou invalide")
+    return data
+
+src, dst = load(src_path), load(dst_path)  # si dst est invalide : on s'arrête sans rien écraser
+
+seen, merged = set(), []
+for app in dst["apps"] + src["apps"]:      # l'existant est prioritaire
+    key = str(app.get("folderName", "")).strip().lower()
+    if not key or key in seen:
+        continue
+    seen.add(key)
+    merged.append(app)
+
+added = len(merged) - len({str(a.get("folderName", "")).strip().lower() for a in dst["apps"]})
+dst["apps"] = merged
+
+shutil.copy2(dst_path, dst_path + ".bak")
+fd, tmp = tempfile.mkstemp(dir=os.path.dirname(dst_path))
+with os.fdopen(fd, "w", encoding="utf-8") as f:
+    json.dump(dst, f, indent=2, ensure_ascii=False)
+os.replace(tmp, dst_path)
+print(f"[Quiver] apps.json : {added} entrée(s) ajoutée(s), {len(merged)} au total.")
+PY
+    fi
+fi
 
 
 # Copie des fichiers ROM sans écraser ceux déjà présents.
@@ -123,5 +180,4 @@ if [[ -d "${INSTALL_DIR}/bin" ]]; then
     find "${INSTALL_DIR}/bin" -maxdepth 1 -type f -exec chmod +x {} +
 fi
 
-# Version enregistrée uniquement après les opérations réussies
-log "Enregistrement de la version ${VERSION}..."
+log "Quiver ${VERSION} installé avec succès."

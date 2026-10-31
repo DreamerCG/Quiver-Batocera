@@ -400,8 +400,34 @@ class Quiver(Emulator):
                 flush=True,
             )
 
-        if _is_enabled(launcher_quiver):
+        # --- DEBUG : état du launcher ---
+        launcher_is_on = _is_enabled(launcher_quiver)
+
+        print(
+            f"[QUIVER DEBUG] LAUNCHER_QUIVER brut : {launcher_quiver!r}",
+            file=sys.stderr,
+            flush=True,
+        )
+        print(
+            f"[QUIVER DEBUG] Launcher : {'ON' if launcher_is_on else 'OFF'}",
+            file=sys.stderr,
+            flush=True,
+        )
+        print(
+            f"[QUIVER DEBUG] Arguments avant filtre : {app_args!r}",
+            file=sys.stderr,
+            flush=True,
+        )
+        # --------------------------------
+
+        if launcher_is_on:
             app_args = [arg for arg in app_args if arg != "--play"]
+
+        print(
+            f"[QUIVER DEBUG] Arguments après filtre : {app_args!r}",
+            file=sys.stderr,
+            flush=True,
+        )
 
         if (
             _is_enabled(launcher_quiver)
