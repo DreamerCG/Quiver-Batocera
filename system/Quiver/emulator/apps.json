@@ -54,6 +54,36 @@
       ]
     },
     {
+      "name": "Odin Sphere Leifthrasir",
+      "folderName": "Odin-Sphere-Leifthrasir-pc-saulob",
+      "installPath": null,
+      "appIconUrl": null,
+      "repository": "saulob/odin-sphere-leifthrasir-pc",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "Odin Sphere Leifthrasir",
+      "autoUpdate": true,
+      "tags": [
+        "ps4",
+        "decomp"
+      ]
+    },
+    {
+      "name": "Prototype Biohazard Bundle",
+      "folderName": "prototype-pc-slop-petrishevgeorgii-debug",
+      "installPath": null,
+      "appIconUrl": null,
+      "repository": "petrishevgeorgii-debug/prototype-pc-slop",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "Prototype Biohazard Bundle",
+      "autoUpdate": true,
+      "tags": [
+        "ps4",
+        "decomp"
+      ]
+    },        
+    {
       "name": "Fist of the North Star: Lost Paradise",
       "folderName": "ItalianKuze-port-ga-gotoku",
       "installPath": null,
