@@ -187,6 +187,49 @@ for profile in "$PROFILES_DIR"/*; do
     fi
 done
 
+# Vérifier les profils déjà présents dans ROM_DIR.
+# Supprimer ceux dont le dossier d'application n'existe plus dans APPS_DIR.
+echo
+echo "[INFO] Vérification des profils .quiver déjà installés dans $ROM_DIR"
+
+for rom_profile in "$ROM_DIR"/*; do
+    [ -f "$rom_profile" ] || continue
+
+    # Extension .quiver insensible à la casse.
+    case "$rom_profile" in
+        *.[Qq][Uu][Ii][Vv][Ee][Rr]) ;;
+        *) continue ;;
+    esac
+
+    profile_name=${rom_profile##*/}
+
+    # Ne jamais supprimer le profil du launcher Quiver.
+    if [ "$profile_name" = "Quiver Launcher.quiver" ]; then
+        echo "[IGNORÉ] Profil réservé : $profile_name"
+        continue
+    fi
+
+    echo "[PROFIL] Vérification : $rom_profile"
+
+    folder=$(get_ini_value "$rom_profile" "Game" "Folder")
+    if [ -z "$folder" ]; then
+        echo "[IGNORÉ] Clé [Game] Folder absente ou vide : $profile_name"
+        continue
+    fi
+
+    app_path="$APPS_DIR/$folder"
+    if [ ! -d "$app_path" ]; then
+        echo "[SUPPRESSION] Application introuvable : $app_path"
+        if rm -f "$rom_profile"; then
+            echo "[OK] Profil obsolète supprimé : $profile_name"
+        else
+            echo "[ERREUR] Impossible de supprimer : $rom_profile"
+        fi
+    else
+        echo "[OK] Application présente : $folder"
+    fi
+done
+
 echo
 echo "[INFO] Arrêt des processus run.py de Quiver"
 

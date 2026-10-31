@@ -30,21 +30,21 @@ die() {
 [[ -d "${BASE_DIR}/system" ]] || die "/userdata/system introuvable."
 [[ -d "${BASE_DIR}/roms" ]] || die "/userdata/roms introuvable."
 
-# Configuration Batocera : ajout des paramètres Quiver manquants
-BATOCERA_CONF="${BASE_DIR}/system/batocera.conf"
-touch "$BATOCERA_CONF" || die "Impossible de créer ${BATOCERA_CONF}."
+# # Configuration Batocera : ajout des paramètres Quiver manquants
+# BATOCERA_CONF="${BASE_DIR}/system/batocera.conf"
+# touch "$BATOCERA_CONF" || die "Impossible de créer ${BATOCERA_CONF}."
 
-if ! grep -Eq '^[[:space:]]*quiver\.bezel[[:space:]]*=' "$BATOCERA_CONF"; then
-    printf '\nquiver.bezel=none\n' >> "$BATOCERA_CONF" \
-        || die "Impossible d'ajouter quiver.bezel à batocera.conf."
-    log "Paramètre quiver.bezel=none ajouté à batocera.conf."
-fi
+# if ! grep -Eq '^[[:space:]]*quiver\.bezel[[:space:]]*=' "$BATOCERA_CONF"; then
+#     printf '\nquiver.bezel=none\n' >> "$BATOCERA_CONF" \
+#         || die "Impossible d'ajouter quiver.bezel à batocera.conf."
+#     log "Paramètre quiver.bezel=none ajouté à batocera.conf."
+# fi
 
-if ! grep -Eq '^[[:space:]]*quiver\.LAUNCHER_QUIVER[[:space:]]*=' "$BATOCERA_CONF"; then
-    printf 'quiver.LAUNCHER_QUIVER=off\n' >> "$BATOCERA_CONF" \
-        || die "Impossible d'ajouter quiver.LAUNCHER_QUIVER à batocera.conf."
-    log "Paramètre quiver.LAUNCHER_QUIVER=off ajouté à batocera.conf."
-fi
+# if ! grep -Eq '^[[:space:]]*quiver\.LAUNCHER_QUIVER[[:space:]]*=' "$BATOCERA_CONF"; then
+#     printf 'quiver.LAUNCHER_QUIVER=off\n' >> "$BATOCERA_CONF" \
+#         || die "Impossible d'ajouter quiver.LAUNCHER_QUIVER à batocera.conf."
+#     log "Paramètre quiver.LAUNCHER_QUIVER=off ajouté à batocera.conf."
+# fi
 
 if command -v curl >/dev/null 2>&1; then
     DOWNLOAD_CMD="curl"
