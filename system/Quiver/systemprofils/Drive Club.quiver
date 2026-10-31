@@ -10,7 +10,7 @@ mode=wine
 
 [Config]
 setting_file = /userdata/system/Quiver/emulator/Apps/DriveClub-DriveClubRecomp/launcher.ini
-preload_file = CUSA00093_DriceClub_Wine.json
+preload_file = CUSA00093_DriveClub_Wine.json
 
 [Roms]
 game_directory=/userdata/roms/quiver/GAME/CUSA00093 - DriveClub
