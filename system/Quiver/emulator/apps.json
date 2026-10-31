@@ -4,16 +4,39 @@
       "name": "Knack",
       "folderName": "Knack-AbdelmoumenDeghbouche",
       "installPath": null,
-      "appIconUrl": null,
+      "appIconUrl": "https://raw.githubusercontent.com/AbdelmoumenDeghbouche/knack_pc/52a13d172aee233d1672fe5deae769b61fdefd17/launcher/gow3.ico",
       "repository": "AbdelmoumenDeghbouche/knack_pc",
       "preferredVersion": null,
       "skippedUpdateVersion": null,
-      "project": "Knack",
+      "project": "Knack for PC (knack_pc)",
       "autoUpdate": true,
       "tags": [
         "ps4",
-        "decomp"
-      ]
+        "decomp",
+        "recreation",
+        "playstation",
+        "playstation 4",
+        "unlocked framerate",
+        "increased internal resolution",
+        "widescreen",
+        "controller support"
+      ],
+      "catalogEntryId": "k172g8fgrnhfv296ga25w0wxzd8h6ncy",
+      "catalog": {
+        "name": "Knack",
+        "project": "Knack for PC (knack_pc)",
+        "appIconUrl": "https://raw.githubusercontent.com/AbdelmoumenDeghbouche/knack_pc/52a13d172aee233d1672fe5deae769b61fdefd17/launcher/gow3.ico",
+        "tags": [
+          "recreation",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "unlocked framerate",
+          "increased internal resolution",
+          "widescreen",
+          "controller support"
+        ]
+      }
     },
     {
       "name": "Knack 2",
@@ -29,7 +52,43 @@
         "ps4",
         "decomp"
       ]
-    },    
+    },
+    {
+      "name": "Fist of the North Star: Lost Paradise",
+      "folderName": "ItalianKuze-port-ga-gotoku",
+      "installPath": null,
+      "appIconUrl": "https://cdn2.steamgriddb.com/icon_thumb/24c2278eb7af6f2318a889525dff3780.png",
+      "repository": "ItalianKuze/port-ga-gotoku",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "PortGaGotoku",
+      "autoUpdate": true,
+      "tags": [
+        "ps4",
+        "decomp",
+        "recomp",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "controller support",
+        "keyboard and mouse"
+      ],
+      "catalogEntryId": "k176h0f5t6ypcvq7c9ek3k5fws8h5ccr",
+      "catalog": {
+        "name": "Fist of the North Star: Lost Paradise",
+        "project": "PortGaGotoku",
+        "appIconUrl": "https://cdn2.steamgriddb.com/icon_thumb/24c2278eb7af6f2318a889525dff3780.png",
+        "tags": [
+          "recomp",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "controller support",
+          "keyboard and mouse"
+        ]
+      }
+    },
     {
       "name": "Ratchet and Clanck",
       "folderName": "RatchetPort-shehab4546",
@@ -37,7 +96,7 @@
       "appIconUrl": null,
       "repository": "shehab4546/RatchetPort",
       "preferredVersion": null,
-      "skippedUpdateVersion": null,
+      "skippedUpdateVersion": "v2.0",
       "project": "RatchetPort",
       "autoUpdate": true,
       "tags": [
@@ -46,21 +105,49 @@
       ]
     },
     {
-      "name": "Killzone Shadowfall",
+      "name": "Killzone Shadow Fall",
       "folderName": "killzone-shadowfall-pc",
       "installPath": null,
-      "appIconUrl": null,
+      "appIconUrl": "https://raw.githubusercontent.com/lesca-191204/killzone-shadowfall-pc/cdfb5c245eb44677338e684f64384139e119c07b/launcher/gow3.ico",
       "repository": "lesca-191204/killzone-shadowfall-pc",
-      "preferredVersion": null,
+      "preferredVersion": "v0.8.0",
       "skippedUpdateVersion": "v0.6.0",
       "project": "killzone-shadowfall-pc",
       "autoUpdate": true,
       "linuxRunner": "custom",
+      "linuxPrefixPath": "/userdata/system/Quiver/emulator/Apps/killzone-shadowfall-pc/.steam-compat-data",
       "linuxCustomLaunchCommand": "/userdata/system/wine/custom/GE-Proton-10-25/bin/wine",
       "tags": [
         "ps4",
-        "decomp"
-      ]
+        "decomp",
+        "recomp",
+        "killzone",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "keyboard and mouse",
+        "controller support",
+        "increased internal resolution",
+        "ultrawide"
+      ],
+      "catalogEntryId": "k170ash4eccc0t8n6cr9we8n1s8h5zgs",
+      "catalog": {
+        "name": "Killzone Shadow Fall",
+        "project": "killzone-shadowfall-pc",
+        "appIconUrl": "https://raw.githubusercontent.com/lesca-191204/killzone-shadowfall-pc/cdfb5c245eb44677338e684f64384139e119c07b/launcher/gow3.ico",
+        "tags": [
+          "recomp",
+          "ps4",
+          "killzone",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "keyboard and mouse",
+          "controller support",
+          "increased internal resolution",
+          "ultrawide"
+        ]
+      }
     },
     {
       "name": "Gravity Rush Remastered",
@@ -503,8 +590,8 @@
       "installPath": null,
       "appIconUrl": "https://raw.githubusercontent.com/saulob/dragons-crown-pro-pc/a05846c93ee454ac8a17be4de24fac4b3f08d58f/packaging/icons/app-icon-512.png",
       "repository": "saulob/dragons-crown-pro-pc",
-      "preferredVersion": null,
-      "skippedUpdateVersion": null,
+      "preferredVersion": "v0.9.0",
+      "skippedUpdateVersion": "v0.8.0",
       "project": "Dragon\u0027s Crown Pro PC Port",
       "autoUpdate": true,
       "tags": [
@@ -531,6 +618,127 @@
           "widescreen",
           "unlocked framerate",
           "increased internal resolution",
+          "controller support",
+          "keyboard and mouse"
+        ]
+      }
+    },
+    {
+      "name": "MediEvil",
+      "folderName": "MediEvil-Medievil2019PcPort",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/bc160201983/medievil_2019_pc_port/cae2e61070ffc9041c08e1305f3386884ea5a4ec/launcher/medievil.ico",
+      "repository": "bc160201983/medievil_2019_pc_port",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "MediEvil (PS4) for PC",
+      "autoUpdate": true,
+      "tags": [
+        "recreation",
+        "ps4",
+        "playstation",
+        "playstation 4",
+        "unlocked framerate",
+        "controller support",
+        "keyboard and mouse"
+      ],
+      "catalogEntryId": "k1732w16xjc716cqgyvv9s21418gtsnz",
+      "catalog": {
+        "name": "MediEvil",
+        "project": "MediEvil (PS4) for PC",
+        "appIconUrl": "https://raw.githubusercontent.com/bc160201983/medievil_2019_pc_port/cae2e61070ffc9041c08e1305f3386884ea5a4ec/launcher/medievil.ico",
+        "tags": [
+          "recreation",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "unlocked framerate",
+          "controller support",
+          "keyboard and mouse"
+        ]
+      }
+    },
+    {
+      "name": "WipEout Omega Collection",
+      "folderName": "WipEoutOmegaCollection-WipeoutPc",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/AbdelmoumenDeghbouche/wipeout_pc/9db8ff339e462ffd26902a016b932bb0f22daac7/launcher/gow3.ico",
+      "repository": "AbdelmoumenDeghbouche/wipeout_pc",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "wipeout_pc",
+      "autoUpdate": true,
+      "tags": [
+        "recomp",
+        "ps4",
+        "wipeout",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "unlocked framerate",
+        "increased internal resolution",
+        "ultrawide",
+        "widescreen",
+        "keyboard and mouse",
+        "controller support"
+      ],
+      "catalogEntryId": "k17fc67ah1rhjrdnzd8kncjfr18gsaqf",
+      "catalog": {
+        "name": "WipEout Omega Collection",
+        "project": "wipeout_pc",
+        "appIconUrl": "https://raw.githubusercontent.com/AbdelmoumenDeghbouche/wipeout_pc/9db8ff339e462ffd26902a016b932bb0f22daac7/launcher/gow3.ico",
+        "tags": [
+          "recomp",
+          "ps4",
+          "wipeout",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "unlocked framerate",
+          "increased internal resolution",
+          "ultrawide",
+          "widescreen",
+          "keyboard and mouse",
+          "controller support"
+        ]
+      }
+    },
+    {
+      "name": "Shadow of the Colossus",
+      "folderName": "ShadowOfTheColossus-ShadowOfTheColossusPC",
+      "installPath": null,
+      "appIconUrl": "https://raw.githubusercontent.com/Oussama268/ShadowOfTheColossus-PC/46832d716c671827ac2dac893b39ef26339b26fc/launcher/sotc.ico",
+      "repository": "Oussama268/ShadowOfTheColossus-PC",
+      "preferredVersion": null,
+      "skippedUpdateVersion": null,
+      "project": "ShadowOfTheColossus-PC",
+      "autoUpdate": true,
+      "tags": [
+        "recomp",
+        "ps4",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "widescreen",
+        "ultrawide",
+        "unlocked framerate",
+        "controller support",
+        "keyboard and mouse"
+      ],
+      "catalogEntryId": "k171m360c3x94mtgk1tprp1zz98gng37",
+      "catalog": {
+        "name": "Shadow of the Colossus",
+        "project": "ShadowOfTheColossus-PC",
+        "appIconUrl": "https://raw.githubusercontent.com/Oussama268/ShadowOfTheColossus-PC/46832d716c671827ac2dac893b39ef26339b26fc/launcher/sotc.ico",
+        "tags": [
+          "recomp",
+          "ps4",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "widescreen",
+          "ultrawide",
+          "unlocked framerate",
           "controller support",
           "keyboard and mouse"
         ]
