@@ -13,6 +13,6 @@ setting_file=/userdata/system/configs/Quiver/wine/UnchartedTheNathanDrakeCollect
 preload_file=CUSA02320_UNCHARTEDCOLLECTION_WINE.json
 
 [Roms]
-game_directory=/userdata/roms/quiver/GAME/CUSA02320 - Uncharted Drake Collection
-dlc_directory=/userdata/roms/quiver/DLC/CUSA02320 - Uncharted Drake Collection
-mods_directory=/userdata/roms/quiver/MODS/CUSA02320 - Uncharted Drake Collection
+game_directory=/userdata/roms/quiver/GAME/CUSA02320 - Uncharted The Nathan Drake Collection
+dlc_directory=/userdata/roms/quiver/DLC/CUSA02320 - Uncharted The Nathan Drake Collection
+mods_directory=/userdata/roms/quiver/MODS/CUSA02320 - Uncharted The Nathan Drake Collection

@@ -1,7 +1,7 @@
 {
   "game": "u1",
   "diagnostics": true,
-  "game_dir": "Z:/userdata/roms/quiver/GAME/CUSA02320 - Uncharted Drake Collection",
+  "game_dir": "Z:/userdata/roms/quiver/GAME/CUSA02320 - Uncharted The Nathan Drake Collection",
   "check_updates": true,
   "language": "2",
   "unlock": false,
@@ -320,6 +320,6 @@
   ],
   "speakers": "auto",
   "anisotropy": "0",
-  "game_dir_unix": "/userdata/roms/quiver/GAME/CUSA02320 - Uncharted Drake Collection",
+  "game_dir_unix": "/userdata/roms/quiver/GAME/CUSA02320 - Uncharted The Nathan Drake Collection",
   "gpu": "AMD Radeon 780M Graphics (RADV PHOENIX)"
 }

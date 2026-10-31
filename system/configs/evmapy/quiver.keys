@@ -6,6 +6,25 @@
             "target": [
                 "batocera-mouse hide && sh /userdata/system/Quiver/emulator/exit_quiver.sh && pkill -f Quiver 2>/dev/null"
             ]
-        }
+        },
+        {
+            "trigger": "joystick1",
+            "type": "mouse"
+        },
+        {
+            "trigger": "b",
+            "type": "key",
+            "target": "BTN_LEFT"
+        },
+        {
+            "trigger": "a",
+            "type": "key",
+            "target": "BTN_RIGHT"
+        },
+        {
+            "trigger": "y",
+            "type": "key",
+            "target": "BTN_MIDDLE"
+        }		
     ]
 }
