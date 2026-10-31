@@ -13,11 +13,11 @@ MODS_ROOT="$ROM_DIR/MODS"
 
 # DRY_RUN=1 : journalise ce qui serait supprimé sans rien toucher.
 # Passer à 0 (ici ou via l'environnement) pour activer les suppressions réelles.
-DRY_RUN="${DRY_RUN:-1}"
+DRY_RUN="${DRY_RUN:-0}"
 
 # Nombre maximal de profils orphelins acceptés par exécution.
 # Au-delà, tout le nettoyage est annulé (symptôme probable d'un problème sur Apps).
-MAX_DELETIONS="${MAX_DELETIONS:-3}"
+MAX_DELETIONS="${MAX_DELETIONS:-10}"
 
 LOCK_DIR="/tmp/exit_quiver.lock"
 

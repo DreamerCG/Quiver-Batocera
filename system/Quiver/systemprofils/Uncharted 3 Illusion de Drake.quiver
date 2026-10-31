@@ -5,7 +5,7 @@ Folder=UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
 [Launcher]
 Path=/userdata/system/Quiver/emulator/Apps/UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort
 executable=Uncharted Launcher.exe
-args=--play u3
+args= --play u3
 mode=wine
 
 [Config]
