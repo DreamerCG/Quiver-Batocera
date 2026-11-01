@@ -3,7 +3,6 @@ set -Eeuo pipefail
 
 # curl -L https://raw.githubusercontent.com/DreamerCG/Quiver-Batocera/main/install.sh | bash
 
-
 REPO="DreamerCG/Quiver-Batocera"
 BRANCH="main"
 BASE_DIR="/userdata"
