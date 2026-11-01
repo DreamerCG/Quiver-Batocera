@@ -1,5 +1,5 @@
 [Game]
-Name=Gravity Rush
+Name=Gravity Rush Remastered
 Folder=gravityrush_pc-LucaPazienza
 
 [Launcher]
@@ -13,6 +13,6 @@ setting_file=users/steamuser/AppData/Roaming/gravityrush-launcher/settings.json
 preload_file=CUSA01113_GravrityRush_Wine.json
 
 [Roms]
-game_directory=/userdata/roms/quiver/GAME/CUSA01113 - Gravity Rush
-dlc_directory=/userdata/roms/quiver/DLC/CUSA01113 - Gravity Rush
-mods_directory=/userdata/roms/quiver/MODS/CUSA01113 - Gravity Rush
+game_directory=/userdata/roms/quiver/GAME/CUSA01113 - Gravity Rush Remastered
+dlc_directory=/userdata/roms/quiver/DLC/CUSA01113 - Gravity Rush Remastered
+mods_directory=/userdata/roms/quiver/MODS/CUSA01113 - Gravity Rush Remastered

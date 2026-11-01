@@ -1,9 +1,9 @@
 {
   "ui_language": "fr",
-  "game_dir": "/userdata/roms/quiver/GAME/CUSA01113 - Gravity Rush",
-  "user_dir": "/userdata/saves/quiver/CUSA01113 - Gravity Rush",
-  "dlc_dir": "/userdata/roms/quiver/DLC/CUSA01113 - Gravity Rush",
-  "mods_dir": "/userdata/roms/quiver/MODS/CUSA01113 - Gravity Rush",
+  "game_dir": "/userdata/roms/quiver/GAME/CUSA01113 - Gravity Rush Remastered",
+  "user_dir": "/userdata/saves/quiver/CUSA01113 - Gravity Rush Remastered",
+  "dlc_dir": "/userdata/roms/quiver/DLC/CUSA01113 - Gravity Rush Remastered",
+  "mods_dir": "/userdata/roms/quiver/MODS/CUSA01113 - Gravity Rush Remastered",
   "mods_enabled": true,
   "patches_dir": "",
   "language": "2",
