@@ -7,7 +7,6 @@ utilise l'ancienne intégration. Sans Configgen, on lance directement
 batocera-launch.
 """
 import importlib.util
-from importlib.metadata import entry_points
 import runpy
 import sys
 from pathlib import Path
@@ -27,24 +26,8 @@ def _has_configgen() -> bool:
 def run_batocera_launch() -> None:
     sys.path.insert(0, str(HERE))
 
-    system = _argument_value("-system")
     emulator = _argument_value("-emulator")
     core = _argument_value("-core")
-
-    matching_emulators = sorted(
-        f"{entry_point.name}={entry_point.value}"
-        for entry_point in entry_points(group="batocera_launch.emulators")
-        if entry_point.name == emulator
-    )
-    print(f"[DCG QUIVER LAUNCHER] batocera-launch argv: {sys.argv[1:]!r}", file=sys.stderr)
-    print(
-        f"[DCG QUIVER LAUNCHER] system={system!r}, emulator argument={emulator!r}",
-        file=sys.stderr,
-    )
-    print(
-        f"[DCG QUIVER LAUNCHER] matching emulator plugins: {matching_emulators!r}",
-        file=sys.stderr,
-    )
 
     from batocera_launch.config import config as config_mod, defaults
 
@@ -55,24 +38,10 @@ def run_batocera_launch() -> None:
             result["emulator"] = emulator
         if not result.get("core") and core:
             result["core"] = core
-        print(
-            f"[DCG QUIVER LAUNCHER] resolved defaults for {system_name!r}: "
-            f"emulator={result.get('emulator')!r}, core={result.get('core')!r}",
-            file=sys.stderr,
-        )
         return result
 
     def load_system_defaults(system_name: str, /):
-        if system_name != "windows-arcade-launcher":
-            return complete_defaults(system_name, original(system_name) or {})
-        data = defaults.load_defaults(
-            system_name,
-            defaults.LAUNCH_DEFAULTS_DIR / "config.yml",
-            defaults.LAUNCH_DEFAULTS_DIR / "config-arch.yml",
-        ) or {}
-        result = {"emulator": data.get("emulator"), "core": data.get("core")}
-        result.update(data.get("options") or {})
-        return complete_defaults(system_name, result)
+        return complete_defaults(system_name, original(system_name) or {})
 
     defaults.load_system_defaults = load_system_defaults
     config_mod.load_system_defaults = load_system_defaults
@@ -90,14 +59,25 @@ def _argument_value(name: str) -> str | None:
 
 def run_configgen() -> None:
     sys.path.insert(0, str(CONFIGGEN_DIR))
-    sys.argv[0] = str(CONFIGGEN_DIR / "DCG QUIVERlauncher")
+    sys.argv[0] = str(CONFIGGEN_DIR / "dcglauncher")
     runpy.run_path(sys.argv[0], run_name="__main__")
 
 
 if __name__ == "__main__":
+    system = _argument_value("-system") or "inconnu"
+    emulator = _argument_value("-emulator") or "inconnu"
+
     if _has_configgen():
-        print('[DCG QUIVER LAUNCHER] Lancement avec Configgen via DCG QUIVERlauncher', file=sys.stderr)
+        print(
+            f"[DCG QUIVER LAUNCHER] run=Configgen system={system} "
+            f"emulator={emulator}",
+            file=sys.stderr,
+        )
         run_configgen()
     else:
-        print('[DCG QUIVER LAUNCHER] Lancement direct via Batocera Launch', file=sys.stderr)
+        print(
+            f"[DCG QUIVER LAUNCHER] run=batocera-launch system={system} "
+            f"emulator={emulator}",
+            file=sys.stderr,
+        )
         run_batocera_launch()

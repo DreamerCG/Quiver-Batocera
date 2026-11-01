@@ -14,10 +14,27 @@ MODS_ROOT="$ROM_DIR/MODS"
 # DRY_RUN=1 : journalise ce qui serait supprimé sans rien toucher.
 # Passer à 0 (ici ou via l'environnement) pour activer les suppressions réelles.
 DRY_RUN="${DRY_RUN:-0}"
+case "$DRY_RUN" in
+    0|1) ;;
+    *)
+        echo "[ERREUR] DRY_RUN doit valoir 0 ou 1 : $DRY_RUN" >&2
+        exit 1
+        ;;
+esac
 
 # Nombre maximal de profils orphelins acceptés par exécution.
 # Au-delà, tout le nettoyage est annulé (symptôme probable d'un problème sur Apps).
 MAX_DELETIONS="${MAX_DELETIONS:-10}"
+case "$MAX_DELETIONS" in
+    ""|*[!0-9]*)
+        echo "[ERREUR] MAX_DELETIONS doit être un entier positif : $MAX_DELETIONS" >&2
+        exit 1
+        ;;
+esac
+if [ "$MAX_DELETIONS" -lt 1 ] || [ "$MAX_DELETIONS" -gt 10 ]; then
+    echo "[ERREUR] MAX_DELETIONS doit être compris entre 1 et 10 : $MAX_DELETIONS" >&2
+    exit 1
+fi
 
 LOCK_DIR="/tmp/exit_quiver.lock"
 
@@ -49,20 +66,39 @@ echo "[INFO] Redirection des logs opérationnelle"
 
 # Verrou : éviter deux exécutions simultanées
 if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+    if [ -L "$LOCK_DIR" ] || [ ! -d "$LOCK_DIR" ]; then
+        echo "[ERREUR] Verrou invalide ou symbolique : $LOCK_DIR"
+        exit 1
+    fi
     old_pid=$(cat "$LOCK_DIR/pid" 2>/dev/null)
     if [ -n "$old_pid" ] && kill -0 "$old_pid" 2>/dev/null; then
         echo "[IGNORÉ] Une autre exécution est en cours (PID $old_pid)"
         exit 0
     fi
     echo "[INFO] Verrou périmé supprimé"
-    rm -rf "$LOCK_DIR"
+    rm -f "$LOCK_DIR/pid"
+    if ! rmdir "$LOCK_DIR" 2>/dev/null; then
+        echo "[ERREUR] Impossible de retirer le verrou périmé $LOCK_DIR"
+        exit 1
+    fi
     if ! mkdir "$LOCK_DIR" 2>/dev/null; then
         echo "[ERREUR] Impossible de créer le verrou $LOCK_DIR"
         exit 1
     fi
 fi
-echo $$ > "$LOCK_DIR/pid"
-trap 'rm -rf "$LOCK_DIR"' EXIT
+if ! printf '%s\n' "$$" > "$LOCK_DIR/pid"; then
+    rm -f "$LOCK_DIR/pid"
+    rmdir "$LOCK_DIR" 2>/dev/null
+    echo "[ERREUR] Impossible d'écrire le verrou $LOCK_DIR"
+    exit 1
+fi
+release_lock() {
+    [ -L "$LOCK_DIR" ] && return
+    [ "$(cat "$LOCK_DIR/pid" 2>/dev/null)" = "$$" ] || return
+    rm -f "$LOCK_DIR/pid"
+    rmdir "$LOCK_DIR" 2>/dev/null
+}
+trap release_lock EXIT
 trap 'exit 1' INT TERM
 
 batocera-mouse hide
@@ -72,6 +108,13 @@ mkdir -p "$ROM_DIR" || {
     echo "[ERREUR] Impossible de créer $ROM_DIR"
     exit 1
 }
+
+ROM_DIR_REAL=$(realpath "$ROM_DIR" 2>/dev/null)
+ROM_DIR_SAFE=1
+if [ -L "$ROM_DIR" ] || [ "$ROM_DIR_REAL" != "/userdata/roms/quiver" ]; then
+    echo "[ANOMALIE] Racine ROM inattendue ou symbolique : $ROM_DIR"
+    ROM_DIR_SAFE=0
+fi
 
 if [ ! -d "$PROFILES_DIR" ]; then
     echo "[ERREUR] Dossier des profils introuvable : $PROFILES_DIR"
@@ -160,8 +203,35 @@ paths_overlap() {
 }
 
 is_mountpoint() {
-    command -v mountpoint >/dev/null 2>&1 || return 1
-    mountpoint -q "$1" 2>/dev/null
+    mount_path="$1"
+    if [ ! -r /proc/self/mountinfo ]; then
+        echo "[ANOMALIE] Liste des montages indisponible : suppression refusée"
+        return 0
+    fi
+
+    awk -v path="$mount_path" '
+        function decode_mountpoint(value) {
+            gsub(/\\040/, " ", value)
+            gsub(/\\011/, "\t", value)
+            gsub(/\\012/, "\n", value)
+            return value
+        }
+        {
+            mounted = decode_mountpoint($5)
+            if (mounted == path || index(mounted, path "/") == 1)
+                found = 1
+        }
+        END { exit !found }
+    ' /proc/self/mountinfo
+    mount_status=$?
+    case "$mount_status" in
+        0) return 0 ;;
+        1) return 1 ;;
+        *)
+            echo "[ANOMALIE] Impossible de vérifier les points de montage"
+            return 0
+            ;;
+    esac
 }
 
 # Création des répertoires ROM si nécessaire
@@ -174,10 +244,65 @@ create_rom_directory() {
         return 0
     fi
 
+    case "$description" in
+        GAME) root_path="$GAME_ROOT" ;;
+        DLC) root_path="$DLC_ROOT" ;;
+        MODS) root_path="$MODS_ROOT" ;;
+        *)
+            echo "[ERREUR] Racine inconnue pour $description"
+            return 1
+            ;;
+    esac
+
+    case "$directory" in
+        "$root_path"/*) ;;
+        *)
+            echo "[ANOMALIE] $description : chemin hors de sa racine : $directory"
+            return 1
+            ;;
+    esac
+    case "$directory/" in
+        */../*|*/./*|*//*)
+            echo "[ANOMALIE] $description : chemin non normalisé : $directory"
+            return 1
+            ;;
+    esac
+    if [ "$ROM_DIR_SAFE" -ne 1 ] || [ -L "$root_path" ]; then
+        echo "[ANOMALIE] $description : racine non sûre : $root_path"
+        return 1
+    fi
+    if ! mkdir -p "$root_path"; then
+        echo "[ERREUR] Impossible de créer la racine $description : $root_path"
+        return 1
+    fi
+
+    root_real=$(realpath "$root_path" 2>/dev/null)
+    if [ -z "$root_real" ] || [ "$root_real" != "$ROM_DIR_REAL/${root_path##*/}" ]; then
+        echo "[ANOMALIE] $description : racine résolue hors de son emplacement"
+        return 1
+    fi
+    target_real=$(realpath -m "$directory" 2>/dev/null)
+    case "$target_real" in
+        "$root_real"/*) ;;
+        *)
+            echo "[ANOMALIE] $description : chemin résolu hors de sa racine : $directory"
+            return 1
+            ;;
+    esac
+
     echo "[INFO] Vérification $description : $directory"
 
     if mkdir -p "$directory"; then
-        echo "[OK] Répertoire disponible : $directory"
+        actual_real=$(realpath "$directory" 2>/dev/null)
+        case "$actual_real" in
+            "$root_real"/*)
+                echo "[OK] Répertoire disponible : $directory"
+                ;;
+            *)
+                echo "[ANOMALIE] $description : chemin créé hors de sa racine"
+                return 1
+                ;;
+        esac
     else
         echo "[ERREUR] Impossible de créer : $directory"
         return 1
@@ -258,7 +383,7 @@ resolve_target() {
     esac
 
     if is_mountpoint "$rt_real"; then
-        echo "[ANOMALIE] $rt_label : point de montage refusé : $rt_real"
+        echo "[ANOMALIE] $rt_label : point de montage présent ou non vérifiable : $rt_real"
         return 1
     fi
 
@@ -299,6 +424,7 @@ is_shared() {
 
     for sh_other in "$ROM_DIR"/* "$PROFILES_DIR"/*; do
         [ -f "$sh_other" ] || continue
+        [ ! -L "$sh_other" ] || continue
         case "$sh_other" in
             *.[Qq][Uu][Ii][Vv][Ee][Rr]) ;;
             *) continue ;;
@@ -306,12 +432,6 @@ is_shared() {
 
         sh_oname=${sh_other##*/}
         [ "$sh_oname" = "$sh_self_name" ] && continue
-
-        # Un profil dont l'application n'existe plus ne protège rien.
-        sh_ofolder=$(get_ini_value "$sh_other" "Game" "Folder")
-        if valid_folder "$sh_ofolder" && [ ! -d "$APPS_DIR/$sh_ofolder" ]; then
-            continue
-        fi
 
         for sh_key in game_directory dlc_directory mods_directory; do
             sh_val=$(get_ini_value "$sh_other" "Roms" "$sh_key")
@@ -335,7 +455,24 @@ is_shared() {
 }
 
 remove_dir() {
-    rd_path="$1"
+    rd_label="$1"
+    rd_root="$2"
+    rd_rootreal="$3"
+    rd_path="$4"
+
+    resolve_target "$rd_label" "$rd_root" "$rd_rootreal" "$rd_path"
+    rd_status=$?
+    case "$rd_status" in
+        0) rd_path="$RESOLVED" ;;
+        2)
+            echo "[INFO] $rd_label : déjà absent, aucune suppression"
+            return 0
+            ;;
+        *)
+            echo "[ANOMALIE] Suppression refusée pour $rd_label : $rd_path"
+            return 1
+            ;;
+    esac
 
     if [ "$DRY_RUN" = "1" ]; then
         echo "[DRY-RUN] Suppression simulée : $rd_path"
@@ -343,9 +480,12 @@ remove_dir() {
     fi
 
     echo "[SUPPRESSION] $rd_path"
-    rm -rf -- "$rd_path"
+    if ! rm -rf -- "$rd_path"; then
+        echo "[ERREUR] Échec de suppression : $rd_path"
+        return 1
+    fi
 
-    if [ -e "$rd_path" ]; then
+    if [ -e "$rd_path" ] || [ -L "$rd_path" ]; then
         echo "[ERREUR] Le dossier existe encore : $rd_path"
         return 1
     fi
@@ -364,6 +504,17 @@ cleanup_orphan() {
 
     if [ ! -r "$co_profile" ]; then
         echo "[ANOMALIE] Profil illisible, conservé : $co_name"
+        return 1
+    fi
+    if [ -L "$co_profile" ] || [ ! -f "$co_profile" ]; then
+        echo "[ANOMALIE] Profil non régulier ou lien symbolique, conservé : $co_name"
+        return 1
+    fi
+
+    co_profile_real=$(realpath "$co_profile" 2>/dev/null)
+    co_rom_real=$(realpath "$ROM_DIR" 2>/dev/null)
+    if [ -z "$co_profile_real" ] || [ "$co_rom_real" != "${co_profile_real%/*}" ]; then
+        echo "[ANOMALIE] Profil hors du dossier ROM, conservé : $co_name"
         return 1
     fi
 
@@ -416,7 +567,21 @@ cleanup_orphan() {
     co_fail=0
     for co_r in "$co_r_game" "$co_r_dlc" "$co_r_mods"; do
         [ -n "$co_r" ] || continue
-        remove_dir "$co_r" || co_fail=1
+        case "$co_r" in
+            "$GAME_ROOT_REAL"/*)
+                remove_dir "GAME" "$GAME_ROOT" "$GAME_ROOT_REAL" "$co_r" || co_fail=1
+                ;;
+            "$DLC_ROOT_REAL"/*)
+                remove_dir "DLC" "$DLC_ROOT" "$DLC_ROOT_REAL" "$co_r" || co_fail=1
+                ;;
+            "$MODS_ROOT_REAL"/*)
+                remove_dir "MODS" "$MODS_ROOT" "$MODS_ROOT_REAL" "$co_r" || co_fail=1
+                ;;
+            *)
+                echo "[ANOMALIE] Chemin sans racine reconnue, profil conservé : $co_name"
+                return 1
+                ;;
+        esac
     done
 
     if [ "$co_fail" -ne 0 ]; then
@@ -428,6 +593,16 @@ cleanup_orphan() {
     if [ "$DRY_RUN" = "1" ]; then
         echo "[DRY-RUN] Profil qui serait supprimé : $co_name"
         return 0
+    fi
+
+    if [ -e "$PROFILES_DIR/$co_name" ] || [ -L "$PROFILES_DIR/$co_name" ]; then
+        echo "[ANOMALIE] Profil système apparu pendant le nettoyage, conservé : $co_name"
+        return 1
+    fi
+    if [ -L "$co_profile" ] || [ ! -f "$co_profile" ] \
+        || [ "$(realpath "$co_profile" 2>/dev/null)" != "$co_profile_real" ]; then
+        echo "[ANOMALIE] Profil modifié pendant le nettoyage, conservé : $co_name"
+        return 1
     fi
 
     if rm -f "$co_profile"; then
@@ -443,9 +618,32 @@ cleanup_orphan() {
 # Chemins résolus (calculés une fois)
 # ------------------------------------------------------------------
 
-GAME_ROOT_REAL=$(realpath "$GAME_ROOT" 2>/dev/null)
-DLC_ROOT_REAL=$(realpath "$DLC_ROOT" 2>/dev/null)
-MODS_ROOT_REAL=$(realpath "$MODS_ROOT" 2>/dev/null)
+CLEANUP_SAFE="$ROM_DIR_SAFE"
+
+resolve_root() {
+    root_label="$1"
+    root_path="$2"
+    ROOT_REAL=""
+
+    if [ -L "$root_path" ] || [ ! -d "$root_path" ]; then
+        echo "[ANOMALIE] Racine $root_label absente ou symbolique : $root_path"
+        return 1
+    fi
+
+    ROOT_REAL=$(realpath "$root_path" 2>/dev/null)
+    if [ -z "$ROOT_REAL" ] || [ "$ROOT_REAL" != "$ROM_DIR_REAL/${root_path##*/}" ]; then
+        echo "[ANOMALIE] Racine $root_label résolue hors de son emplacement : $root_path"
+        ROOT_REAL=""
+        return 1
+    fi
+}
+
+resolve_root "GAME" "$GAME_ROOT" || true
+GAME_ROOT_REAL="$ROOT_REAL"
+resolve_root "DLC" "$DLC_ROOT" || true
+DLC_ROOT_REAL="$ROOT_REAL"
+resolve_root "MODS" "$MODS_ROOT" || true
+MODS_ROOT_REAL="$ROOT_REAL"
 
 # Chemins qu'aucune suppression ne doit égaler ni contenir (sans espaces)
 PROTECTED_REAL=""
@@ -533,7 +731,9 @@ for app_dir in "$APPS_DIR"/*/; do
     [ -d "$app_dir" ] && apps_count=$((apps_count + 1))
 done
 
-if [ "$apps_count" -eq 0 ]; then
+if [ "$CLEANUP_SAFE" -ne 1 ]; then
+    echo "[ERREUR] Racines non vérifiables : nettoyage des profils annulé"
+elif [ "$apps_count" -eq 0 ]; then
     echo "[ERREUR] $APPS_DIR ne contient aucune application : nettoyage annulé"
 else
     ORPHANS=""
@@ -554,6 +754,16 @@ else
         # Ne jamais supprimer le profil du launcher Quiver.
         if [ "$profile_name" = "Quiver Launcher.quiver" ]; then
             echo "[IGNORÉ] Profil réservé : $profile_name"
+            continue
+        fi
+        if [ -e "$PROFILES_DIR/$profile_name" ] \
+            || [ -L "$PROFILES_DIR/$profile_name" ]; then
+            echo "[IGNORÉ] Profil système conservé : $profile_name"
+            continue
+        fi
+
+        if [ -L "$rom_profile" ]; then
+            echo "[IGNORÉ] Profil ROM symbolique : $profile_name"
             continue
         fi
 

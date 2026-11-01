@@ -1,4 +1,3 @@
-
 #!/bin/bash
 set -Eeuo pipefail
 
@@ -175,16 +174,25 @@ rsync -a --ignore-existing \
 # Permissions d'exécution
 APPIMAGE="${INSTALL_DIR}/emulator/QuiverLauncher-linux-x64.AppImage"
 EXIT_SCRIPT="${INSTALL_DIR}/emulator/exit_quiver.sh"
+WINE_LAUNCHER="${INSTALL_DIR}/bin/quiver-wine"
+LEGACY_WINE_LAUNCHER="${INSTALL_DIR}/bin/batocera-wine"
 
 [[ -f "$APPIMAGE" ]] || die "AppImage Quiver introuvable."
 [[ -f "$EXIT_SCRIPT" ]] || die "exit_quiver.sh introuvable."
+[[ -f "$WINE_LAUNCHER" ]] || die "Launcher Wine Quiver introuvable."
 
 log "Application des permissions..."
-chmod +x "$APPIMAGE" "$EXIT_SCRIPT" \
+chmod +x "$APPIMAGE" "$EXIT_SCRIPT" "$WINE_LAUNCHER" \
     || die "Impossible d'appliquer les permissions."
 
 if [[ -d "${INSTALL_DIR}/bin" ]]; then
     find "${INSTALL_DIR}/bin" -maxdepth 1 -type f -exec chmod +x {} +
+fi
+
+if [[ -f "$LEGACY_WINE_LAUNCHER" || -L "$LEGACY_WINE_LAUNCHER" ]]; then
+    rm -f -- "$LEGACY_WINE_LAUNCHER" \
+        || die "Impossible de retirer l'ancien launcher Wine."
+    log "Ancien launcher batocera-wine retiré."
 fi
 
 log "Quiver ${VERSION} installé avec succès."

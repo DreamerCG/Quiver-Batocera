@@ -751,12 +751,6 @@ play_exe() {
     sandboxing_prefix "${WINEPOINT}" || return 1
     dxvk_install "${WINEPOINT}" || return 1
 
-    printf '[QUIVER DEBUG] Exécutable Wine : <%s>\n' "${ROMGAMENAME}" >&2
-    printf '[QUIVER DEBUG] Arguments reçus par play_exe : <%s>\n' "$*" >&2
-    printf '[QUIVER DEBUG] Commande finale : ' >&2
-    printf '<%s> ' "${WINE}" "${ROMGAMENAME}" "$@" >&2
-    printf '\n' >&2
-
     (cd "${ROMBASEDIR}" && WINEPREFIX="${WINEPOINT}" ${CMD_PREFIX} "${WINE}" "${ROMGAMENAME}" "$@")
     waitWineServer 0
 }
@@ -1150,7 +1144,6 @@ case "${ACTION}" in
        shift 3
        [[ "${1:-}" == "--" ]] && shift
        GAME_ARGS=("$@")
-       printf '[QUIVER DEBUG] GAME_ARGS=<%s>\n' "${GAME_ARGS[*]}" >&2
    fi
 
     if [[ "${GAMEEXT,,}" == "exe" ]]; then
@@ -1244,7 +1237,7 @@ case "${ACTION}" in
 
     "autorun"|"autorun-list"|"autorun-count")
         # Create autorunfile, works only in SSH mode, recommended is arg1=gamepath, arg2=searchmask
-        # It's held small: "batocera-wine windows autorun . bin" will search current directory in dir bin
+        # It's held small: "quiver-wine windows autorun . bin" will search current directory in dir bin
         [[ -z "${GAMENAME}" ]] && GAMENAME="$PWD"
         [[ -z "${AUTORUN_FILEMASK}" ]] && AUTORUN_FILEMASK="."
         pushd "${GAMENAME}" &> /dev/null || { echo "Error: Can't enter dir '${GAMENAME}'" >&2; exit 1; }

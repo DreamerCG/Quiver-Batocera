@@ -7,7 +7,6 @@ import os
 import shlex
 import shutil
 import subprocess
-import sys
 from pathlib import Path
 
 from batocera_common.dataclasses import cached_dataclass, cached_property
@@ -20,7 +19,7 @@ _logger = logging.getLogger(__name__)
 
 QUIVER_CONFIG_ROOT = Path("/userdata/system/configs/Quiver")
 QUIVER_PRELOAD_ROOT = Path("/userdata/system/Quiver/preload")
-BATOCERA_WINE = Path("/userdata/system/Quiver/bin/batocera-wine")
+QUIVER_WINE = Path("/userdata/system/Quiver/bin/quiver-wine")
 
 
 def _read_quiver_file(rom: Path) -> configparser.ConfigParser:
@@ -177,35 +176,6 @@ class Quiver(Emulator):
         # Runner choisi dans les options EmulationStation.
         feature_runner = self.config.get("wine-runner", "").strip()
 
-        # Lecture du runner Batocera pour diagnostic.
-        try:
-            result = subprocess.run(
-                [
-                    "/usr/bin/batocera-settings-get",
-                    'quiver["Drive Club.quiver"].wine-runner',
-                    "quiver.wine-runner",
-                    "global.wine-runner",
-                ],
-                capture_output=True,
-                text=True,
-                check=False,
-            )
-
-            print(
-                f"[QUIVER DEBUG] Runner batocera-settings-get : "
-                f"stdout={result.stdout!r}, stderr={result.stderr!r}, "
-                f"returncode={result.returncode}",
-                file=sys.stderr,
-                flush=True,
-            )
-
-        except Exception as error:
-            print(
-                f"[QUIVER DEBUG] Lecture du runner impossible : {error}",
-                file=sys.stderr,
-                flush=True,
-            )
-
         if not runner and feature_runner:
             if feature_runner.lower() not in ("auto", "default", "none"):
                 runner = feature_runner
@@ -296,9 +266,9 @@ class Quiver(Emulator):
                 f"un fichier .exe ou .bat : {executable}"
             )
 
-        if mode == "wine" and not BATOCERA_WINE.is_file():
+        if mode == "wine" and not QUIVER_WINE.is_file():
             raise RuntimeError(
-                f"{name} : launcher Wine introuvable : {BATOCERA_WINE}"
+                f"{name} : launcher Wine introuvable : {QUIVER_WINE}"
             )
 
         # Gestion du launcher Quiver.
@@ -351,16 +321,8 @@ class Quiver(Emulator):
 
                     if settings_exists:
                         _logger.info(
-                            "Quiver : configuration initiale copiée : %s -> %s",
-                            preload_path,
-                            setting_path
-                        )
-
-                        print(
-                            f"[QUIVER] Configuration preload installée : "
-                            f"{preload_name}",
-                            file=sys.stderr,
-                            flush=True,
+                            "Quiver : configuration initiale installée : %s",
+                            preload_name,
                         )
 
                 except OSError as error:
@@ -376,17 +338,6 @@ class Quiver(Emulator):
                     preload_path
                 )
 
-        print("[QUIVER DEBUG] ===== SETTINGS =====", file=sys.stderr, flush=True)
-        print(f"[QUIVER DEBUG] Jeu       : {name!r}", file=sys.stderr, flush=True)
-        print(f"[QUIVER DEBUG] Mode      : {mode!r}", file=sys.stderr, flush=True)
-        print(f"[QUIVER DEBUG] Runner    : {runner!r}", file=sys.stderr, flush=True)
-        print(f"[QUIVER DEBUG] setting_file brut : {setting_file!r}", file=sys.stderr, flush=True)
-        print(f"[QUIVER DEBUG] setting_path     : {str(setting_path)!r}", file=sys.stderr, flush=True)
-        print(f"[QUIVER DEBUG] fichier existe  : {setting_path.is_file() if setting_path else False}", file=sys.stderr, flush=True)
-        print(f"[QUIVER DEBUG] preload_file    : {preload_file!r}", file=sys.stderr, flush=True)
-        print(f"[QUIVER DEBUG] settings_exists : {settings_exists}", file=sys.stderr, flush=True)
-        print("[QUIVER DEBUG] =====================", file=sys.stderr, flush=True)
-
         launcher_quiver = self.config.get(
             "LAUNCHER_QUIVER", "on"
         ).strip().lower()
@@ -394,40 +345,14 @@ class Quiver(Emulator):
         if not settings_exists:
             launcher_quiver = "on"
 
-            print(
-                "[QUIVER DEBUG] Fichier absent : ouverture forcée du launcher.",
-                file=sys.stderr,
-                flush=True,
+            _logger.info(
+                "Quiver : configuration absente, ouverture du launcher activée"
             )
 
-        # --- DEBUG : état du launcher ---
         launcher_is_on = _is_enabled(launcher_quiver)
-
-        print(
-            f"[QUIVER DEBUG] LAUNCHER_QUIVER brut : {launcher_quiver!r}",
-            file=sys.stderr,
-            flush=True,
-        )
-        print(
-            f"[QUIVER DEBUG] Launcher : {'ON' if launcher_is_on else 'OFF'}",
-            file=sys.stderr,
-            flush=True,
-        )
-        print(
-            f"[QUIVER DEBUG] Arguments avant filtre : {app_args!r}",
-            file=sys.stderr,
-            flush=True,
-        )
-        # --------------------------------
 
         if launcher_is_on:
             app_args = [arg for arg in app_args if arg != "--play"]
-
-        print(
-            f"[QUIVER DEBUG] Arguments après filtre : {app_args!r}",
-            file=sys.stderr,
-            flush=True,
-        )
 
         if (
             _is_enabled(launcher_quiver)
@@ -443,44 +368,20 @@ class Quiver(Emulator):
         else:
             env.pop("QUIVER_GAME_NAME", None)
 
-        # Transmission de la configuration des manettes Batocera à SDL/Wine.
-        try:
-            controllers = list(self.controllers)
-
-            env["SDL_GAMECONTROLLERCONFIG"] = (
-                generate_sdl_game_controller_config(controllers)
-            )
-
-            env["SDL_JOYSTICK_HIDAPI"] = "0"
-
-            print(
-                f"[QUIVER DEBUG] Manettes détectées : {len(controllers)}",
-                file=sys.stderr,
-                flush=True,
-            )
-
-            print(
-                f"[QUIVER DEBUG] SDL_GAMECONTROLLERCONFIG="
-                f"{env['SDL_GAMECONTROLLERCONFIG']!r}",
-                file=sys.stderr,
-                flush=True,
-            )
-
-        except Exception as error:
-            print(
-                f"[QUIVER DEBUG] Erreur configuration manettes : {error}",
-                file=sys.stderr,
-                flush=True,
-            )
+        controllers = list(self.controllers)
+        env["SDL_GAMECONTROLLERCONFIG"] = (
+            generate_sdl_game_controller_config(controllers)
+        )
+        env["SDL_JOYSTICK_HIDAPI"] = "0"
 
         if mode == "wine":
-            # Le script batocera-wine utilisera ce runner pour ce jeu.
+            # Le script Quiver Wine utilisera ce runner pour ce jeu.
             if runner:
                 env["QUIVER_WINE_RUNNER"] = runner
             else:
                 env.pop("QUIVER_WINE_RUNNER", None)
 
-            # Le préfixe sera géré par batocera-wine.
+            # Le préfixe sera géré par Quiver Wine.
             env.pop("WINEPREFIX", None)
 
         else:
@@ -509,7 +410,7 @@ class Quiver(Emulator):
         # Construction de la commande de lancement.
         if mode == "wine":
             command = [
-                str(BATOCERA_WINE),
+                str(QUIVER_WINE),
                 "quiver",
                 "play",
                 str(executable),
@@ -523,50 +424,11 @@ class Quiver(Emulator):
                 *app_args,
             ]
 
-        _logger.info("Quiver : jeu=%s", name)
-        _logger.info("Quiver : mode=%s", mode)
-        _logger.info("Quiver : runner=%s", runner or "(runner Batocera)")
-        _logger.info("Quiver : dossier=%s", workdir)
-        _logger.info("Quiver : arguments=%s", app_args)
-        _logger.debug("Quiver : commande=%s", shlex.join(command))
-
-        print(
-            f"[QUIVER] Jeu={name} mode={mode} runner={runner or 'défaut'}",
-            file=sys.stderr,
-            flush=True,
-        )
-
-        print(
-            f"[QUIVER] Commande={shlex.join(command)}",
-            file=sys.stderr,
-            flush=True,
-        )
-
-        print(
-            f"[QUIVER DEBUG] QUIVER_WINE_RUNNER="
-            f"{env.get('QUIVER_WINE_RUNNER', '<absent>')!r}",
-            file=sys.stderr,
-            flush=True,
-        )
-
-        print(
-            f"[QUIVER DEBUG] QUIVER_GAME_NAME="
-            f"{env.get('QUIVER_GAME_NAME', '<absent>')!r}",
-            file=sys.stderr,
-            flush=True,
-        )
-
-        print(
-            f"[QUIVER DEBUG] WINEPREFIX="
-            f"{env.get('WINEPREFIX', '<absent>')!r}",
-            file=sys.stderr,
-            flush=True,
-        )
-
-        print(
-            f"[QUIVER DEBUG] HOME={env.get('HOME', '<absent>')!r}",
-            file=sys.stderr,
-            flush=True,
+        _logger.info(
+            "Quiver : lancement de %s (%s, runner %s)",
+            name,
+            mode,
+            runner or "défaut",
         )
 
         return Command(args=command, env=env)
