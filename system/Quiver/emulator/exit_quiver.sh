@@ -309,102 +309,77 @@ create_rom_directory() {
     fi
 }
 
-# Crée un lien de GAME vers un dossier de l'application, sans écraser sa cible.
-create_rom_symlink() {
-    directory="$1"
-    source_path="$2"
-    description="$3"
+# Crée Apps/<jeu>/game -> GAME/<jeu>, sans écraser de contenu existant.
+create_app_game_symlink() {
+    link_path="$app_path/game"
+    target_path="$1"
 
-    case "$description" in
-        GAME) root_path="$GAME_ROOT" ;;
+    case "$target_path" in
+        "$GAME_ROOT"/*) ;;
         *)
-            echo "[ERREUR] Racine inconnue pour le lien $description"
+            echo "[ANOMALIE] GAME : cible hors de sa racine : $target_path"
             return 1
             ;;
     esac
-
-    case "$directory" in
-        "$root_path"/*) ;;
-        *)
-            echo "[ANOMALIE] $description : cible hors de sa racine : $directory"
-            return 1
-            ;;
-    esac
-    case "$directory/" in
+    case "$target_path/" in
         */../*|*/./*|*//*)
-            echo "[ANOMALIE] $description : cible non normalisée : $directory"
+            echo "[ANOMALIE] GAME : cible non normalisée : $target_path"
             return 1
             ;;
     esac
-    if [ "$ROM_DIR_SAFE" -ne 1 ] || [ -L "$root_path" ]; then
-        echo "[ANOMALIE] $description : racine non sûre : $root_path"
-        return 1
-    fi
-    if ! mkdir -p "$root_path"; then
-        echo "[ERREUR] Impossible de créer la racine $description : $root_path"
+    if [ "$ROM_DIR_SAFE" -ne 1 ] || [ -L "$GAME_ROOT" ]; then
+        echo "[ANOMALIE] GAME : racine non sûre : $GAME_ROOT"
         return 1
     fi
 
-    root_real=$(realpath "$root_path" 2>/dev/null)
-    if [ -z "$root_real" ] || [ "$root_real" != "$ROM_DIR_REAL/${root_path##*/}" ]; then
-        echo "[ANOMALIE] $description : racine résolue hors de son emplacement"
+    root_real=$(realpath "$GAME_ROOT" 2>/dev/null)
+    if [ -z "$root_real" ] || [ "$root_real" != "$ROM_DIR_REAL/${GAME_ROOT##*/}" ]; then
+        echo "[ANOMALIE] GAME : racine résolue hors de son emplacement"
         return 1
     fi
-    target_parent_real=$(realpath -m "${directory%/*}" 2>/dev/null)
-    case "$target_parent_real" in
-        "$root_real"|"$root_real"/*) ;;
+
+    target_real=$(realpath "$target_path" 2>/dev/null)
+    case "$target_real" in
+        "$root_real"/*) ;;
         *)
-            echo "[ANOMALIE] $description : dossier parent hors de sa racine : ${directory%/*}"
+            echo "[ANOMALIE] GAME : cible absente ou résolue hors de sa racine : $target_path"
             return 1
             ;;
     esac
-
-    source_real=$(realpath "$source_path" 2>/dev/null)
-    if [ -z "$source_real" ] || [ ! -d "$source_real" ]; then
-        echo "[ERREUR] Source du lien absente ou invalide : $source_path"
+    if [ ! -d "$target_real" ]; then
+        echo "[ERREUR] GAME : cible absente ou invalide : $target_path"
         return 1
     fi
 
     app_real=$(realpath "$app_path" 2>/dev/null)
-    case "$source_real" in
-        "$app_real"/*) ;;
-        *)
-            echo "[ANOMALIE] Source du lien hors du dossier de l'application : $source_path"
-            return 1
-            ;;
-    esac
-
-    if [ -L "$directory" ]; then
-        existing_real=$(realpath "$directory" 2>/dev/null)
-        if [ "$existing_real" = "$source_real" ]; then
-            echo "[OK] Lien déjà présent : $directory -> $source_real"
-            return 0
-        fi
-        echo "[ERREUR] Cible déjà occupée par un autre lien : $directory"
+    link_parent_real=$(realpath "${link_path%/*}" 2>/dev/null)
+    if [ -z "$app_real" ] || [ "$link_parent_real" != "$app_real" ]; then
+        echo "[ANOMALIE] Dossier application invalide : $app_path"
         return 1
     fi
 
-    target_real=$(realpath -m "$directory" 2>/dev/null)
-    case "$target_real" in
-        "$root_real"/*) ;;
-        *)
-            echo "[ANOMALIE] $description : cible résolue hors de sa racine : $directory"
-            return 1
-            ;;
-    esac
-
-    if [ -e "$directory" ]; then
-        if [ ! -d "$directory" ] || ! rmdir "$directory" 2>/dev/null; then
-            echo "[ERREUR] Cible existante et non vide, lien non créé : $directory"
-            return 1
+    if [ -L "$link_path" ]; then
+        existing_real=$(realpath "$link_path" 2>/dev/null)
+        if [ "$existing_real" = "$target_real" ]; then
+            echo "[OK] Lien déjà présent : $link_path -> $target_real"
+            return 0
         fi
-        echo "[INFO] Répertoire vide remplacé par le lien : $directory"
+        echo "[ERREUR] Lien existant vers une autre cible : $link_path"
+        return 1
     fi
 
-    if ln -s "$source_real" "$directory"; then
-        echo "[OK] Lien créé : $directory -> $source_real"
+    if [ -e "$link_path" ]; then
+        if [ ! -d "$link_path" ] || ! rmdir "$link_path" 2>/dev/null; then
+            echo "[ERREUR] $link_path existe et n'est pas vide; lien non créé"
+            return 1
+        fi
+        echo "[INFO] Dossier vide remplacé par le lien : $link_path"
+    fi
+
+    if ln -s "$target_real" "$link_path"; then
+        echo "[OK] Lien créé : $link_path -> $target_real"
     else
-        echo "[ERREUR] Impossible de créer le lien : $directory"
+        echo "[ERREUR] Impossible de créer le lien : $link_path"
         return 1
     fi
 }
@@ -796,22 +771,20 @@ for profile in "$PROFILES_DIR"/*; do
     game_directory=$(get_ini_value "$profile" "Roms" "game_directory")
     dlc_directory=$(get_ini_value "$profile" "Roms" "dlc_directory")
     mods_directory=$(get_ini_value "$profile" "Roms" "mods_directory")
-    game_symlink_source=$(get_ini_value "$profile" "Command" "game_symlink_source")
+    game_symlink_target=$(get_ini_value "$profile" "Command" "game_symlink_target")
 
     # Les trois chemins sont indépendants.
     directories_ok=1
 
-    if [ -n "$game_symlink_source" ]; then
-        case "$game_symlink_source" in
-            /*|..|../*|*/..|*/../*|.|./*|*/./*|*//*)
-                echo "[ANOMALIE] Source de symlink invalide : $game_symlink_source"
-                directories_ok=0
+    if [ -n "$game_symlink_target" ]; then
+        case "$game_symlink_target" in
+            game_directory)
+                create_rom_directory "$game_directory" "GAME" || directories_ok=0
+                create_app_game_symlink "$game_directory" || directories_ok=0
                 ;;
             *)
-                create_rom_symlink \
-                    "$game_directory" \
-                    "$app_path/$game_symlink_source" \
-                    "GAME" || directories_ok=0
+                echo "[ANOMALIE] Cible de symlink non prise en charge : $game_symlink_target"
+                directories_ok=0
                 ;;
         esac
     else
