@@ -1,0 +1,20 @@
+[Game]
+name=Dragons Crown Pro
+Folder=DragonsCrownPro-DragonsCrownProPCPort
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/DragonsCrownPro-DragonsCrownProPCPort
+executable=DragonsCrownProPC-v0.9.0-x86_64.AppImage
+args= --user "/userdata/saves/quiver/CUSA10454 - Dragons Crown Pro"
+
+[Config]
+setting_file=/userdata/saves/quiver/CUSA10454 - Dragons Crown Pro/dcp.ini
+preload_file=CUSA10454_DragonsCrownPro_linux.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA10454 - Dragons Crown Pro
+dlc_directory=/userdata/roms/quiver/DLC/CUSA10454 - Dragons Crown Pro
+mods_directory=/userdata/roms/quiver/MODS/CUSA10454 - Dragons Crown Pro
+
+[Command]
+game_symlink_target=game_directory
