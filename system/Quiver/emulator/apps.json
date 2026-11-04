@@ -39,34 +39,44 @@
       }
     },
     {
-      "name": "Knack 2",
-      "folderName": "Knack-II-pc-port-Hyant4",
-      "installPath": null,
-      "appIconUrl": null,
-      "repository": "Hyant4/Knack-II-pc-port",
-      "preferredVersion": null,
-      "skippedUpdateVersion": null,
-      "project": "Knack 2",
-      "autoUpdate": true,
-      "tags": [
-        "ps4",
-        "decomp"
-      ]
-    },
-    {
       "name": "Odin Sphere Leifthrasir",
       "folderName": "odin-sphere-leifthrasir-pc--saulob",
       "installPath": null,
-      "appIconUrl": null,
+      "appIconUrl": "https://raw.githubusercontent.com/saulob/odin-sphere-leifthrasir-pc/e6979619c3b0a5b626d1fe5191283d0a98c88fdf/packaging/icons/app-icon.ico",
       "repository": "saulob/odin-sphere-leifthrasir-pc",
       "preferredVersion": null,
       "skippedUpdateVersion": null,
-      "project": "Odin Sphere Leifthrasir",
+      "project": "Odin Sphere Leifthrasir PC Port",
       "autoUpdate": true,
       "tags": [
         "ps4",
-        "decomp"
-      ]
+        "decomp",
+        "recomp",
+        "pc",
+        "playstation",
+        "playstation 4",
+        "recompilation",
+        "increased internal resolution",
+        "controller support",
+        "keyboard and mouse"
+      ],
+      "catalogEntryId": "k17ewd5h1dyvej4etd4sprcy0d8h5tq1",
+      "catalog": {
+        "name": "Odin Sphere Leifthrasir",
+        "project": "Odin Sphere Leifthrasir PC Port",
+        "appIconUrl": "https://raw.githubusercontent.com/saulob/odin-sphere-leifthrasir-pc/e6979619c3b0a5b626d1fe5191283d0a98c88fdf/packaging/icons/app-icon.ico",
+        "tags": [
+          "recomp",
+          "ps4",
+          "pc",
+          "playstation",
+          "playstation 4",
+          "recompilation",
+          "increased internal resolution",
+          "controller support",
+          "keyboard and mouse"
+        ]
+      }
     },
     {
       "name": "Prototype Biohazard Bundle",
@@ -77,57 +87,6 @@
       "preferredVersion": null,
       "skippedUpdateVersion": null,
       "project": "Prototype Biohazard Bundle",
-      "autoUpdate": true,
-      "tags": [
-        "ps4",
-        "decomp"
-      ]
-    },        
-    {
-      "name": "Fist of the North Star: Lost Paradise",
-      "folderName": "ItalianKuze-port-ga-gotoku",
-      "installPath": null,
-      "appIconUrl": "https://cdn2.steamgriddb.com/icon_thumb/24c2278eb7af6f2318a889525dff3780.png",
-      "repository": "ItalianKuze/port-ga-gotoku",
-      "preferredVersion": null,
-      "skippedUpdateVersion": null,
-      "project": "PortGaGotoku",
-      "autoUpdate": true,
-      "tags": [
-        "ps4",
-        "decomp",
-        "recomp",
-        "playstation",
-        "playstation 4",
-        "recompilation",
-        "controller support",
-        "keyboard and mouse"
-      ],
-      "catalogEntryId": "k176h0f5t6ypcvq7c9ek3k5fws8h5ccr",
-      "catalog": {
-        "name": "Fist of the North Star: Lost Paradise",
-        "project": "PortGaGotoku",
-        "appIconUrl": "https://cdn2.steamgriddb.com/icon_thumb/24c2278eb7af6f2318a889525dff3780.png",
-        "tags": [
-          "recomp",
-          "ps4",
-          "playstation",
-          "playstation 4",
-          "recompilation",
-          "controller support",
-          "keyboard and mouse"
-        ]
-      }
-    },
-    {
-      "name": "Ratchet and Clanck",
-      "folderName": "RatchetPort-shehab4546",
-      "installPath": null,
-      "appIconUrl": null,
-      "repository": "shehab4546/RatchetPort",
-      "preferredVersion": null,
-      "skippedUpdateVersion": "v2.0",
-      "project": "RatchetPort",
       "autoUpdate": true,
       "tags": [
         "ps4",
@@ -393,7 +352,7 @@
       "repository": "FelipePrado0/SpartanPort",
       "preferredVersion": null,
       "skippedUpdateVersion": "windows-v2.7.0",
-      "project": "gow3_pc",
+      "project": "Spartan Port",
       "autoUpdate": true,
       "tags": [
         "recomp",
@@ -411,7 +370,7 @@
       "catalogEntryId": "k174tm6gh93z1exj7ex7hesmf98g7asw",
       "catalog": {
         "name": "God of War III Remastered",
-        "project": "gow3_pc",
+        "project": "Spartan Port",
         "appIconUrl": "https://raw.githubusercontent.com/FelipePrado0/gow3_pc/ec9b416f2415fc5a0469076aecc230c6d6027ac0/launcher/gow3.ico",
         "tags": [
           "recomp",
