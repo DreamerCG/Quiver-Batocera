@@ -1,0 +1,1426 @@
+{
+  "github:petrishevgeorgii-debug/prototype-pc-slop": {
+    "addedAt": 0,
+    "description": "Ajoutée depuis github.com/petrishevgeorgii-debug/prototype-pc-slop. Quiver n'a pas vérifié cette app.",
+    "games": [],
+    "id": "github:petrishevgeorgii-debug/prototype-pc-slop",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "prototype-pc-slop"
+    },
+    "name": "Prototype Biohazard Bundle",
+    "projectName": "Prototype Biohazard Bundle",
+    "projectType": "port",
+    "recommended": 0,
+    "reportBroken": 0,
+    "reportIssues": 0,
+    "reviewCount": 0,
+    "slug": "",
+    "supportedOS": [
+      "unknown"
+    ],
+    "tags": [],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793096431000,
+      "version": "v1.0.5"
+    }
+  },
+  "k170ash4eccc0t8n6cr9we8n1s8h5zgs": {
+    "addedAt": 1793400834269,
+    "aiLevel": "generated",
+    "artwork": "https://raw.githubusercontent.com/lesca-191204/killzone-shadowfall-pc/cdfb5c245eb44677338e684f64384139e119c07b/launcher/gow3.ico",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_6e3c7d27-cfd5-48d5-9360-8e7e61d1f8d0",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "Killzone Shadow Fall for PC is a native Windows port of the PlayStation 4 game that runs the game's code directly on your CPU and translates graphics to Vulkan in real time.",
+    "developer": {
+      "key": "lesca191204",
+      "name": "lesca-191204"
+    },
+    "gameId": "k97an5hbvx0w8byd7tnhwgt7158h4c17",
+    "games": [
+      {
+        "id": "k97an5hbvx0w8byd7tnhwgt7158h4c17",
+        "slug": "killzone-shadow-fall",
+        "title": "Killzone Shadow Fall"
+      }
+    ],
+    "id": "k170ash4eccc0t8n6cr9we8n1s8h5zgs",
+    "lastReleaseAt": 1793481712000,
+    "lastReleaseVersion": "v0.8.1",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "KillzoneShadowFall-KillzoneShadowfallPc",
+      "preferredExecutables": {
+        "windows": [
+          "Fall.exe"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/1cf8489830fba808c97feab289c300fa.png",
+      "header": "https://cdn2.steamgriddb.com/grid/313a35e1e870e7a85a5ab5c0b23bf7e3.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/629d026b487e559ff65d476804cbdf65.jpg",
+      "logo": "https://cdn2.steamgriddb.com/logo/c0248542adbc4200f3ea47edc7c1b650.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Killzone Shadow Fall",
+    "projectId": "kh771s3qkhn6pzvf187wrys0nn8h5941",
+    "projectName": "killzone-shadowfall-pc",
+    "projectType": "port",
+    "recommended": 0,
+    "reportBroken": 0,
+    "reportIssues": 0,
+    "reviewCount": 0,
+    "slug": "killzone-shadow-fall-killzone-shadowfall-pc",
+    "supportedOS": [
+      "windows"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "killzone",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "keyboard and mouse",
+      "controller support",
+      "increased internal resolution",
+      "ultrawide"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793481712000,
+      "version": "v0.8.1"
+    },
+    "withdrawn": []
+  },
+  "k170hyjhjcf1madckm5472ym3d8gb4ym": {
+    "addedAt": 1792279748705,
+    "aiLevel": "assisted",
+    "artwork": "https://raw.githubusercontent.com/saulob/dragons-crown-pro-pc/a05846c93ee454ac8a17be4de24fac4b3f08d58f/packaging/icons/app-icon-512.png",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_0b3fc8ec-39e3-4c5d-9ef3-27a04c97f6bd",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "Dragon's Crown Pro PC Port is a native Windows PC port of Dragon's Crown Pro that runs the game's own code directly on the PC with modern graphics options.",
+    "developer": {
+      "key": "saulob",
+      "name": "saulob"
+    },
+    "gameId": "k97f4h7dg5tzkm5hcywcjm7qks8gb7gc",
+    "games": [
+      {
+        "id": "k97f4h7dg5tzkm5hcywcjm7qks8gb7gc",
+        "slug": "dragon-s-crown-pro",
+        "title": "Dragon's Crown Pro"
+      }
+    ],
+    "id": "k170hyjhjcf1madckm5472ym3d8gb4ym",
+    "lastReleaseAt": 1793798194000,
+    "lastReleaseVersion": "v0.9.2",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "DragonsCrownPro-DragonsCrownProPCPort",
+      "preferredExecutables": {
+        "windows": [
+          "dcp-loader.exe"
+        ]
+      },
+      "setupFiles": [
+        {
+          "accepted": [
+            {
+              "algo": "sha256",
+              "value": "f9bff150c4c28507096e7e143a07492063ed89bf05ac6cb995a55a0946e3508a"
+            }
+          ],
+          "destination": "eboot.bin",
+          "extensions": [
+            "bin"
+          ],
+          "id": "eboot",
+          "label": "eboot"
+        }
+      ]
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/2084811e97d0eb5fa6f41c13b93afb35.png",
+      "header": "https://cdn2.steamgriddb.com/grid/dec2d0b03961c0013057848af83d5205.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/1d04bcd683377838580d82db48fb5c87.jpg",
+      "logo": "https://cdn2.steamgriddb.com/logo/eba9f1a976a8f27e7e0d3a428571b9bb.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Dragon's Crown Pro",
+    "projectId": "kh706dbg19bgqbqf2jw6yr4kmx8gbhpx",
+    "projectName": "Dragon's Crown Pro PC Port",
+    "projectType": "port",
+    "recommended": 9,
+    "reportBroken": 0,
+    "reportIssues": 0,
+    "reviewCount": 9,
+    "slug": "dragon-s-crown-pro-dragon-s-crown-pro-pc-port",
+    "supportedOS": [
+      "windows",
+      "linux"
+    ],
+    "tags": [
+      "ps4",
+      "dragons-crown",
+      "playstation",
+      "playstation 4",
+      "widescreen",
+      "unlocked framerate",
+      "increased internal resolution",
+      "controller support",
+      "keyboard and mouse"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793516203000,
+      "version": "v0.9.1"
+    },
+    "withdrawn": []
+  },
+  "k171m360c3x94mtgk1tprp1zz98gng37": {
+    "addedAt": 1792544287479,
+    "aiLevel": "generated",
+    "artwork": "https://raw.githubusercontent.com/Oussama268/ShadowOfTheColossus-PC/46832d716c671827ac2dac893b39ef26339b26fc/launcher/sotc.ico",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_7617f998-6843-434e-938c-15c58a81ed37",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "ShadowOfTheColossus-PC is a native Windows port of Shadow of the Colossus for PlayStation 4 that runs the game's code directly on the PC's CPU and translates the PS4 GPU to Vulkan.",
+    "developer": {
+      "key": "oussama268",
+      "name": "Oussama268"
+    },
+    "gameId": "k979scfed6cem7y7j1jtej37w18g8x2m",
+    "games": [
+      {
+        "id": "k979scfed6cem7y7j1jtej37w18g8x2m",
+        "slug": "shadow-of-the-colossus",
+        "title": "Shadow of the Colossus"
+      }
+    ],
+    "id": "k171m360c3x94mtgk1tprp1zz98gng37",
+    "lastReleaseAt": 1793529561000,
+    "lastReleaseVersion": "v0.70-opt12",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "ShadowOfTheColossus-ShadowOfTheColossusPC",
+      "preferredExecutables": {
+        "windows": [
+          "SotC.exe"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/c85bd019483ea2c17032bf940015d8c6.png",
+      "header": "https://cdn2.steamgriddb.com/grid/f8ef967e03aaa4b5654207fa5b4bca64.jpg",
+      "hero": "https://cdn2.steamgriddb.com/hero/36b49523ecb8f2db50196ee300de71c4.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/8cf5b91494d0b8287d6a671ca06da23d.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Shadow of the Colossus",
+    "projectId": "kh721a6tk9tqsmegbg98wk0f2s8gn02y",
+    "projectName": "ShadowOfTheColossus-PC",
+    "projectType": "port",
+    "recommended": 0,
+    "reportBroken": 0,
+    "reportIssues": 5,
+    "reviewCount": 5,
+    "slug": "shadow-of-the-colossus-shadowofthecolossus-pc-2",
+    "supportedOS": [
+      "windows"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "widescreen",
+      "ultrawide",
+      "unlocked framerate",
+      "controller support",
+      "keyboard and mouse"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793529561000,
+      "version": "v0.70-opt12"
+    },
+    "withdrawn": []
+  },
+  "k1720q2tbeca62v3psq6e2n24n8fttds": {
+    "addedAt": 1791411732785,
+    "aiLevel": "assisted",
+    "artwork": "https://cdn2.steamgriddb.com/icon/413b3c848ce6956827c9c877d400f18c.png",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_a042ce61-909b-4fdc-b15e-b47e0c95850a",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "P. T. for PC is a native PC port of the PS4 game P.T. that rebuilds the game logic in C++ and uses a Vulkan renderer.",
+    "developer": {
+      "key": "loreanxavier",
+      "name": "LoreanXavier"
+    },
+    "gameId": "k9728qa24069m4yawswf1ks0pd8fv2tg",
+    "games": [
+      {
+        "id": "k9728qa24069m4yawswf1ks0pd8fv2tg",
+        "slug": "pt",
+        "title": "P.T."
+      }
+    ],
+    "id": "k1720q2tbeca62v3psq6e2n24n8fttds",
+    "lastReleaseAt": 1792710245000,
+    "lastReleaseVersion": "v1.0.8",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "PT-PTForPC",
+      "preferredExecutables": {
+        "windows": [
+          "P.T.PC.Port.Setup.exe"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/31d24d266b40b6b8f06fbb06601a2150.png",
+      "header": "https://cdn2.steamgriddb.com/grid/490ae10ae5a050a965255ea361f5dea5.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/99d0b2e528cffdad48e3e68e0de00806.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/3f79a9566332ca2ddca3367b61ede6a8.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "P.T.",
+    "projectId": "kh76nstj3ks71j363d10m2qr798fta84",
+    "projectName": "P.T. for PC",
+    "projectType": "port",
+    "recommended": 26,
+    "reportBroken": 0,
+    "reportIssues": 0,
+    "reviewCount": 26,
+    "slug": "p-t-p-t-for-pc",
+    "supportedOS": [
+      "linux",
+      "windows",
+      "macos"
+    ],
+    "tags": [
+      "recreation",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "keyboard and mouse",
+      "mod support"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1792710245000,
+      "version": "v1.0.8"
+    },
+    "withdrawn": []
+  },
+  "k172fheypxgnx9jsnrna6v23k18gefvw": {
+    "addedAt": 1792399782051,
+    "aiLevel": "generated",
+    "artwork": "https://raw.githubusercontent.com/HayatoG/iss_pc/1898d449a7edf506d12ef63445f8fc5432e60105/port/packaging/icon/infamous-icon-1024.png",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_8129244c-a5e2-471b-83fa-a7282d28e8c4",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "iss_pc is a native PC port of inFAMOUS Second Son for Windows and Linux that allows for gameplay with improved controls and graphical fixes.",
+    "developer": {
+      "key": "hayatog",
+      "name": "HayatoG"
+    },
+    "gameId": "k97eyb0aj95qzfr0yw7xqewbfn8ge911",
+    "games": [
+      {
+        "id": "k97eyb0aj95qzfr0yw7xqewbfn8ge911",
+        "slug": "infamous-second-son",
+        "title": "inFAMOUS Second Son"
+      }
+    ],
+    "id": "k172fheypxgnx9jsnrna6v23k18gefvw",
+    "lastReleaseAt": 1793147466000,
+    "lastReleaseVersion": "beta-rc1",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "InFAMOUSSecondSon-IssPc"
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/de3185181a504517014989720b23a2dc.png",
+      "header": "https://cdn2.steamgriddb.com/grid/560e42b364466e963df720354b77ddee.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/380665f11cab1b7de54dede3c962fdf6.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/e42b1e4904b310d8ab63c415729d7c36.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "inFAMOUS Second Son",
+    "projectId": "kh7576gvkz10s6qtzxze4kzevs8gfhcf",
+    "projectName": "iss_pc",
+    "projectType": "port",
+    "recommended": 1,
+    "reportBroken": 0,
+    "reportIssues": 7,
+    "reviewCount": 8,
+    "slug": "infamous-second-son-iss-pc",
+    "supportedOS": [
+      "linux",
+      "windows"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "infamous",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "unlocked framerate",
+      "controller support"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1792653081000,
+      "version": "v2026.10.22-cde38af"
+    },
+    "withdrawn": []
+  },
+  "k172g8fgrnhfv296ga25w0wxzd8h6ncy": {
+    "addedAt": 1793401483655,
+    "aiLevel": "none",
+    "artwork": "https://raw.githubusercontent.com/AbdelmoumenDeghbouche/knack_pc/52a13d172aee233d1672fe5deae769b61fdefd17/launcher/gow3.ico",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_cd4687d2-e231-425d-9729-39bff9870749",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "A native PC port of Knack (PlayStation 4, 2013) for Windows 10/11 and Linux, in the style of bbport",
+    "developer": {
+      "key": "abdelmoumendeghbouche",
+      "name": "AbdelmoumenDeghbouche"
+    },
+    "gameId": "k97bk6zwe8y1ek8ke5fnark8yn8h79fg",
+    "games": [
+      {
+        "id": "k97bk6zwe8y1ek8ke5fnark8yn8h79fg",
+        "slug": "knack",
+        "title": "Knack"
+      }
+    ],
+    "id": "k172g8fgrnhfv296ga25w0wxzd8h6ncy",
+    "lastReleaseAt": 1793781122000,
+    "lastReleaseVersion": "v0.1.10",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "Knack-KnackPc"
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/f7d6db779e8805aac16e1b49472d8de1.png",
+      "header": "https://cdn2.steamgriddb.com/grid/6bbf55a7da924ad74752112a724c4239.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/75ac87b5cb3f269665b151d6f263b2b3.jpg",
+      "logo": "https://cdn2.steamgriddb.com/logo/1e79596878b2320cac26dd792a6c51c9.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Knack",
+    "projectId": "kh746939nrsy1wv101jcv581c58h6pt0",
+    "projectName": "Knack for PC (knack_pc)",
+    "projectType": "port",
+    "recommended": 0,
+    "reportBroken": 0,
+    "reportIssues": 1,
+    "reviewCount": 1,
+    "slug": "knack-pc",
+    "supportedOS": [
+      "windows",
+      "linux"
+    ],
+    "tags": [
+      "recreation",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "unlocked framerate",
+      "increased internal resolution",
+      "widescreen",
+      "controller support"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1792996834000,
+      "version": "v0.1.4"
+    },
+    "withdrawn": []
+  },
+  "k172zy6nbbrpqj77yk6ana0sen8gyhte": {
+    "addedAt": 1792912455636,
+    "aiLevel": "assisted",
+    "artwork": "https://cdn2.steamgriddb.com/icon/a512a13cba4f6c460635abf0b029fd63.png",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_20b9953d-55f3-4d4f-afe3-26960525414c",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "Bloodborne-Linux is a native PC port of Bloodborne for Linux that translates the game's graphics to Vulkan and supports unlocked frame rates, upscaling, and local co-op.",
+    "developer": {
+      "key": "ayozetr",
+      "name": "ayozetr"
+    },
+    "gameId": "k978ss52rcgchprwbs5xbs910n8fyx19",
+    "games": [
+      {
+        "id": "k978ss52rcgchprwbs5xbs910n8fyx19",
+        "slug": "bloodborne",
+        "title": "Bloodborne"
+      }
+    ],
+    "id": "k172zy6nbbrpqj77yk6ana0sen8gyhte",
+    "lastReleaseAt": 1793792462000,
+    "lastReleaseVersion": "0.70-linux.2",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "Bloodborne-BloodborneForLinux",
+      "preferredExecutables": {
+        "linux": [
+          "Bloodborne-bbport-x86_64.AppImage"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/021399af062379408df9c358a1a83cdb.png",
+      "header": "https://cdn2.steamgriddb.com/grid/9b79529ebe625b7d68d154f4864c46f1.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/f20fd1e8deb34b1bc57a3146f2511eb2.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/b7e00018465335bce238098379b7cf4d.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Bloodborne",
+    "projectId": "kh78vc95kbvv0wgggtrkgswkwh8gzfar",
+    "projectName": "Bloodborne for Linux",
+    "projectType": "port",
+    "recommended": 2,
+    "reportBroken": 0,
+    "reportIssues": 0,
+    "reviewCount": 2,
+    "slug": "bloodborne-bloodborne-for-linux",
+    "supportedOS": [
+      "linux"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "online co-op",
+      "split-screen co-op",
+      "split screen",
+      "ultrawide",
+      "increased internal resolution",
+      "controller support"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793487087000,
+      "version": "0.51-linux.20"
+    },
+    "withdrawn": []
+  },
+  "k1732w16xjc716cqgyvv9s21418gtsnz": {
+    "addedAt": 1792917646236,
+    "aiLevel": "assisted",
+    "artwork": "https://raw.githubusercontent.com/bc160201983/medievil_2019_pc_port/cae2e61070ffc9041c08e1305f3386884ea5a4ec/launcher/medievil.ico",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_06e5cdc8-d7b8-4b9c-a882-e239cbc026cf",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "medievil_2019_pc_port is a PC port of MediEvil for Windows 10 and 11 with support for multiple languages and up to 4K resolution.",
+    "developer": {
+      "key": "bc160201983",
+      "name": "bc160201983"
+    },
+    "gameId": "k972gq7kn922pgdpf6spw52zsh8gza01",
+    "games": [
+      {
+        "id": "k972gq7kn922pgdpf6spw52zsh8gza01",
+        "slug": "medievil-2019",
+        "title": "MediEvil (2019)"
+      }
+    ],
+    "id": "k1732w16xjc716cqgyvv9s21418gtsnz",
+    "lastReleaseAt": 1793307283000,
+    "lastReleaseVersion": "v1.3.8",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "MediEvil-Medievil2019PcPort",
+      "preferredExecutables": {
+        "windows": [
+          "MediEvil.exe"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/ec71de5a8e7da7c954b1cf1eefbe41c3.png",
+      "header": "https://cdn2.steamgriddb.com/grid/ba4576628a9d5b8db382c003abe2351d.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/0ff63af16a26e92ef8c2f6daaa607655.jpg",
+      "logo": "https://cdn2.steamgriddb.com/logo/d54a439ba19be7fe2b18622f6e53587e.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "MediEvil",
+    "projectId": "kh7e8xpdhxfr28q4j7tkcneqx58gvd8e",
+    "projectName": "MediEvil (PS4) for PC",
+    "projectType": "port",
+    "recommended": 3,
+    "reportBroken": 1,
+    "reportIssues": 5,
+    "reviewCount": 9,
+    "slug": "medievil-medievil-2019-pc-port",
+    "supportedOS": [
+      "windows"
+    ],
+    "tags": [
+      "recreation",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "unlocked framerate",
+      "controller support",
+      "keyboard and mouse"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793307283000,
+      "version": "v1.3.8"
+    },
+    "withdrawn": []
+  },
+  "k174s6mrjye2jk7d4d1e32syt18gye7v": {
+    "addedAt": 1793156059606,
+    "aiLevel": "generated",
+    "artwork": "https://raw.githubusercontent.com/LucaPazienza/gravityrush_pc/037559123f7d8acd50eb08cdd935bfa79726ee92/launcher/gravityrush.ico",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_675ba235-8fb7-4fa6-9340-dbbb88bab52d",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "Gravity Rush Remastered is a native PC port of the PlayStation 4 game that runs the original executable directly on Windows with Vulkan graphics and support for up to 4K resolution, FSR 3.1, and DLSS.",
+    "developer": {
+      "key": "lucapazienza",
+      "name": "LucaPazienza"
+    },
+    "gameId": "k97f8eef5y02an2y1hj1s0r6j58gyw2a",
+    "games": [
+      {
+        "id": "k97f8eef5y02an2y1hj1s0r6j58gyw2a",
+        "slug": "gravity-rush-remastered",
+        "title": "Gravity Rush Remastered"
+      }
+    ],
+    "id": "k174s6mrjye2jk7d4d1e32syt18gye7v",
+    "lastReleaseAt": 1793786631000,
+    "lastReleaseVersion": "v0.1.12",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "GravityRushRemastered-GravityrushPc"
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/001bc211942d4d02a86b99595775f27b.png",
+      "header": "https://cdn2.steamgriddb.com/grid/143ada18d941aa766e2c668bb04a4953.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/298209216669d2feb0833cb5d2b6d1ce.jpg",
+      "logo": "https://cdn2.steamgriddb.com/logo/c28ae526b62dd356aeb8df3581472d52.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Gravity Rush Remastered",
+    "projectId": "kh7e9f5drz7kv5pqatwr0hgpe58gycsj",
+    "projectName": "Gravity Rush Remastered Native PC Port",
+    "projectType": "port",
+    "recommended": 5,
+    "reportBroken": 0,
+    "reportIssues": 0,
+    "reviewCount": 5,
+    "slug": "gravity-rush-remastered-gravityrush-pc",
+    "supportedOS": [
+      "windows",
+      "unknown"
+    ],
+    "tags": [
+      "recreation",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "increased internal resolution",
+      "controller support",
+      "keyboard and mouse"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793185421000,
+      "version": "v0.1.10"
+    },
+    "withdrawn": []
+  },
+  "k174tm6gh93z1exj7ex7hesmf98g7asw": {
+    "addedAt": 1792123717887,
+    "aiLevel": "assisted",
+    "artwork": "https://raw.githubusercontent.com/FelipePrado0/gow3_pc/ec9b416f2415fc5a0469076aecc230c6d6027ac0/launcher/gow3.ico",
+    "basedOn": {
+      "console": "ps4",
+      "edition": "Remastered"
+    },
+    "catalogId": "qcat_1c45c84a-b50b-43af-8847-386aa30d663f",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "Spartan Port is a Windows and Linux port of God of War III Remastered that offers instant start and an in-game menu with cheats and performance options.",
+    "developer": {
+      "key": "felipeprado0",
+      "name": "FelipePrado0"
+    },
+    "gameId": "k972bxvc9garh8nh8zg6v8qr418g6kq5",
+    "games": [
+      {
+        "id": "k972bxvc9garh8nh8zg6v8qr418g6kq5",
+        "slug": "god-of-war-iii-remastered",
+        "title": "God of War III Remastered"
+      }
+    ],
+    "id": "k174tm6gh93z1exj7ex7hesmf98g7asw",
+    "lastReleaseAt": 1793751437000,
+    "lastReleaseVersion": "windows-v3.0.0-launcher-test1",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "GodOfWarIIIRemastered-Gow3Pc",
+      "preferredExecutables": {
+        "linux": [
+          "gow3-x86_64.AppImage"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/bc6a17604012da6895c1bacd28cdb9fa.png",
+      "header": "https://cdn2.steamgriddb.com/grid/2b36104bb2449f4af5ff82a85748763f.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/bf0bfa62d86ae7dea657f78ff863461e.png",
+      "logo": "https://github.com/FelipePrado0/SpartanPort/raw/main/docs/images/spartanport-logo.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "God of War III Remastered",
+    "projectId": "kh7e5qndkrh44fn5yqzqf20s258g7bdt",
+    "projectName": "Spartan Port",
+    "projectType": "port",
+    "recommended": 22,
+    "reportBroken": 0,
+    "reportIssues": 10,
+    "reviewCount": 32,
+    "slug": "god-of-war-iii-remastered-gow3-pc",
+    "supportedOS": [
+      "windows",
+      "linux"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "god of war",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "unlocked framerate",
+      "increased internal resolution",
+      "controller support",
+      "keyboard and mouse",
+      "mod support"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793500004000,
+      "version": "windows-v3.0.0"
+    },
+    "withdrawn": []
+  },
+  "k175wdmq8055rv57jggtdf7rwx8gc5t1": {
+    "addedAt": 1792294535283,
+    "aiLevel": "assisted",
+    "artwork": "https://raw.githubusercontent.com/OverkillLabs3/driveclub-recomp/ed958ca9ca98fbaec7b46c18edfccda4c3162b7c/launcher/driveclub.ico",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_b698ac39-f497-4c58-9635-ad303aa2aa32",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "DriveClub Recomp is a native Windows port of DriveClub that runs the game's own code directly on your CPU and translates GPU commands to Vulkan.",
+    "developer": {
+      "key": "overkilllabs3",
+      "name": "OverkillLabs3"
+    },
+    "gameId": "k974zm06tjfjys8rpvt8ee9r5s8gcmsj",
+    "games": [
+      {
+        "id": "k974zm06tjfjys8rpvt8ee9r5s8gcmsj",
+        "slug": "driveclub",
+        "title": "DriveClub"
+      }
+    ],
+    "id": "k175wdmq8055rv57jggtdf7rwx8gc5t1",
+    "lastReleaseAt": 1793600537000,
+    "lastReleaseVersion": "v0.4.1",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "DriveClub-DriveClubRecomp",
+      "preferredExecutables": {
+        "windows": [
+          "DriveClub.exe"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/feff3abc6ab1c5a09c3c537a1fc7b8a0.png",
+      "header": "https://cdn2.steamgriddb.com/grid/fb331a1f84236b7d99739d47a154f7fc.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/182036dfd0ebd9d37e8d8cbad6631115.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/fb6ff7edf47f150ab277e7282493dca4.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "DriveClub",
+    "projectId": "kh7bt7dvs34txsfm53mg62q4ed8gcrzb",
+    "projectName": "DriveClub Recomp",
+    "projectType": "port",
+    "recommended": 9,
+    "reportBroken": 1,
+    "reportIssues": 4,
+    "reviewCount": 14,
+    "slug": "driveclub-driveclub-recomp",
+    "supportedOS": [
+      "windows"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "unlocked framerate",
+      "increased internal resolution",
+      "controller support",
+      "keyboard and mouse",
+      "ultrawide"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793600537000,
+      "version": "v0.4.1"
+    },
+    "withdrawn": []
+  },
+  "k176sa320v5b18at2gesevb3ch8gaa8h": {
+    "addedAt": 1792263171286,
+    "aiLevel": "generated",
+    "artwork": "https://raw.githubusercontent.com/HayatoG/tlg_pc/0fdc07e0189ffdd7b12d8557c823af5dcba2d20e/port/packaging/icon/tlg-icon-1024.png",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_554012c4-3ad9-4513-8f07-21aa706dcbc3",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "The Last Guardian — native PC port is a native PC port of The Last Guardian for PlayStation 4 that runs the original game code natively and translates the GPU to Vulkan, offering optional 60 FPS and image filters.",
+    "developer": {
+      "key": "hayatog",
+      "name": "HayatoG"
+    },
+    "gameId": "k975dzgg6gftxq6dzaanqyyxr98gbm6g",
+    "games": [
+      {
+        "id": "k975dzgg6gftxq6dzaanqyyxr98gbm6g",
+        "slug": "the-last-guardian",
+        "title": "The Last Guardian"
+      }
+    ],
+    "id": "k176sa320v5b18at2gesevb3ch8gaa8h",
+    "lastReleaseAt": 1793113474000,
+    "lastReleaseVersion": "v2026.10.27-4825a99",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "TheLastGuardian-TheLastGuardianNativePCPort"
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/9de0389a7c202d5101fa0543cd37daed.png",
+      "header": "https://cdn2.steamgriddb.com/grid/27f4272ac2e89d4ee3fbd1bda2d7fa2d.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/16d52d2df6ddd1e6efcf6851dec3cf85.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/7555f0c847318825c2a5f14a247beff3.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "The Last Guardian",
+    "projectId": "kh78qtb0dqcqn4ayhqnbsaayz58gbxhn",
+    "projectName": "The Last Guardian — native PC port",
+    "projectType": "port",
+    "recommended": 0,
+    "reportBroken": 0,
+    "reportIssues": 4,
+    "reviewCount": 4,
+    "slug": "the-last-guardian-the-last-guardian-native-pc-port",
+    "supportedOS": [
+      "windows",
+      "linux"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "unlocked framerate"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793113474000,
+      "version": "v2026.10.27-4825a99"
+    },
+    "withdrawn": []
+  },
+  "k17dybj5v7jj6nrve6qt2ws02x8gynnd": {
+    "addedAt": 1793156152672,
+    "aiLevel": "generated",
+    "artwork": "https://raw.githubusercontent.com/HayatoG/gr2_pc/a2e69a1bc506865716cb4e16f2c50f047bf65e57/port/packaging/icon/gr2-icon-1024.png",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_16e37481-1a36-4c75-abc1-d1a959ba0e8f",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "Gravity Rush 2 is a native PC port of the PlayStation 4 game, offering stable 30 FPS gameplay with audio and controller support.",
+    "developer": {
+      "key": "hayatog",
+      "name": "HayatoG"
+    },
+    "gameId": "k978aa74k98bbxe42tqzrbedpx8gz8sx",
+    "games": [
+      {
+        "id": "k978aa74k98bbxe42tqzrbedpx8gz8sx",
+        "slug": "gravity-rush-2",
+        "title": "Gravity Rush 2"
+      }
+    ],
+    "id": "k17dybj5v7jj6nrve6qt2ws02x8gynnd",
+    "lastReleaseAt": 1792810869000,
+    "lastReleaseVersion": "v2026.10.24-a2e69a1",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "GravityRush2-GravityRush2NativePortForPC"
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/93d543cb57447274004ed5ea0cce0319.png",
+      "header": "https://cdn2.steamgriddb.com/grid/40c224d103653498c3d562aceca418e9.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/a405656bc824415c53be4e7bc6272620.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/f9a25a1478f875ff3c2f9a57b7d39a52.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Gravity Rush 2",
+    "projectId": "kh72yc4720hfxn2gjk4gah0vwh8gya8c",
+    "projectName": "Gravity Rush 2 Native PC Port",
+    "projectType": "port",
+    "recommended": 0,
+    "reportBroken": 0,
+    "reportIssues": 1,
+    "reviewCount": 1,
+    "slug": "gravity-rush-2-gravity-rush-2-native-port-for-pc",
+    "supportedOS": [
+      "linux",
+      "windows"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "controller support",
+      "keyboard and mouse"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1792810869000,
+      "version": "v2026.10.24-a2e69a1"
+    },
+    "withdrawn": []
+  },
+  "k17epgtp1gxe6ddrxp5q7es32x8gbdpm": {
+    "addedAt": 1792223517376,
+    "aiLevel": "generated",
+    "artwork": "https://raw.githubusercontent.com/Ryu7w7/OCTR-NitroFueled-PC/46c810b2a30451873034e5b17c8a61ddd780618f/packaging/windows/icons/ctr.ico",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_65fa9415-28da-42de-b32e-13bbc471eaea",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "OCTR: Online CTR Nitro-Fueled PC is a Windows port of Crash Team Racing Nitro-Fueled with online play on a community server.",
+    "developer": {
+      "key": "ryu7w7",
+      "name": "Ryu7w7"
+    },
+    "gameId": "k978qse0xh4rxpjx370n19c4px8g8wfb",
+    "games": [
+      {
+        "id": "k978qse0xh4rxpjx370n19c4px8g8wfb",
+        "slug": "crash-team-racing-nitro-fueled",
+        "title": "Crash Team Racing: Nitro-Fueled"
+      }
+    ],
+    "id": "k17epgtp1gxe6ddrxp5q7es32x8gbdpm",
+    "lastReleaseAt": 1793764124000,
+    "lastReleaseVersion": "v0.8",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "CrashTeamRacingNitroFueled-CTRNitroFueledPC"
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/a0637e79c5b79afe6dd9bcabdb94040e.png",
+      "header": "https://cdn2.steamgriddb.com/grid/43ce5d3d2d935b1c264c661026075839.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/2984db7e143316fb81837a1585a0dd8e.jpg",
+      "logo": "https://cdn2.steamgriddb.com/logo/38666406942c316d3edffbe503493dd6.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Crash Team Racing Nitro-Fueled",
+    "projectId": "kh774v45my9px2m0sj7dbvxry18ga6rz",
+    "projectName": "OCTR: Online CTR Nitro-Fueled PC",
+    "projectType": "port",
+    "recommended": 15,
+    "reportBroken": 1,
+    "reportIssues": 0,
+    "reviewCount": 16,
+    "slug": "crash-team-racing-nitro-fueled-ctr-nitrofueled-pc-2",
+    "supportedOS": [
+      "windows",
+      "linux"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "crash",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "increased internal resolution",
+      "controller support",
+      "keyboard and mouse",
+      "split-screen co-op",
+      "split screen",
+      "online multiplayer"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793416844000,
+      "version": "v0.7.5"
+    },
+    "withdrawn": []
+  },
+  "k17eq2e5gp0prws0vtg8svhx918gw014": {
+    "addedAt": 1793081655910,
+    "aiLevel": "assisted",
+    "artwork": "https://raw.githubusercontent.com/mateussmeneses/theorder1886-port/d5534c570f5de681596d0f4f3963bb915db676be/launcher/theorder.ico",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_8b50245a-768c-4cdc-b7df-35b2603e0b57",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "theorder1886-port is a Windows PC port of The Order: 1886 that runs the game's native executable and translates its graphics to Vulkan.",
+    "developer": {
+      "key": "mateussmeneses",
+      "name": "mateussmeneses"
+    },
+    "gameId": "k973hy8n1j225cdtmp20vn63dn8gxs1e",
+    "games": [
+      {
+        "id": "k973hy8n1j225cdtmp20vn63dn8gxs1e",
+        "slug": "the-order-1886",
+        "title": "The Order: 1886"
+      }
+    ],
+    "id": "k17eq2e5gp0prws0vtg8svhx918gw014",
+    "lastReleaseAt": 1793110514000,
+    "lastReleaseVersion": "windows-v0.7.9",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "TheOrder1886-Theorder1886Port"
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/a31d68b0123a4c3b24ecfd911f13c79f.png",
+      "header": "https://cdn2.steamgriddb.com/grid/c82b5dbd5d2b37d833818d9211b47d56.jpg",
+      "hero": "https://cdn2.steamgriddb.com/hero/bcbc28b41f550d272eb2f1d343011760.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/117239c30f36452ffee841fd0f2f8bcf.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "The Order: 1886",
+    "projectId": "kh71kwd19w3xytmnfqddf347pd8gw73s",
+    "projectName": "The Order: 1886 PC Native Port",
+    "projectType": "port",
+    "recommended": 0,
+    "reportBroken": 0,
+    "reportIssues": 2,
+    "reviewCount": 2,
+    "slug": "the-order-1886-theorder1886-port",
+    "supportedOS": [
+      "windows"
+    ],
+    "tags": [
+      "recreation",
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "unlocked framerate",
+      "widescreen",
+      "ultrawide",
+      "controller support",
+      "keyboard and mouse"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793110514000,
+      "version": "windows-v0.7.9"
+    },
+    "withdrawn": []
+  },
+  "k17ers8kf70gxjgpk0tfz55x218ghxz0": {
+    "addedAt": 1792489277509,
+    "aiLevel": "generated",
+    "artwork": "https://raw.githubusercontent.com/bc160201983/Uncharted-The-Nathan-Drake-Collection-PC-port/df44141ae5ba71b459ea283fd527a66851c03750/launcher/assets/icon.png",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_281373fb-3330-40ce-83ea-f2b053ca8290",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "Uncharted-The-Nathan-Drake-Collection-PC-port is a Windows port of Uncharted The Nathan Drake Collection that runs the PS4 game code natively on PC with a Vulkan renderer.",
+    "developer": {
+      "key": "bilalreloaded",
+      "name": "BilalReloaded"
+    },
+    "gameId": "k97c4s61yxnht9bpr4qzrgej018gafjz",
+    "games": [
+      {
+        "id": "k97c4s61yxnht9bpr4qzrgej018gafjz",
+        "slug": "uncharted-the-nathan-drake-collection",
+        "title": "Uncharted: The Nathan Drake Collection"
+      }
+    ],
+    "id": "k17ers8kf70gxjgpk0tfz55x218ghxz0",
+    "lastReleaseAt": 1793660028000,
+    "lastReleaseVersion": "v0.8.1",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort",
+      "preferredExecutables": {
+        "windows": [
+          "Uncharted.exe"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/9b5b9376209c40aeeeeb3c26976dfdf5.png",
+      "header": "https://cdn2.steamgriddb.com/grid/e65aa5222b922173350fcdd41a0b1eb3.jpg",
+      "hero": "https://cdn2.steamgriddb.com/hero/a5329a91ef79db75900bd9cab3d96e43.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/db20613d4556a700b9a55120254dfa1b.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Uncharted: The Nathan Drake Collection",
+    "projectId": "kh7fdj0wt6c3qcbvh6c6b5xv0d8ghj59",
+    "projectName": "Uncharted: The Nathan Drake Collection - PC port",
+    "projectType": "port",
+    "recommended": 10,
+    "reportBroken": 1,
+    "reportIssues": 2,
+    "reviewCount": 13,
+    "slug": "uncharted-the-nathan-drake-collection-uncharted-the-nathan-drake-collection-pc-p",
+    "supportedOS": [
+      "windows"
+    ],
+    "tags": [
+      "decomp",
+      "ps4",
+      "uncharted",
+      "playstation",
+      "playstation 4",
+      "decompilation",
+      "unlocked framerate",
+      "increased internal resolution",
+      "controller support",
+      "keyboard and mouse",
+      "widescreen"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793526650000,
+      "version": "v0.8.0"
+    },
+    "withdrawn": []
+  },
+  "k17ewd5h1dyvej4etd4sprcy0d8h5tq1": {
+    "addedAt": 1793310843394,
+    "aiLevel": "generated",
+    "artwork": "https://raw.githubusercontent.com/saulob/odin-sphere-leifthrasir-pc/e6979619c3b0a5b626d1fe5191283d0a98c88fdf/packaging/icons/app-icon.ico",
+    "catalogId": "qcat_3e8ff051-6e90-40de-99b2-8eff1c605651",
+    "consoles": [
+      "ps4",
+      "pc"
+    ],
+    "description": "Odin Sphere Leifthrasir PC Port is a native PC port of Odin Sphere Leifthrasir that runs the game's own x86-64 code on Windows and Linux with modern PC options.",
+    "developer": {
+      "key": "saulobenigno",
+      "name": "Saulo Benigno"
+    },
+    "gameId": "k973ean0h813gx8spwehnftzr98h4v7d",
+    "games": [
+      {
+        "id": "k973ean0h813gx8spwehnftzr98h4v7d",
+        "slug": "odin-sphere-leifthrasir",
+        "title": "Odin Sphere Leifthrasir"
+      }
+    ],
+    "id": "k17ewd5h1dyvej4etd4sprcy0d8h5tq1",
+    "lastReleaseAt": 1793762308000,
+    "lastReleaseVersion": "v0.2.2",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "OdinSphereLeifthrasir-OdinSphereLeifthrasirPCPort",
+      "preferredExecutables": {
+        "linux": [
+          "OdinSphereLeifthrasirPC-*-x86_64.AppImage"
+        ],
+        "windows": [
+          "odin_sphere_leifthrasir.exe"
+        ]
+      },
+      "setupFiles": [
+        {
+          "accepted": [
+            {
+              "algo": "sha256",
+              "value": "7c517194aba4e5eea55d9197efae47d1567bd785b8c0dced7d1b0f4028d3eed6"
+            },
+            {
+              "algo": "sha256",
+              "value": "d0add7e35bc5f58d5c9017fdce0878006c32f944fa8eb3d7ce62671257f5bcc7"
+            },
+            {
+              "algo": "sha256",
+              "value": "db96b839fe31adba4b3eb3547202f761d34881325c2fea650c4c020eded5d071"
+            },
+            {
+              "algo": "sha256",
+              "value": "3e6b1741e8a404d0f8fbe10bce93c6887974566f5be09ef1bddc22a00ba29feb"
+            },
+            {
+              "algo": "sha256",
+              "value": "572bf21e57febee415d739cded5516def9ca81e867ad3184c989367248edcd7e"
+            }
+          ],
+          "destination": "eboot.bin",
+          "extensions": [
+            "bin"
+          ],
+          "id": "eboot",
+          "label": "eboot"
+        }
+      ]
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/a0159473c23821556b1f5fb937e1b640.png",
+      "header": "https://cdn2.steamgriddb.com/grid/e80131dc3c7ab72a1b9ec93e0730a494.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/38edbdbf2a7693ba0cf08352684ab866.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/35c5a2cb362c4d214156f930e7d13252.png"
+    },
+    "makers": [
+      "PlayStation",
+      "OtherPlatforms"
+    ],
+    "name": "Odin Sphere Leifthrasir",
+    "projectId": "kh7ejhjbxrdecdrvdz4h95jgwh8h479g",
+    "projectName": "Odin Sphere Leifthrasir PC Port",
+    "projectType": "port",
+    "recommended": 1,
+    "reportBroken": 0,
+    "reportIssues": 0,
+    "reviewCount": 1,
+    "slug": "odin-sphere-leifthrasir-odin-sphere-leifthrasir-pc-port",
+    "supportedOS": [
+      "windows",
+      "linux"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "pc",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "increased internal resolution",
+      "controller support",
+      "keyboard and mouse"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793485708000,
+      "version": "v0.2.1"
+    },
+    "withdrawn": []
+  },
+  "k17fc67ah1rhjrdnzd8kncjfr18gsaqf": {
+    "addedAt": 1792917168220,
+    "aiLevel": "assisted",
+    "artwork": "https://raw.githubusercontent.com/AbdelmoumenDeghbouche/wipeout_pc/9db8ff339e462ffd26902a016b932bb0f22daac7/launcher/gow3.ico",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_75d4d051-4fa5-4bfa-bb0a-15544c2eb48d",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "wipeout_pc is a native PC port of WipEout Omega Collection for Windows 10/11 that runs the game's original code directly on the PC's processor with Vulkan graphics translation.",
+    "developer": {
+      "key": "abdelmoumendeghbouche",
+      "name": "AbdelmoumenDeghbouche"
+    },
+    "gameId": "k97bm0jf3j046ghxyxfha4v2xx8grza9",
+    "games": [
+      {
+        "id": "k97bm0jf3j046ghxyxfha4v2xx8grza9",
+        "slug": "wipeout-omega-collection",
+        "title": "WipEout Omega Collection"
+      }
+    ],
+    "id": "k17fc67ah1rhjrdnzd8kncjfr18gsaqf",
+    "lastReleaseAt": 1793781914000,
+    "lastReleaseVersion": "windows-v0.2.59",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "WipEoutOmegaCollection-WipeoutPc",
+      "preferredExecutables": {
+        "windows": [
+          "WipEout.exe"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/209262ad9b1639f6daec971b8f7547ab.png",
+      "header": "https://cdn2.steamgriddb.com/grid/1ebdc8dd4109d68e86c8fb5857e63d79.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/d21b68eacf43a9325a8791ed36e2aace.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/f45294032b2e5b5b46a3866bc7f585e3.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "WipEout Omega Collection",
+    "projectId": "kh7f5kxcx4dwh6fyr76q9emta18gsfbb",
+    "projectName": "wipeout_pc",
+    "projectType": "port",
+    "recommended": 4,
+    "reportBroken": 0,
+    "reportIssues": 1,
+    "reviewCount": 5,
+    "slug": "wipeout-omega-collection-wipeout-pc",
+    "supportedOS": [
+      "windows"
+    ],
+    "tags": [
+      "recomp",
+      "ps4",
+      "wipeout",
+      "playstation",
+      "playstation 4",
+      "recompilation",
+      "unlocked framerate",
+      "increased internal resolution",
+      "ultrawide",
+      "widescreen",
+      "keyboard and mouse",
+      "controller support"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793576050000,
+      "version": "windows-v0.2.50"
+    },
+    "withdrawn": []
+  }
+}

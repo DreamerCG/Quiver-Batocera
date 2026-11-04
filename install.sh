@@ -88,6 +88,32 @@ SOURCE_DIR="$(find "${TMP_DIR}/extract" \
 [[ -d "${SOURCE_DIR}/roms" ]] || die "Dossier roms/ absent."
 [[ -s "${SOURCE_DIR}/VERSION" ]] || die "Fichier VERSION absent."
 
+# Les archives GitHub contiennent le pointeur LFS, pas le binaire lui-même.
+SOURCE_APPIMAGE="${SOURCE_DIR}/system/Quiver/emulator/QuiverLauncher-linux-x64.AppImage"
+if [[ -f "$SOURCE_APPIMAGE" ]] \
+    && [[ "$(wc -c < "$SOURCE_APPIMAGE")" -le 1024 ]] \
+    && grep -aFxq 'version https://git-lfs.github.com/spec/v1' "$SOURCE_APPIMAGE"; then
+    LFS_URL="https://media.githubusercontent.com/media/${REPO}/${BRANCH}/system/Quiver/emulator/QuiverLauncher-linux-x64.AppImage"
+    LFS_DOWNLOAD="${TMP_DIR}/QuiverLauncher-linux-x64.AppImage"
+    log "Téléchargement de l'AppImage depuis Git LFS..."
+    if [[ "$DOWNLOAD_CMD" == "curl" ]]; then
+        curl -fLsS --retry 2 --connect-timeout 15 \
+            "$LFS_URL" -o "$LFS_DOWNLOAD" \
+            || die "Échec du téléchargement de l'AppImage depuis Git LFS."
+    else
+        wget -q "$LFS_URL" -O "$LFS_DOWNLOAD" \
+            || die "Échec du téléchargement de l'AppImage depuis Git LFS."
+    fi
+    [[ -s "$LFS_DOWNLOAD" ]] \
+        || die "L'AppImage téléchargée depuis Git LFS est vide."
+    if [[ "$(wc -c < "$LFS_DOWNLOAD")" -le 1024 ]] \
+        && grep -aFxq 'version https://git-lfs.github.com/spec/v1' "$LFS_DOWNLOAD"; then
+        die "Git LFS a renvoyé un pointeur au lieu de l'AppImage."
+    fi
+    mv "$LFS_DOWNLOAD" "$SOURCE_APPIMAGE" \
+        || die "Impossible de remplacer le pointeur LFS par l'AppImage."
+fi
+
 VERSION="$(head -n 1 "${SOURCE_DIR}/VERSION" | tr -d '\r\n[:space:]')"
 [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] \
     || die "Format VERSION invalide : ${VERSION}"
