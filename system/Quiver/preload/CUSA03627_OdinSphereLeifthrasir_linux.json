@@ -1,16 +1,52 @@
 # Odin Sphere Leifthrasir user settings (the launcher and the game write this file).
 # Remove a line to use the default.
 
-# Set from the launcher
-display_mode = borderless
-graphics_card = AMD Radeon 780M Graphics (RADV PHOENIX)
-smaa = 1
-
-# Set from the launcher
-anisotropy = 0
-
-# Set from the launcher
 show_launcher = 0
 
 # Set from the launcher
+anisotropy = 0
+aspect_ratio = 16:9
+detailed_logging = 1
+display_mode = borderless
+fsr1 = 0
+hotkey_window_mode = f11
+key_circle = lshift
+key_cross = space
+key_dpad_down = k
+key_dpad_left = j
+key_dpad_right = l
+key_dpad_up = i
+key_l1 = 1
+key_l2 = r
+key_l3 = z
+key_left_stick_down = s
+key_left_stick_left = a
+key_left_stick_right = d
+key_left_stick_up = w
+key_options = enter
+key_r1 = 3
+key_r2 = f
+key_r3 = c
+key_right_stick_down = down
+key_right_stick_left = left
+key_right_stick_right = right
+key_right_stick_up = up
+key_square = e
+key_touchpad_left = tab
+key_touchpad_right = backspace
+key_triangle = q
+monitor = 1
+presentation = letterbox
+rcas = 1
+rcas_strength = 75
+render_resolution = native
+show_fps = 0
+show_fps_title = 0
+show_resolution_title = 0
+skip_intro = 0
+smaa = 0
+text_language = english
+unlock_bookshelf = 0
 vsync = 1
+window_height = 1080
+window_width = 1920

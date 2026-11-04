@@ -5,10 +5,10 @@ Folder=odin-sphere-leifthrasir-pc--saulob
 [Launcher]
 path=/userdata/system/Quiver/emulator/Apps/odin-sphere-leifthrasir-pc--saulob
 executable=OdinSphereLeifthrasirPC-v0.1.0-x86_64.AppImage
-args= --user "/userdata/saves/quiver/CUSA05083 - Odin Sphere Leifthrasi"
+args= --user "/userdata/saves/quiver/CUSA05083 - Odin Sphere Leifthrasir"
 
 [Config]
-setting_file=/userdata/system/Quiver/emulator/Apps/odin-sphere-leifthrasir-pc--saulob/user/osl.ini
+setting_file=/userdata/saves/quiver/CUSA05083 - Odin Sphere Leifthrasir/osl.ini
 preload_file=CUSA03627_OdinSphereLeifthrasir_linux.json
 
 [Roms]
