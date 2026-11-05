@@ -1,9 +1,9 @@
 [Game]
 Name=Gravity Rush Remastered
-Folder=gravityrush_pc-LucaPazienza
+Folder=GravityRushRemastered-GravityrushPc
 
 [Launcher]
-Path=/userdata/system/Quiver/emulator/Apps/gravityrush_pc-LucaPazienza
+Path=/userdata/system/Quiver/emulator/Apps/GravityRushRemastered-GravityrushPc
 executable=Gravity Rush.exe
 args= --play
 mode=wine
