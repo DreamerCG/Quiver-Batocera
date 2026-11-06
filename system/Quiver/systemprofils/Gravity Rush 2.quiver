@@ -1,9 +1,9 @@
 [Game]
 name=Gravity Rush 2
-Folder=gr2_pc-HayatoG
+Folder=GravityRush2-GravityRush2NativePortForPC
 
 [Launcher]
-path=/userdata/system/Quiver/emulator/Apps/gr2_pc-HayatoG
+path=/userdata/system/Quiver/emulator/Apps/GravityRush2-GravityRush2NativePortForPC
 executable=Gravity Rush 2 (classic).exe
 args= --play
 mode=wine

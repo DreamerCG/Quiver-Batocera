@@ -1,0 +1,17 @@
+[Game]
+name=Super Mario Sunshine
+Folder=SuperMarioSunshine-SMSLauncher
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/SuperMarioSunshine-SMSLauncher
+executable=SMS-Launcher.AppImage
+args= --play
+
+[Config]
+setting_file=/userdata/system/configs/Quiver/config/sms-launcher/preferences.json
+preload_file=NGC_SuperMarioSunshine.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/NGC - Super Mario Sunshine
+dlc_directory=/userdata/roms/quiver/DLC/NGC - Super Mario Sunshine
+mods_directory=/userdata/roms/quiver/MODS/NGC - Super Mario Sunshine

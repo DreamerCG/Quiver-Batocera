@@ -1,0 +1,18 @@
+[Game]
+name=Matterfall
+Folder=Matterfall-MatterfallPCPort
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/Matterfall-MatterfallPCPort
+executable=Matterfall Launcher.exe
+args= --play
+mode=wine
+
+[Config]
+setting_file=/userdata/system/Quiver/emulator/Apps/Matterfall-MatterfallPCPort/matterfall.ini
+preload_file=CUSA02475_Matterfall_Wine.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/CUSA02475 - Matterfall
+dlc_directory=/userdata/roms/quiver/DLC/CUSA02475 - Matterfall
+mods_directory=/userdata/roms/quiver/MODS/CUSA02475 - Matterfall

@@ -7,6 +7,7 @@ import os
 import shlex
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 from batocera_common.dataclasses import cached_dataclass, cached_property
@@ -19,6 +20,7 @@ _logger = logging.getLogger(__name__)
 
 QUIVER_CONFIG_ROOT = Path("/userdata/system/configs/Quiver")
 QUIVER_PRELOAD_ROOT = Path("/userdata/system/Quiver/preload")
+QUIVER_LIB_ROOT = Path("/userdata/system/Quiver/lib")
 QUIVER_WINE = Path("/userdata/system/Quiver/bin/quiver-wine")
 
 
@@ -362,6 +364,14 @@ class Quiver(Emulator):
 
         # Préparer la commande selon le type de jeu.
         env = os.environ.copy()
+        env["LD_LIBRARY_PATH"] = os.pathsep.join(
+            path
+            for path in (
+                str(QUIVER_LIB_ROOT),
+                env.get("LD_LIBRARY_PATH", ""),
+            )
+            if path
+        )
 
         if mode == "wine":
             env["QUIVER_GAME_NAME"] = _safe_name(name)
@@ -405,7 +415,8 @@ class Quiver(Emulator):
         env["HOME"] = str(home_dir)
         env["XDG_CONFIG_HOME"] = str(xdg_config_home)
         env["XDG_DATA_HOME"] = str(xdg_data_home)
-        env["XDG_RUNTIME_DIR"] = str(runtime_dir)
+        if not env.get("XDG_RUNTIME_DIR"):
+            env["XDG_RUNTIME_DIR"] = str(runtime_dir)
 
         # Construction de la commande de lancement.
         if mode == "wine":
@@ -424,11 +435,35 @@ class Quiver(Emulator):
                 *app_args,
             ]
 
-        _logger.info(
-            "Quiver : lancement de %s (%s, runner %s)",
-            name,
-            mode,
-            runner or "défaut",
+        print(
+            f"[Quiver] lancement de {name} ({mode}, runner {runner or 'défaut'})",
+            file=sys.stderr,
+            flush=True,
+        )
+        print(f"[Quiver] fichier profil={rom}", file=sys.stderr, flush=True)
+        print(
+            f"[Quiver] executable={executable}, dossier de travail={workdir}",
+            file=sys.stderr,
+            flush=True,
+        )
+        print(
+            f"[Quiver] arguments du jeu={app_args!r}, commande complète={command!r}",
+            file=sys.stderr,
+            flush=True,
+        )
+        print(
+            "[Quiver] setting_file="
+            f"{setting_path or '(non configuré)'} "
+            f"(existant={settings_exists}), preload_file="
+            f"{preload_file or '(non configuré)'}",
+            file=sys.stderr,
+            flush=True,
+        )
+        print(
+            f"[Quiver] LD_LIBRARY_PATH={env.get('LD_LIBRARY_PATH', '')}, "
+            f"XDG_RUNTIME_DIR={env.get('XDG_RUNTIME_DIR', '')}",
+            file=sys.stderr,
+            flush=True,
         )
 
         return Command(args=command, env=env)
