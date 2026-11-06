@@ -3,13 +3,13 @@ name=Killzone Shadowfall
 Folder=killzone-shadowfall-pc
 
 [Launcher]
-Path=/userdata/system/Quiver/emulator/Apps/killzone-shadowfall-pc
+Path=/userdata/system/Quiver/emulator/Apps/KillzoneShadowFall-KillzoneShadowfallPc
 executable=Killzone Shadow Fall.exe
 args=--play
 mode=wine
 
 [Config]
-setting_file=/userdata/system/Quiver/emulator/Apps/killzone-shadowfall-pc/user/launcher.json
+setting_file=/userdata/system/Quiver/emulator/Apps/KillzoneShadowFall-KillzoneShadowfallPc/user/launcher.json
 preload_file=CUSA00190_KillzoneShadowFall.json
 
 [Roms]
