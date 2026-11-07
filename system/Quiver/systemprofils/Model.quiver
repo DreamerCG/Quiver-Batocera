@@ -1,0 +1,17 @@
+[Game]
+name=Super Mario Sunshine
+Folder=TheLegendOfZeldaMajorasMask-2Ship2Harkinian
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/
+executable=SMS-Launcher.AppImage
+args= --play
+
+[Config]
+setting_file= 
+preload_file=
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/N64 - Super Mario Sunshine
+dlc_directory=/userdata/roms/quiver/DLC/NGC - Super Mario Sunshine
+mods_directory=/userdata/roms/quiver/MODS/NGC - Super Mario Sunshine

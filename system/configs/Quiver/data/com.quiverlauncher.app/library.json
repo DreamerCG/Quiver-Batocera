@@ -108,5 +108,15 @@
     "addedAt": 1793958113831,
     "id": "k170x0fz9nmk98dj1cqxw7141n8ftrwh",
     "slug": "super-mario-sunshine-sms-launcher"
-  }
+  },
+  {
+    "addedAt": 1793807482974,
+    "custom": {
+      "name": "Super Mario All-Stars PC & Android Edition V1.0",
+      "provider": "github",
+      "repository": "Darhkfox/SuperMarioAllStars"
+    },
+    "id": "github:Darhkfox/SuperMarioAllStars",
+    "slug": ""
+  },   
 ]
