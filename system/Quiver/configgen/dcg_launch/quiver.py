@@ -70,20 +70,16 @@ def _resolve_executable(value: str, workdir: Path) -> Path:
             if path.is_file()
         )
 
-        if len(candidates) == 1:
+        if candidates:
+            selected = max(candidates, key=lambda path: path.stat().st_mtime_ns)
             _logger.info(
-                "Exécutable correspondant au motif %s : %s",
+                "Exécutable le plus récemment modifié correspondant au motif %s : %s",
                 executable.name,
-                candidates[0].name,
+                selected.name,
             )
-            return candidates[0]
+            return selected
 
-        if len(candidates) > 1:
-            matches = ", ".join(path.name for path in candidates)
-            raise RuntimeError(
-                f"Plusieurs exécutables correspondent au motif "
-                f"{executable.name} : {matches}"
-            )
+        return executable
 
     # Si l'exécutable attendu est une AppImage, rechercher
     # automatiquement une version mise à jour dans le dossier du jeu.
