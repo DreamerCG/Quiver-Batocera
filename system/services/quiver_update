@@ -3,6 +3,7 @@
 
 REPO_RAW="https://raw.githubusercontent.com/DreamerCG/Quiver-Batocera/main"
 VERSION_FILE="/userdata/system/Quiver/VERSION"
+LAUNCHER_UPDATER="/userdata/system/Quiver/bin/quiver-update-launcher"
 LOG="/userdata/system/logs/quiver_update.log"
 
 log() { echo "$(date '+%F %T') $*" >> "$LOG"; }
@@ -12,7 +13,16 @@ version_gt() {
 }
 
 check_update() (
-    local remote="" local_v install_dir
+    local remote="" local_v install_dir run_mode="${1:-interactive}"
+    set -o pipefail
+
+    run_logged() {
+        if [ "$run_mode" = background ]; then
+            "$@" 2>&1
+        else
+            "$@" 2>&1 | tee -a "$LOG"
+        fi
+    }
 
     if command -v curl >/dev/null 2>&1; then
         download_version() { curl -fsSL --max-time 5 "$REPO_RAW/VERSION"; }
@@ -65,8 +75,13 @@ check_update() (
     log "locale=$local_v distante=$remote"
     echo "Version installée : $local_v ; version distante : $remote"
     if ! version_gt "$remote" "$local_v"; then
-        log "aucune mise à jour nécessaire"
-        echo "Aucune mise à jour nécessaire."
+        log "aucune mise à jour de l'intégration nécessaire"
+        echo "Aucune mise à jour de l'intégration nécessaire."
+        if ! run_logged bash "$LAUNCHER_UPDATER"; then
+            log "ERREUR : échec de la mise à jour du launcher Quiver"
+            echo "Échec de la mise à jour du launcher Quiver. Consulte $LOG"
+            return 1
+        fi
         return 0
     fi
 
@@ -83,7 +98,7 @@ check_update() (
         echo "Téléchargement de install.sh impossible. Consulte $LOG"
         return 1
     fi
-    if ! bash "$install_dir/install.sh" >> "$LOG" 2>&1; then
+    if ! run_logged bash "$install_dir/install.sh"; then
         log "ERREUR : échec de l'installation"
         echo "Échec de l'installation. Consulte $LOG"
         return 1
@@ -95,7 +110,7 @@ check_update() (
 case "${1:-start}" in
     start)
         mkdir -p "$(dirname "$LOG")" || exit 1
-        check_update >> "$LOG" 2>&1 &
+        check_update background >> "$LOG" 2>&1 &
         ;;
     scan|update)
         mkdir -p "$(dirname "$LOG")" || exit 1

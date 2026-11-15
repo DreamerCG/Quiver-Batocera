@@ -1,0 +1,82 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+INSTALL_DIR="/userdata/system/Quiver"
+APPIMAGE="${INSTALL_DIR}/emulator/QuiverLauncher-linux-x64.AppImage"
+VERSION_FILE="${INSTALL_DIR}/LAUNCHER_VERSION"
+RELEASES_URL="https://api.github.com/repos/tgeorgiadis/quiver-launcher/releases?per_page=100"
+
+log() { printf '[Quiver] %s\n' "$*"; }
+die() { printf '[Quiver] ERREUR : %s\n' "$*" >&2; exit 1; }
+
+command -v python3 >/dev/null 2>&1 || die "python3 est nécessaire pour vérifier les versions de Quiver."
+command -v sha256sum >/dev/null 2>&1 || die "sha256sum est nécessaire pour vérifier l'AppImage."
+mkdir -p "${INSTALL_DIR}/emulator" || die "Impossible de créer le dossier du launcher."
+TMP_DIR="$(mktemp -d "${INSTALL_DIR}/emulator/.quiver-update.XXXXXX")" \
+    || die "Impossible de créer le dossier temporaire."
+trap 'rm -rf -- "$TMP_DIR"' EXIT
+
+if command -v curl >/dev/null 2>&1; then
+    download() { curl -fLsS --retry 2 --connect-timeout 15 "$1" -o "$2"; }
+elif command -v wget >/dev/null 2>&1; then
+    download() { wget -q -t 3 -T 30 "$1" -O "$2"; }
+else
+    die "curl ou wget est nécessaire."
+fi
+
+log "Vérification de la dernière version de Quiver..."
+download "$RELEASES_URL" "${TMP_DIR}/releases.json" \
+    || die "Impossible de récupérer les versions de Quiver sur GitHub."
+release_info="$(python3 - "${TMP_DIR}/releases.json" <<'PY' | tr -d '\r'
+import json
+import re
+import sys
+
+try:
+    with open(sys.argv[1], encoding="utf-8") as f:
+        releases = json.load(f)
+    if not isinstance(releases, list):
+        raise ValueError("réponse GitHub invalide")
+    releases = [r for r in releases if not r["draft"] and r["published_at"]]
+    release = max(releases, key=lambda r: r["published_at"])
+    tag = release["tag_name"]
+    if not re.fullmatch(r"v[0-9][A-Za-z0-9._-]*", tag):
+        raise ValueError("tag de version invalide")
+    assets = [a for a in release["assets"]
+              if re.fullmatch(r"QuiverLauncher_[A-Za-z0-9._-]+_amd64\.AppImage", a["name"])]
+    if len(assets) != 1:
+        raise ValueError("AppImage amd64 absente ou ambiguë pour " + tag)
+    asset = assets[0]
+    url = asset["browser_download_url"]
+    expected = "https://github.com/tgeorgiadis/quiver-launcher/releases/download/" + tag + "/" + asset["name"]
+    digest = asset["digest"]
+    if url != expected or not isinstance(digest, str) or not re.fullmatch(r"sha256:[0-9a-f]{64}", digest):
+        raise ValueError("URL ou empreinte de l'AppImage invalide")
+    print(tag)
+    print(url)
+    print(digest[7:])
+except (OSError, ValueError, KeyError, TypeError) as exc:
+    print("Réponse GitHub invalide : " + str(exc), file=sys.stderr)
+    sys.exit(1)
+PY
+)" || die "Impossible de déterminer la dernière version de Quiver."
+mapfile -t release <<< "$release_info"
+tag="${release[0]}"
+url="${release[1]}"
+digest="${release[2]}"
+
+if [[ -f "$APPIMAGE" ]] && [[ "$(sha256sum "$APPIMAGE" | cut -d ' ' -f 1)" == "$digest" ]]; then
+    log "Quiver ${tag} est déjà installé."
+else
+    log "Téléchargement de Quiver ${tag}..."
+    download "$url" "${TMP_DIR}/Quiver.AppImage" \
+        || die "Échec du téléchargement de Quiver ${tag}."
+    [[ "$(sha256sum "${TMP_DIR}/Quiver.AppImage" | cut -d ' ' -f 1)" == "$digest" ]] \
+        || die "Empreinte invalide pour Quiver ${tag}."
+    chmod +x "${TMP_DIR}/Quiver.AppImage" || die "Impossible de rendre l'AppImage exécutable."
+    mv -f "${TMP_DIR}/Quiver.AppImage" "$APPIMAGE" || die "Impossible d'installer l'AppImage."
+    log "Quiver ${tag} installé."
+fi
+
+printf '%s\n' "$tag" > "${TMP_DIR}/LAUNCHER_VERSION" || die "Impossible d'écrire la version du launcher."
+mv -f "${TMP_DIR}/LAUNCHER_VERSION" "$VERSION_FILE" || die "Impossible d'enregistrer la version du launcher."
