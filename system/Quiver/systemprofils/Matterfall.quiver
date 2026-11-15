@@ -4,6 +4,7 @@ Folder=Matterfall-MatterfallPCPort
 
 [Launcher]
 path=/userdata/system/Quiver/emulator/Apps/Matterfall-MatterfallPCPort
+clearcache=true
 executable=Matterfall Launcher.exe
 args= --play
 mode=wine

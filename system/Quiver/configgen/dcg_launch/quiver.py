@@ -15,6 +15,7 @@ from batocera_launch.devices.controller import generate_sdl_game_controller_conf
 from batocera_launch.command import Command
 from batocera_launch.emulator import Emulator
 from batocera_launch.types import HotkeysContext
+from quiver_cache import clear_game_cache
 
 _logger = logging.getLogger(__name__)
 
@@ -484,4 +485,5 @@ class Quiver(Emulator):
             flush=True,
         )
 
+        clear_game_cache(parser, game_path)
         return Command(args=command, env=env)

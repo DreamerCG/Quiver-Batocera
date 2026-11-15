@@ -4,6 +4,8 @@ Folder=TheLegendOfZeldaMajorasMask-2Ship2Harkinian
 
 [Launcher]
 path=/userdata/system/Quiver/emulator/Apps/
+# clearcache=true supprime le dossier cache situé dans path avant le lancement.
+clearcache=false
 executable=SMS-Launcher.AppImage
 args= --play
 

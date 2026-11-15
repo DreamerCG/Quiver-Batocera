@@ -13,6 +13,7 @@ from typing import TYPE_CHECKING
 from configgen import Command
 from configgen.controller import generate_sdl_game_controller_config
 from configgen.generators.Generator import Generator
+from quiver_cache import clear_game_cache
 
 if TYPE_CHECKING:
     from configgen.types import HotkeysContext
@@ -377,6 +378,7 @@ class QuiverGenerator(Generator):
         else:
             command = [str(executable), *app_args]
 
+        clear_game_cache(parser, game_path)
         os.chdir(workdir)
         print(
             f"[Quiver] lancement de {name} ({mode}, runner {runner or 'défaut'})",
