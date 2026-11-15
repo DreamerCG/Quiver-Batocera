@@ -1,6 +1,7 @@
 import ast
 import asyncio
 import configparser
+import io
 import logging
 import os
 import shlex
@@ -78,7 +79,8 @@ class CacheTests(unittest.TestCase):
                     game.mkdir()
                     workdir.mkdir()
                     (game / "cache").mkdir()
-                    (game / "cache" / "shader").write_text("cache")
+                    (game / "user" / "cache").mkdir(parents=True)
+                    (game / "user" / "cache" / "shader").write_text("cache")
                     (workdir / "cache").mkdir()
                     (workdir / "game.bin").touch()
                     (game / "settings.ini").touch()
@@ -87,12 +89,14 @@ class CacheTests(unittest.TestCase):
                     rom.write_text(
                         f"[Game]\nname=Test\n[Launcher]\npath={game}\n"
                         f"working_directory={workdir}\nexecutable=game.bin\n{option}"
+                        "path_cache=user/cache\n"
                         f"[Config]\nsetting_file={game / 'settings.ini'}\n",
                         encoding="utf-8",
                     )
                     generator, new_api = load_generator(source, root / "config")
                     instance = generator()
-                    with patch("os.chdir"):
+                    output = io.StringIO()
+                    with patch("os.chdir"), patch("sys.stderr", output):
                         if new_api:
                             instance.rom = rom
                             instance.config = {"LAUNCHER_QUIVER": "off"}
@@ -103,7 +107,12 @@ class CacheTests(unittest.TestCase):
                             system = SimpleNamespace(config={"LAUNCHER_QUIVER": "off"})
                             command = instance.generate(system, rom, [], None, None, None, None)
                             self.assertEqual(command.array[0], str(workdir / "game.bin"))
-                    self.assertEqual((game / "cache").exists(), value != "true")
+                    self.assertEqual((game / "user" / "cache").exists(), value != "true")
+                    self.assertTrue((game / "cache").is_dir())
+                    if value == "true":
+                        self.assertIn(f"clearcache : dossier supprimé : {game / 'user' / 'cache'}", output.getvalue())
+                    else:
+                        self.assertNotIn("clearcache :", output.getvalue())
                     self.assertTrue((workdir / "cache").is_dir())
                     self.assertTrue((game / "settings.ini").is_file())
 
@@ -111,7 +120,10 @@ class CacheTests(unittest.TestCase):
         parser = configparser.ConfigParser()
         parser.read_string("[Launcher]\nclearcache=true\n")
         with tempfile.TemporaryDirectory() as temp:
-            clear_game_cache(parser, temp)
+            output = io.StringIO()
+            with patch("sys.stderr", output):
+                clear_game_cache(parser, temp)
+            self.assertIn(f"clearcache : dossier absent : {Path(temp) / 'cache'}", output.getvalue())
             with self.assertRaises(RuntimeError):
                 clear_game_cache(parser, "")
             (Path(temp) / "cache").touch()
@@ -131,6 +143,31 @@ class CacheTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "impossible de supprimer"):
                     clear_game_cache(parser, temp)
             self.assertTrue(cache.is_dir())
+
+    def test_default_and_invalid_cache_directories(self):
+        parser = configparser.ConfigParser()
+        parser.read_string("[Launcher]\nclearcache=true\n")
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "cache").mkdir()
+            clear_game_cache(parser, temp)
+            self.assertFalse((root / "cache").exists())
+            for value in ("../cache", "user/../cache", "user", "", str(root / "cache")):
+                with self.subTest(value=value):
+                    parser.set("Launcher", "path_cache", value)
+                    with self.assertRaises(RuntimeError):
+                        clear_game_cache(parser, temp)
+
+    def test_symbolic_parent_is_rejected(self):
+        parser = configparser.ConfigParser()
+        parser.read_string("[Launcher]\nclearcache=true\npath_cache=user/cache\n")
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "user" / "cache").mkdir(parents=True)
+            with patch.object(Path, "is_symlink", autospec=True, side_effect=lambda path: path == root / "user"):
+                with self.assertRaises(RuntimeError):
+                    clear_game_cache(parser, temp)
+            self.assertTrue((root / "user" / "cache").is_dir())
 
     def test_symbolic_cache_is_not_followed(self):
         with tempfile.TemporaryDirectory() as temp:
