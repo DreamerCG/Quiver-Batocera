@@ -17,6 +17,11 @@
       "repository": "petrishevgeorgii-debug/prototype-pc-slop"
     },
     "id": "github:petrishevgeorgii-debug/prototype-pc-slop",
+    "overrides": {
+      "consoles": [
+        "ps4"
+      ]
+    },
     "slug": ""
   },
   {
@@ -27,6 +32,11 @@
       "repository": "Darhkfox/SuperMarioAllStars"
     },
     "id": "github:Darhkfox/SuperMarioAllStars",
+    "overrides": {
+      "consoles": [
+        "snes"
+      ]
+    },
     "slug": ""
   },
   {

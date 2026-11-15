@@ -1,4 +1,34 @@
 {
+  "github:Darhkfox/SuperMarioAllStars": {
+    "addedAt": 0,
+    "description": "Ajoutée depuis github.com/Darhkfox/SuperMarioAllStars. Quiver n'a pas vérifié cette app.",
+    "games": [],
+    "id": "github:Darhkfox/SuperMarioAllStars",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "SuperMarioAllStars"
+    },
+    "name": "Super Mario All-Stars PC & Android Edition V1.0",
+    "projectName": "Super Mario All-Stars PC & Android Edition V1.0",
+    "projectType": "port",
+    "recommended": 0,
+    "reportBroken": 0,
+    "reportIssues": 0,
+    "reviewCount": 0,
+    "slug": "",
+    "supportedOS": [
+      "android",
+      "linux",
+      "unknown"
+    ],
+    "tags": [],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793977181000,
+      "version": "v1.1.1"
+    }
+  },
   "github:petrishevgeorgii-debug/prototype-pc-slop": {
     "addedAt": 0,
     "description": "Ajoutée depuis github.com/petrishevgeorgii-debug/prototype-pc-slop. Quiver n'a pas vérifié cette app.",
@@ -23,8 +53,8 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793096431000,
-      "version": "v1.0.5"
+      "releasedAt": 1794451708000,
+      "version": "v1.1.0"
     }
   },
   "k170ash4eccc0t8n6cr9we8n1s8h5zgs": {
@@ -78,8 +108,8 @@
     "projectType": "port",
     "recommended": 0,
     "reportBroken": 0,
-    "reportIssues": 0,
-    "reviewCount": 0,
+    "reportIssues": 1,
+    "reviewCount": 1,
     "slug": "killzone-shadow-fall-killzone-shadowfall-pc",
     "supportedOS": [
       "windows"
@@ -107,7 +137,7 @@
   "k170hyjhjcf1madckm5472ym3d8gb4ym": {
     "addedAt": 1792279748705,
     "aiLevel": "assisted",
-    "artwork": "https://raw.githubusercontent.com/saulob/dragons-crown-pro-pc/a05846c93ee454ac8a17be4de24fac4b3f08d58f/packaging/icons/app-icon-512.png",
+    "artwork": "https://cdn2.steamgriddb.com/icon/6f6e723c18a99b7d6e16a4e348565ee9.png",
     "basedOn": {
       "console": "ps4"
     },
@@ -120,6 +150,13 @@
       "key": "saulob",
       "name": "saulob"
     },
+    "early": {
+      "of": "1.2.0:own:files",
+      "release": {
+        "releasedAt": 1794614361000,
+        "version": "v1.2.0"
+      }
+    },
     "gameId": "k97f4h7dg5tzkm5hcywcjm7qks8gb7gc",
     "games": [
       {
@@ -129,8 +166,8 @@
       }
     ],
     "id": "k170hyjhjcf1madckm5472ym3d8gb4ym",
-    "lastReleaseAt": 1793798194000,
-    "lastReleaseVersion": "v0.9.2",
+    "lastReleaseAt": 1794614361000,
+    "lastReleaseVersion": "v1.2.0",
     "launcher": {
       "filesToAdd": [],
       "folderName": "DragonsCrownPro-DragonsCrownProPCPort",
@@ -169,31 +206,183 @@
     "projectId": "kh706dbg19bgqbqf2jw6yr4kmx8gbhpx",
     "projectName": "Dragon's Crown Pro PC Port",
     "projectType": "port",
-    "recommended": 9,
+    "recommended": 11,
     "reportBroken": 0,
-    "reportIssues": 0,
-    "reviewCount": 9,
+    "reportIssues": 1,
+    "reviewCount": 12,
     "slug": "dragon-s-crown-pro-dragon-s-crown-pro-pc-port",
     "supportedOS": [
       "windows",
       "linux"
     ],
     "tags": [
-      "ps4",
       "dragons-crown",
       "playstation",
-      "playstation 4",
       "widescreen",
       "unlocked framerate",
       "increased internal resolution",
       "controller support",
+      "keyboard and mouse",
+      "ps4",
+      "playstation 4"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1794135049000,
+      "version": "v1.1.1"
+    },
+    "withdrawn": []
+  },
+  "k170wdx3xafv0r4atphdzx90j98hjp3b": {
+    "addedAt": 1793779947815,
+    "aiLevel": "assisted",
+    "artwork": "https://cdn2.steamgriddb.com/icon_thumb/b933ad64d3e6c94510593b7b766e2bda.png",
+    "basedOn": {
+      "console": "ps4"
+    },
+    "catalogId": "qcat_ce48f26f-fab1-41ee-a312-0b4d17a749a9",
+    "consoles": [
+      "ps4"
+    ],
+    "description": "Matterfall-PC-port is a native Windows port of the PlayStation 4 game Matterfall that runs the game's own x86-64 code directly on the PC.",
+    "developer": {
+      "key": "bilalreloaded",
+      "name": "BilalReloaded"
+    },
+    "gameId": "k97eawwjks19184ap6fwqc23rs8hkamz",
+    "games": [
+      {
+        "id": "k97eawwjks19184ap6fwqc23rs8hkamz",
+        "slug": "matterfall",
+        "title": "Matterfall"
+      }
+    ],
+    "id": "k170wdx3xafv0r4atphdzx90j98hjp3b",
+    "lastReleaseAt": 1793434861000,
+    "lastReleaseVersion": "v1.0.4",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "Matterfall-MatterfallPCPort",
+      "preferredExecutables": {
+        "windows": [
+          "Launcher.exe"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/540c90edf9b6c8f658975acbb7e4f297.png",
+      "header": "https://cdn2.steamgriddb.com/hero_thumb/7c985c86cdb068f0cdd3014ce627458f.jpg",
+      "hero": "https://cdn2.steamgriddb.com/hero/7c985c86cdb068f0cdd3014ce627458f.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/917ad2565258f410a86a57d6cfa47a8f.png"
+    },
+    "makers": [
+      "PlayStation"
+    ],
+    "name": "Matterfall",
+    "projectId": "kh78r80k3p2hsycfnz0sqefyy18hj2zv",
+    "projectName": "Matterfall-PC-port",
+    "projectType": "port",
+    "recommended": 0,
+    "reportBroken": 0,
+    "reportIssues": 0,
+    "reviewCount": 0,
+    "slug": "matterfall-matterfall-pc-port",
+    "supportedOS": [
+      "windows"
+    ],
+    "tags": [
+      "ps4",
+      "playstation",
+      "playstation 4",
+      "controller support",
+      "keyboard and mouse",
+      "increased internal resolution",
+      "unlocked framerate",
+      "widescreen"
+    ],
+    "verified": {
+      "pinned": true,
+      "prerelease": false,
+      "releasedAt": 1793434861000,
+      "version": "v1.0.4"
+    },
+    "withdrawn": []
+  },
+  "k170x0fz9nmk98dj1cqxw7141n8ftrwh": {
+    "addedAt": 1791449454313,
+    "aiLevel": "assisted",
+    "artwork": "https://cdn2.steamgriddb.com/icon/7989edad14ebcd3adfacc7344dc6b739.ico",
+    "basedOn": {
+      "console": "gcn"
+    },
+    "catalogId": "qcat_5978e105-9c66-4bb0-bec6-35a26f03ef3b",
+    "consoles": [
+      "gcn"
+    ],
+    "description": "SMS Launcher is a native PC port of Super Mario Sunshine for Windows, macOS, and Linux that guides you through setup and provides a one-click play button.",
+    "developer": {
+      "key": "chasemdev",
+      "name": "chasem-dev"
+    },
+    "gameId": "k97bpj1jyjjpsf4r3x58fdmjzn8fqxna",
+    "games": [
+      {
+        "id": "k97bpj1jyjjpsf4r3x58fdmjzn8fqxna",
+        "slug": "super-mario-sunshine",
+        "title": "Super Mario Sunshine"
+      }
+    ],
+    "id": "k170x0fz9nmk98dj1cqxw7141n8ftrwh",
+    "lastReleaseAt": 1793998139000,
+    "lastReleaseVersion": "v1.1.0",
+    "launcher": {
+      "filesToAdd": [],
+      "folderName": "SuperMarioSunshine-SMSLauncher",
+      "preferredExecutables": {
+        "macos": [
+          "Launcher.app"
+        ]
+      }
+    },
+    "libraryArt": {
+      "capsule": "https://cdn2.steamgriddb.com/grid/f5e97c0193978d636807084bf658fc1c.png",
+      "header": "https://cdn2.steamgriddb.com/grid/cf82d2d7b18c13e95b17bc5c4c243e10.png",
+      "hero": "https://cdn2.steamgriddb.com/hero/c83ba39f025671619b34fa8f0af9f33f.png",
+      "logo": "https://cdn2.steamgriddb.com/logo/6abfefaf79dff3c6a5bcfde47a85749f.png"
+    },
+    "makers": [
+      "Nintendo"
+    ],
+    "name": "Super Mario Sunshine",
+    "projectId": "kh735pnw22pj8465jympat6kms8ftezh",
+    "projectName": "SMS Launcher",
+    "projectType": "port",
+    "recommended": 31,
+    "reportBroken": 1,
+    "reportIssues": 1,
+    "reviewCount": 33,
+    "slug": "super-mario-sunshine-sms-launcher",
+    "supportedOS": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "tags": [
+      "port",
+      "gcn",
+      "mario",
+      "nintendo",
+      "gamecube",
+      "unlocked framerate",
+      "mod support",
       "keyboard and mouse"
     ],
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793516203000,
-      "version": "v0.9.1"
+      "releasedAt": 1793998139000,
+      "version": "v1.1.0"
     },
     "withdrawn": []
   },
@@ -222,8 +411,8 @@
       }
     ],
     "id": "k171m360c3x94mtgk1tprp1zz98gng37",
-    "lastReleaseAt": 1793529561000,
-    "lastReleaseVersion": "v0.70-opt12",
+    "lastReleaseAt": 1794483207000,
+    "lastReleaseVersion": "v0.74.1-opt14",
     "launcher": {
       "filesToAdd": [],
       "folderName": "ShadowOfTheColossus-ShadowOfTheColossusPC",
@@ -244,7 +433,7 @@
     ],
     "name": "Shadow of the Colossus",
     "projectId": "kh721a6tk9tqsmegbg98wk0f2s8gn02y",
-    "projectName": "ShadowOfTheColossus-PC",
+    "projectName": "Shadow of the Colossus - PC Fork",
     "projectType": "port",
     "recommended": 0,
     "reportBroken": 0,
@@ -269,8 +458,8 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793529561000,
-      "version": "v0.70-opt12"
+      "releasedAt": 1794483207000,
+      "version": "v0.74.1-opt14"
     },
     "withdrawn": []
   },
@@ -323,10 +512,10 @@
     "projectId": "kh76nstj3ks71j363d10m2qr798fta84",
     "projectName": "P.T. for PC",
     "projectType": "port",
-    "recommended": 26,
+    "recommended": 32,
     "reportBroken": 0,
     "reportIssues": 0,
-    "reviewCount": 26,
+    "reviewCount": 32,
     "slug": "p-t-p-t-for-pc",
     "supportedOS": [
       "linux",
@@ -365,6 +554,9 @@
       "key": "hayatog",
       "name": "HayatoG"
     },
+    "early": {
+      "of": "sunny-beta-2026.11.12:windows:files"
+    },
     "gameId": "k97eyb0aj95qzfr0yw7xqewbfn8ge911",
     "games": [
       {
@@ -374,8 +566,8 @@
       }
     ],
     "id": "k172fheypxgnx9jsnrna6v23k18gefvw",
-    "lastReleaseAt": 1793147466000,
-    "lastReleaseVersion": "beta-rc1",
+    "lastReleaseAt": 1794492195000,
+    "lastReleaseVersion": "sunny-beta-2026.11.12",
     "launcher": {
       "filesToAdd": [],
       "folderName": "InFAMOUSSecondSon-IssPc"
@@ -395,12 +587,13 @@
     "projectType": "port",
     "recommended": 1,
     "reportBroken": 0,
-    "reportIssues": 7,
-    "reviewCount": 8,
+    "reportIssues": 8,
+    "reviewCount": 9,
     "slug": "infamous-second-son-iss-pc",
     "supportedOS": [
       "linux",
-      "windows"
+      "windows",
+      "unknown"
     ],
     "tags": [
       "recomp",
@@ -410,13 +603,20 @@
       "playstation 4",
       "recompilation",
       "unlocked framerate",
-      "controller support"
+      "controller support",
+      "keyboard and mouse"
     ],
     "verified": {
       "pinned": true,
       "prerelease": false,
       "releasedAt": 1792653081000,
       "version": "v2026.10.22-cde38af"
+    },
+    "verifiedPrerelease": {
+      "pinned": true,
+      "prerelease": true,
+      "releasedAt": 1794492195000,
+      "version": "sunny-beta-2026.11.12"
     },
     "withdrawn": []
   },
@@ -436,6 +636,9 @@
       "key": "abdelmoumendeghbouche",
       "name": "AbdelmoumenDeghbouche"
     },
+    "early": {
+      "of": "0.1.14:windows:files"
+    },
     "gameId": "k97bk6zwe8y1ek8ke5fnark8yn8h79fg",
     "games": [
       {
@@ -445,11 +648,16 @@
       }
     ],
     "id": "k172g8fgrnhfv296ga25w0wxzd8h6ncy",
-    "lastReleaseAt": 1793781122000,
-    "lastReleaseVersion": "v0.1.10",
+    "lastReleaseAt": 1794454618000,
+    "lastReleaseVersion": "v0.1.14",
     "launcher": {
       "filesToAdd": [],
-      "folderName": "Knack-KnackPc"
+      "folderName": "Knack-KnackPc",
+      "preferredExecutables": {
+        "linux": [
+          "knack-x86_64.AppImage"
+        ]
+      }
     },
     "libraryArt": {
       "capsule": "https://cdn2.steamgriddb.com/grid/f7d6db779e8805aac16e1b49472d8de1.png",
@@ -464,10 +672,10 @@
     "projectId": "kh746939nrsy1wv101jcv581c58h6pt0",
     "projectName": "Knack for PC (knack_pc)",
     "projectType": "port",
-    "recommended": 0,
-    "reportBroken": 0,
+    "recommended": 1,
+    "reportBroken": 1,
     "reportIssues": 1,
-    "reviewCount": 1,
+    "reviewCount": 3,
     "slug": "knack-pc",
     "supportedOS": [
       "windows",
@@ -486,8 +694,14 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1792996834000,
-      "version": "v0.1.4"
+      "releasedAt": 1794449970000,
+      "version": "v0.1.13"
+    },
+    "verifiedPrerelease": {
+      "pinned": true,
+      "prerelease": true,
+      "releasedAt": 1794454618000,
+      "version": "v0.1.14"
     },
     "withdrawn": []
   },
@@ -507,6 +721,9 @@
       "key": "ayozetr",
       "name": "ayozetr"
     },
+    "early": {
+      "of": "0.70-linux.2:own:files"
+    },
     "gameId": "k978ss52rcgchprwbs5xbs910n8fyx19",
     "games": [
       {
@@ -516,8 +733,8 @@
       }
     ],
     "id": "k172zy6nbbrpqj77yk6ana0sen8gyhte",
-    "lastReleaseAt": 1793792462000,
-    "lastReleaseVersion": "0.70-linux.2",
+    "lastReleaseAt": 1794519318000,
+    "lastReleaseVersion": "0.70-linux.6",
     "launcher": {
       "filesToAdd": [],
       "folderName": "Bloodborne-BloodborneForLinux",
@@ -540,10 +757,10 @@
     "projectId": "kh78vc95kbvv0wgggtrkgswkwh8gzfar",
     "projectName": "Bloodborne for Linux",
     "projectType": "port",
-    "recommended": 2,
+    "recommended": 4,
     "reportBroken": 0,
     "reportIssues": 0,
-    "reviewCount": 2,
+    "reviewCount": 4,
     "slug": "bloodborne-bloodborne-for-linux",
     "supportedOS": [
       "linux"
@@ -559,13 +776,17 @@
       "split screen",
       "ultrawide",
       "increased internal resolution",
-      "controller support"
+      "controller support",
+      "online multiplayer",
+      "unlocked framerate",
+      "keyboard and mouse",
+      "mod support"
     ],
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793487087000,
-      "version": "0.51-linux.20"
+      "releasedAt": 1794519318000,
+      "version": "0.70-linux.6"
     },
     "withdrawn": []
   },
@@ -594,8 +815,8 @@
       }
     ],
     "id": "k1732w16xjc716cqgyvv9s21418gtsnz",
-    "lastReleaseAt": 1793307283000,
-    "lastReleaseVersion": "v1.3.8",
+    "lastReleaseAt": 1794316506000,
+    "lastReleaseVersion": "v1.4.0",
     "launcher": {
       "filesToAdd": [],
       "folderName": "MediEvil-Medievil2019PcPort",
@@ -633,13 +854,14 @@
       "playstation 4",
       "unlocked framerate",
       "controller support",
-      "keyboard and mouse"
+      "keyboard and mouse",
+      "increased internal resolution"
     ],
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793307283000,
-      "version": "v1.3.8"
+      "releasedAt": 1794316506000,
+      "version": "v1.4.0"
     },
     "withdrawn": []
   },
@@ -659,6 +881,9 @@
       "key": "lucapazienza",
       "name": "LucaPazienza"
     },
+    "early": {
+      "of": "0.1.12:windows:files"
+    },
     "gameId": "k97f8eef5y02an2y1hj1s0r6j58gyw2a",
     "games": [
       {
@@ -668,8 +893,8 @@
       }
     ],
     "id": "k174s6mrjye2jk7d4d1e32syt18gye7v",
-    "lastReleaseAt": 1793786631000,
-    "lastReleaseVersion": "v0.1.12",
+    "lastReleaseAt": 1793969652000,
+    "lastReleaseVersion": "v0.1.15",
     "launcher": {
       "filesToAdd": [],
       "folderName": "GravityRushRemastered-GravityrushPc"
@@ -687,10 +912,10 @@
     "projectId": "kh7e9f5drz7kv5pqatwr0hgpe58gycsj",
     "projectName": "Gravity Rush Remastered Native PC Port",
     "projectType": "port",
-    "recommended": 5,
+    "recommended": 7,
     "reportBroken": 0,
     "reportIssues": 0,
-    "reviewCount": 5,
+    "reviewCount": 7,
     "slug": "gravity-rush-remastered-gravityrush-pc",
     "supportedOS": [
       "windows",
@@ -708,8 +933,8 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793185421000,
-      "version": "v0.1.10"
+      "releasedAt": 1793969652000,
+      "version": "v0.1.15"
     },
     "withdrawn": []
   },
@@ -730,6 +955,13 @@
       "key": "felipeprado0",
       "name": "FelipePrado0"
     },
+    "early": {
+      "of": "windows-v3.2.0:own:files",
+      "release": {
+        "releasedAt": 1794699569000,
+        "version": "windows-v3.2.0"
+      }
+    },
     "gameId": "k972bxvc9garh8nh8zg6v8qr418g6kq5",
     "games": [
       {
@@ -739,8 +971,8 @@
       }
     ],
     "id": "k174tm6gh93z1exj7ex7hesmf98g7asw",
-    "lastReleaseAt": 1793751437000,
-    "lastReleaseVersion": "windows-v3.0.0-launcher-test1",
+    "lastReleaseAt": 1794699569000,
+    "lastReleaseVersion": "windows-v3.2.0",
     "launcher": {
       "filesToAdd": [],
       "folderName": "GodOfWarIIIRemastered-Gow3Pc",
@@ -763,14 +995,15 @@
     "projectId": "kh7e5qndkrh44fn5yqzqf20s258g7bdt",
     "projectName": "Spartan Port",
     "projectType": "port",
-    "recommended": 22,
+    "recommended": 32,
     "reportBroken": 0,
-    "reportIssues": 10,
-    "reviewCount": 32,
+    "reportIssues": 11,
+    "reviewCount": 43,
     "slug": "god-of-war-iii-remastered-gow3-pc",
     "supportedOS": [
       "windows",
-      "linux"
+      "linux",
+      "macos"
     ],
     "tags": [
       "recomp",
@@ -788,8 +1021,14 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793500004000,
-      "version": "windows-v3.0.0"
+      "releasedAt": 1794075705000,
+      "version": "windows-v3.1.0"
+    },
+    "verifiedPrerelease": {
+      "pinned": true,
+      "prerelease": true,
+      "releasedAt": 1794444124000,
+      "version": "windows-v3.1.0-validation-test1"
     },
     "withdrawn": []
   },
@@ -809,6 +1048,9 @@
       "key": "overkilllabs3",
       "name": "OverkillLabs3"
     },
+    "early": {
+      "of": "0.4.1:own:files"
+    },
     "gameId": "k974zm06tjfjys8rpvt8ee9r5s8gcmsj",
     "games": [
       {
@@ -827,7 +1069,29 @@
         "windows": [
           "DriveClub.exe"
         ]
-      }
+      },
+      "setupFiles": [
+        {
+          "accepted": [],
+          "contains": [
+            "eboot.bin"
+          ],
+          "destination": "update",
+          "id": "update",
+          "kind": "folder",
+          "label": "DriveClub version 1.28 update"
+        },
+        {
+          "accepted": [],
+          "contains": [
+            "game000.dat"
+          ],
+          "destination": "base",
+          "id": "base",
+          "kind": "folder",
+          "label": "DriveClub base game"
+        }
+      ]
     },
     "libraryArt": {
       "capsule": "https://cdn2.steamgriddb.com/grid/feff3abc6ab1c5a09c3c537a1fc7b8a0.png",
@@ -842,10 +1106,10 @@
     "projectId": "kh7bt7dvs34txsfm53mg62q4ed8gcrzb",
     "projectName": "DriveClub Recomp",
     "projectType": "port",
-    "recommended": 9,
+    "recommended": 13,
     "reportBroken": 1,
-    "reportIssues": 4,
-    "reviewCount": 14,
+    "reportIssues": 5,
+    "reviewCount": 19,
     "slug": "driveclub-driveclub-recomp",
     "supportedOS": [
       "windows"
@@ -865,8 +1129,8 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793600537000,
-      "version": "v0.4.1"
+      "releasedAt": 1794217076000,
+      "version": "v0.4.2"
     },
     "withdrawn": []
   },
@@ -886,6 +1150,13 @@
       "key": "hayatog",
       "name": "HayatoG"
     },
+    "early": {
+      "of": "2026.11.14-ee3327d:own:files",
+      "release": {
+        "releasedAt": 1794691845000,
+        "version": "v2026.11.14-ee3327d"
+      }
+    },
     "gameId": "k975dzgg6gftxq6dzaanqyyxr98gbm6g",
     "games": [
       {
@@ -895,8 +1166,8 @@
       }
     ],
     "id": "k176sa320v5b18at2gesevb3ch8gaa8h",
-    "lastReleaseAt": 1793113474000,
-    "lastReleaseVersion": "v2026.10.27-4825a99",
+    "lastReleaseAt": 1794691845000,
+    "lastReleaseVersion": "v2026.11.14-ee3327d",
     "launcher": {
       "filesToAdd": [],
       "folderName": "TheLastGuardian-TheLastGuardianNativePCPort"
@@ -985,8 +1256,8 @@
     "projectType": "port",
     "recommended": 0,
     "reportBroken": 0,
-    "reportIssues": 1,
-    "reviewCount": 1,
+    "reportIssues": 2,
+    "reviewCount": 2,
     "slug": "gravity-rush-2-gravity-rush-2-native-port-for-pc",
     "supportedOS": [
       "linux",
@@ -1025,6 +1296,13 @@
       "key": "ryu7w7",
       "name": "Ryu7w7"
     },
+    "early": {
+      "of": "0.8.8:own:files",
+      "release": {
+        "releasedAt": 1794705868000,
+        "version": "v0.8.8"
+      }
+    },
     "gameId": "k978qse0xh4rxpjx370n19c4px8g8wfb",
     "games": [
       {
@@ -1034,8 +1312,8 @@
       }
     ],
     "id": "k17epgtp1gxe6ddrxp5q7es32x8gbdpm",
-    "lastReleaseAt": 1793764124000,
-    "lastReleaseVersion": "v0.8",
+    "lastReleaseAt": 1794705868000,
+    "lastReleaseVersion": "v0.8.8",
     "launcher": {
       "filesToAdd": [],
       "folderName": "CrashTeamRacingNitroFueled-CTRNitroFueledPC"
@@ -1053,10 +1331,10 @@
     "projectId": "kh774v45my9px2m0sj7dbvxry18ga6rz",
     "projectName": "OCTR: Online CTR Nitro-Fueled PC",
     "projectType": "port",
-    "recommended": 15,
+    "recommended": 18,
     "reportBroken": 1,
     "reportIssues": 0,
-    "reviewCount": 16,
+    "reviewCount": 19,
     "slug": "crash-team-racing-nitro-fueled-ctr-nitrofueled-pc-2",
     "supportedOS": [
       "windows",
@@ -1079,8 +1357,8 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793416844000,
-      "version": "v0.7.5"
+      "releasedAt": 1794450494000,
+      "version": "v0.8.5"
     },
     "withdrawn": []
   },
@@ -1109,8 +1387,8 @@
       }
     ],
     "id": "k17eq2e5gp0prws0vtg8svhx918gw014",
-    "lastReleaseAt": 1793110514000,
-    "lastReleaseVersion": "windows-v0.7.9",
+    "lastReleaseAt": 1794523133000,
+    "lastReleaseVersion": "windows-v0.9.1",
     "launcher": {
       "filesToAdd": [],
       "folderName": "TheOrder1886-Theorder1886Port"
@@ -1130,8 +1408,8 @@
     "projectType": "port",
     "recommended": 0,
     "reportBroken": 0,
-    "reportIssues": 2,
-    "reviewCount": 2,
+    "reportIssues": 3,
+    "reviewCount": 3,
     "slug": "the-order-1886-theorder1886-port",
     "supportedOS": [
       "windows"
@@ -1150,8 +1428,8 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793110514000,
-      "version": "windows-v0.7.9"
+      "releasedAt": 1794523133000,
+      "version": "windows-v0.9.1"
     },
     "withdrawn": []
   },
@@ -1171,6 +1449,13 @@
       "key": "bilalreloaded",
       "name": "BilalReloaded"
     },
+    "early": {
+      "of": "0.8.6:own:files",
+      "release": {
+        "releasedAt": 1794675237000,
+        "version": "v0.8.6"
+      }
+    },
     "gameId": "k97c4s61yxnht9bpr4qzrgej018gafjz",
     "games": [
       {
@@ -1180,8 +1465,8 @@
       }
     ],
     "id": "k17ers8kf70gxjgpk0tfz55x218ghxz0",
-    "lastReleaseAt": 1793660028000,
-    "lastReleaseVersion": "v0.8.1",
+    "lastReleaseAt": 1794675237000,
+    "lastReleaseVersion": "v0.8.6",
     "launcher": {
       "filesToAdd": [],
       "folderName": "UnchartedTheNathanDrakeCollection-UnchartedTheNathanDrakeCollectionPCPort",
@@ -1204,10 +1489,10 @@
     "projectId": "kh7fdj0wt6c3qcbvh6c6b5xv0d8ghj59",
     "projectName": "Uncharted: The Nathan Drake Collection - PC port",
     "projectType": "port",
-    "recommended": 10,
+    "recommended": 15,
     "reportBroken": 1,
-    "reportIssues": 2,
-    "reviewCount": 13,
+    "reportIssues": 3,
+    "reviewCount": 19,
     "slug": "uncharted-the-nathan-drake-collection-uncharted-the-nathan-drake-collection-pc-p",
     "supportedOS": [
       "windows"
@@ -1228,8 +1513,8 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793526650000,
-      "version": "v0.8.0"
+      "releasedAt": 1793958970000,
+      "version": "v0.8.4"
     },
     "withdrawn": []
   },
@@ -1247,6 +1532,9 @@
       "key": "saulobenigno",
       "name": "Saulo Benigno"
     },
+    "early": {
+      "of": "0.2.2:own:files"
+    },
     "gameId": "k973ean0h813gx8spwehnftzr98h4v7d",
     "games": [
       {
@@ -1256,8 +1544,8 @@
       }
     ],
     "id": "k17ewd5h1dyvej4etd4sprcy0d8h5tq1",
-    "lastReleaseAt": 1793762308000,
-    "lastReleaseVersion": "v0.2.2",
+    "lastReleaseAt": 1793807574000,
+    "lastReleaseVersion": "v0.2.3",
     "launcher": {
       "filesToAdd": [],
       "folderName": "OdinSphereLeifthrasir-OdinSphereLeifthrasirPCPort",
@@ -1316,10 +1604,10 @@
     "projectId": "kh7ejhjbxrdecdrvdz4h95jgwh8h479g",
     "projectName": "Odin Sphere Leifthrasir PC Port",
     "projectType": "port",
-    "recommended": 1,
+    "recommended": 2,
     "reportBroken": 0,
     "reportIssues": 0,
-    "reviewCount": 1,
+    "reviewCount": 2,
     "slug": "odin-sphere-leifthrasir-odin-sphere-leifthrasir-pc-port",
     "supportedOS": [
       "windows",
@@ -1334,13 +1622,14 @@
       "recompilation",
       "increased internal resolution",
       "controller support",
-      "keyboard and mouse"
+      "keyboard and mouse",
+      "ultrawide"
     ],
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793485708000,
-      "version": "v0.2.1"
+      "releasedAt": 1793807574000,
+      "version": "v0.2.3"
     },
     "withdrawn": []
   },
@@ -1360,6 +1649,13 @@
       "key": "abdelmoumendeghbouche",
       "name": "AbdelmoumenDeghbouche"
     },
+    "early": {
+      "of": "windows-v0.2.76:own:files",
+      "release": {
+        "releasedAt": 1794629685000,
+        "version": "windows-v0.2.76"
+      }
+    },
     "gameId": "k97bm0jf3j046ghxyxfha4v2xx8grza9",
     "games": [
       {
@@ -1369,8 +1665,8 @@
       }
     ],
     "id": "k17fc67ah1rhjrdnzd8kncjfr18gsaqf",
-    "lastReleaseAt": 1793781914000,
-    "lastReleaseVersion": "windows-v0.2.59",
+    "lastReleaseAt": 1794629685000,
+    "lastReleaseVersion": "windows-v0.2.76",
     "launcher": {
       "filesToAdd": [],
       "folderName": "WipEoutOmegaCollection-WipeoutPc",
@@ -1393,13 +1689,14 @@
     "projectId": "kh7f5kxcx4dwh6fyr76q9emta18gsfbb",
     "projectName": "wipeout_pc",
     "projectType": "port",
-    "recommended": 4,
-    "reportBroken": 0,
-    "reportIssues": 1,
-    "reviewCount": 5,
+    "recommended": 7,
+    "reportBroken": 1,
+    "reportIssues": 2,
+    "reviewCount": 10,
     "slug": "wipeout-omega-collection-wipeout-pc",
     "supportedOS": [
-      "windows"
+      "windows",
+      "linux"
     ],
     "tags": [
       "recomp",
@@ -1418,8 +1715,8 @@
     "verified": {
       "pinned": true,
       "prerelease": false,
-      "releasedAt": 1793576050000,
-      "version": "windows-v0.2.50"
+      "releasedAt": 1794510720000,
+      "version": "windows-v0.2.74"
     },
     "withdrawn": []
   }

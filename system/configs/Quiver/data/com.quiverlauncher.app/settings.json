@@ -1,10 +1,15 @@
 {
+  "appUpdatesAsked": true,
+  "autoUpdates": true,
+  "copyFoldersAsked": true,
   "dismissedAnnouncements": [
     "s17f1mqkjhzazgd6x682wqzvxn8gpfde"
   ],
   "fullscreen": true,
+  "groupBy": "console",
   "language": "fr",
   "launched": true,
+  "oldInstallsChecked": true,
   "oldLibraryNoticeSeen": true,
   "setupDone": true,
   "systemTitleBar": true,
