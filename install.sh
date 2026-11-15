@@ -7,6 +7,7 @@ REPO="DreamerCG/Quiver-Batocera"
 BRANCH="main"
 BASE_DIR="/userdata"
 INSTALL_DIR="${BASE_DIR}/system/Quiver"
+SERVICE_FILE="${BASE_DIR}/system/services/quiver_update"
 TMP_DIR="$(mktemp -d /tmp/quiver-install.XXXXXX)"
 
 cleanup() {
@@ -27,6 +28,13 @@ die() {
 [[ "$(id -u)" -eq 0 ]] || die "Lance ce script en root."
 [[ -d "${BASE_DIR}/system" ]] || die "/userdata/system introuvable."
 [[ -d "${BASE_DIR}/roms" ]] || die "/userdata/roms introuvable."
+
+FIRST_SERVICE_INSTALL=0
+if [[ ! -e "$SERVICE_FILE" || ! -f "${INSTALL_DIR}/VERSION" ]]; then
+    command -v batocera-services >/dev/null 2>&1 \
+        || die "batocera-services est nécessaire pour activer le service de mise à jour."
+    FIRST_SERVICE_INSTALL=1
+fi
 
 # Configuration Batocera : ajout des paramètres Quiver manquants (sans doublon)
 BATOCERA_CONF="${BASE_DIR}/system/batocera.conf"
@@ -219,5 +227,18 @@ if [[ -f "$LEGACY_WINE_LAUNCHER" || -L "$LEGACY_WINE_LAUNCHER" ]]; then
         || die "Impossible de retirer l'ancien launcher Wine."
     log "Ancien launcher batocera-wine retiré."
 fi
+
+[[ -f "$SERVICE_FILE" ]] || die "Service de mise à jour Quiver introuvable."
+chmod +x "$SERVICE_FILE" || die "Impossible de rendre le service de mise à jour exécutable."
+if [[ "$FIRST_SERVICE_INSTALL" -eq 1 ]]; then
+    batocera-services enable quiver_update \
+        || die "Impossible d'activer le service de mise à jour Quiver."
+    log "Service de mise à jour activé pour le prochain démarrage."
+fi
+
+printf '%s\n' "$VERSION" > "${INSTALL_DIR}/VERSION.tmp" \
+    || die "Impossible d'écrire la version installée."
+mv -f "${INSTALL_DIR}/VERSION.tmp" "${INSTALL_DIR}/VERSION" \
+    || die "Impossible d'enregistrer la version installée."
 
 log "Quiver ${VERSION} installé avec succès."
