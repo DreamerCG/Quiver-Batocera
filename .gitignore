@@ -1,2 +1,5 @@
 /backup-git/
 /tests/
+!/tests/
+/tests/*
+!/tests/test_exit_dragons_crown.sh

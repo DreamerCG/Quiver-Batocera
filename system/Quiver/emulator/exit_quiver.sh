@@ -101,6 +101,36 @@ release_lock() {
 trap release_lock EXIT
 trap 'exit 1' INT TERM
 
+stop_dragons_crown_pro() {
+    # Le binaire dans le montage AppImage ne contient pas "Quiver" dans son chemin.
+    pattern='^/tmp/\.mount_[^/]*/usr/bin/dragons_crown_pro --user /userdata/saves/quiver/CUSA10454 - Dragons Crown Pro($| )'
+    if pkill -TERM -f "$pattern"; then
+        result=0
+    else
+        result=$?
+    fi
+    case "$result" in
+        0)
+            echo "[INFO] Arrêt de Dragons Crown Pro demandé"
+            sleep 2
+            if pkill -KILL -f "$pattern"; then
+                result=0
+            else
+                result=$?
+            fi
+            case "$result" in
+                0) echo "[INFO] Arrêt forcé de Dragons Crown Pro" ;;
+                1) echo "[INFO] Dragons Crown Pro arrêté" ;;
+                *) echo "[ERREUR] Échec de l'arrêt forcé de Dragons Crown Pro (pkill : $result)" ;;
+            esac
+            ;;
+        1) echo "[INFO] Dragons Crown Pro n'est pas en cours d'exécution" ;;
+        *) echo "[ERREUR] Échec de l'arrêt de Dragons Crown Pro (pkill : $result)" ;;
+    esac
+}
+
+stop_dragons_crown_pro
+
 batocera-mouse hide
 echo "[INFO] Souris masquée"
 

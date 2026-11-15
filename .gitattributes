@@ -3,3 +3,4 @@ install.sh text eol=lf
 system/services/quiver_update text eol=lf
 system/Quiver/bin/quiver-update-launcher text eol=lf
 tests/test_quiver_update.sh text eol=lf
+tests/test_exit_dragons_crown.sh text eol=lf
