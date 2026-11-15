@@ -21,6 +21,16 @@
   },
   {
     "addedAt": 1793807482974,
+    "custom": {
+      "name": "Super Mario All-Stars PC & Android Edition V1.0",
+      "provider": "github",
+      "repository": "Darhkfox/SuperMarioAllStars"
+    },
+    "id": "github:Darhkfox/SuperMarioAllStars",
+    "slug": ""
+  },
+  {
+    "addedAt": 1793807482974,
     "id": "k170ash4eccc0t8n6cr9we8n1s8h5zgs",
     "slug": "killzone-shadow-fall-killzone-shadowfall-pc"
   },
@@ -108,15 +118,5 @@
     "addedAt": 1793958113831,
     "id": "k170x0fz9nmk98dj1cqxw7141n8ftrwh",
     "slug": "super-mario-sunshine-sms-launcher"
-  },
-  {
-    "addedAt": 1793807482974,
-    "custom": {
-      "name": "Super Mario All-Stars PC & Android Edition V1.0",
-      "provider": "github",
-      "repository": "Darhkfox/SuperMarioAllStars"
-    },
-    "id": "github:Darhkfox/SuperMarioAllStars",
-    "slug": ""
-  },   
+  }
 ]
