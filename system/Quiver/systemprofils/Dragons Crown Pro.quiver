@@ -4,7 +4,7 @@ Folder=DragonsCrownPro-DragonsCrownProPCPort
 
 [Launcher]
 path=/userdata/system/Quiver/emulator/Apps/DragonsCrownPro-DragonsCrownProPCPort
-executable=DragonsCrownProPC-v0.9.0-x86_64.AppImage
+executable=DragonsCrownProPC-v*-x86_64.AppImage
 args= --user "/userdata/saves/quiver/CUSA10454 - Dragons Crown Pro"
 
 [Config]

@@ -62,6 +62,28 @@ def _resolve_executable(value: str, workdir: Path) -> Path:
     if executable.is_file():
         return executable
 
+    if any(character in executable.name for character in "*?["):
+        candidates = sorted(
+            path.resolve()
+            for path in executable.parent.glob(executable.name)
+            if path.is_file()
+        )
+
+        if len(candidates) == 1:
+            _logger.info(
+                "Exécutable correspondant au motif %s : %s",
+                executable.name,
+                candidates[0].name,
+            )
+            return candidates[0]
+
+        if len(candidates) > 1:
+            matches = ", ".join(path.name for path in candidates)
+            raise RuntimeError(
+                f"Plusieurs exécutables correspondent au motif "
+                f"{executable.name} : {matches}"
+            )
+
     if executable.suffix.lower() == ".appimage":
         candidates = sorted(
             path.resolve()
