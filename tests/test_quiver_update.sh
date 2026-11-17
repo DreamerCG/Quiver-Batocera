@@ -71,7 +71,7 @@ sed \
     -e "s|^VERSION_FILE=.*|VERSION_FILE=\"$TEST_ROOT/userdata/system/Quiver/VERSION\"|" \
     -e "s|^LAUNCHER_UPDATER=.*|LAUNCHER_UPDATER=\"$TEST_ROOT/launcher-updater\"|" \
     -e "s|^LOG=.*|LOG=\"$TEST_ROOT/update.log\"|" \
-    "$ROOT/system/services/quiver_update" > "$TEST_ROOT/service"
+    "$ROOT/system/services/dcg_quiver_update" > "$TEST_ROOT/service"
 sed "s|^BASE_DIR=.*|BASE_DIR=\"$TEST_ROOT/userdata\"|" \
     "$ROOT/install.sh" > "$TEST_ROOT/installer"
 
@@ -168,7 +168,7 @@ mkdir -p "$FAKE_SOURCE/system/Quiver/emulator" \
     "$FAKE_SOURCE/system/Quiver/bin" "$FAKE_SOURCE/system/services" "$FAKE_SOURCE/roms"
 echo 1.2.0 > "$FAKE_SOURCE/VERSION"
 touch "$FAKE_SOURCE/system/Quiver/emulator/exit_quiver.sh" "$FAKE_SOURCE/system/Quiver/bin/quiver-wine"
-cp "$ROOT/system/services/quiver_update" "$FAKE_SOURCE/system/services/quiver_update"
+cp "$ROOT/system/services/dcg_quiver_update" "$FAKE_SOURCE/system/services/dcg_quiver_update"
 sed "s|^INSTALL_DIR=.*|INSTALL_DIR=\"$TEST_ROOT/userdata/system/Quiver\"|" \
     "$ROOT/system/Quiver/bin/quiver-update-launcher" > "$FAKE_SOURCE/system/Quiver/bin/quiver-update-launcher"
 rm "$VERSION_FILE"
@@ -177,8 +177,8 @@ bash "$TEST_ROOT/installer" > "$TEST_ROOT/output"
 [ "$(cat "$TEST_ROOT/userdata/system/Quiver/LAUNCHER_VERSION")" = v4.0.0-beta.5 ]
 cmp "$FAKE_APPIMAGE" "$TEST_ROOT/userdata/system/Quiver/emulator/QuiverLauncher-linux-x64.AppImage"
 [ "$(wc -l < "$TEST_ROOT/launcher-downloads")" -eq 1 ]
-[ "$(cat "$TEST_ROOT/enabled")" = "enable quiver_update" ]
-[ -x "$TEST_ROOT/userdata/system/services/quiver_update" ]
+[ "$(cat "$TEST_ROOT/enabled")" = "enable dcg_quiver_update" ]
+[ -x "$TEST_ROOT/userdata/system/services/dcg_quiver_update" ]
 
 bash "$TEST_ROOT/installer" > "$TEST_ROOT/output"
 [ "$(wc -l < "$TEST_ROOT/enabled")" -eq 1 ]
@@ -188,7 +188,7 @@ sed \
     -e "s|^VERSION_FILE=.*|VERSION_FILE=\"$VERSION_FILE\"|" \
     -e "s|^LAUNCHER_UPDATER=.*|LAUNCHER_UPDATER=\"$FAKE_SOURCE/system/Quiver/bin/quiver-update-launcher\"|" \
     -e "s|^LOG=.*|LOG=\"$TEST_ROOT/update.log\"|" \
-    "$ROOT/system/services/quiver_update" > "$TEST_ROOT/service-with-launcher"
+    "$ROOT/system/services/dcg_quiver_update" > "$TEST_ROOT/service-with-launcher"
 printf 'next launcher\n' > "$FAKE_APPIMAGE"
 next_digest="$(sha256sum "$FAKE_APPIMAGE" | cut -d ' ' -f 1)"
 sed -e "s/beta\\.5/beta.6/g" -e "s/$digest/$next_digest/g" \

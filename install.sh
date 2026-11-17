@@ -7,7 +7,8 @@ REPO="DreamerCG/Quiver-Batocera"
 BRANCH="main"
 BASE_DIR="/userdata"
 INSTALL_DIR="${BASE_DIR}/system/Quiver"
-SERVICE_FILE="${BASE_DIR}/system/services/quiver_update"
+SERVICE_FILE="${BASE_DIR}/system/services/dcg_quiver_update"
+LEGACY_SERVICE_FILE="${BASE_DIR}/system/services/quiver_update"
 TMP_DIR="$(mktemp -d /tmp/quiver-install.XXXXXX)"
 
 cleanup() {
@@ -30,7 +31,7 @@ die() {
 [[ -d "${BASE_DIR}/roms" ]] || die "/userdata/roms introuvable."
 
 FIRST_SERVICE_INSTALL=0
-if [[ ! -e "$SERVICE_FILE" || ! -f "${INSTALL_DIR}/VERSION" ]]; then
+if [[ ! -e "$SERVICE_FILE" || -e "$LEGACY_SERVICE_FILE" || ! -f "${INSTALL_DIR}/VERSION" ]]; then
     command -v batocera-services >/dev/null 2>&1 \
         || die "batocera-services est nécessaire pour activer le service de mise à jour."
     FIRST_SERVICE_INSTALL=1
@@ -210,8 +211,16 @@ fi
 
 [[ -f "$SERVICE_FILE" ]] || die "Service de mise à jour Quiver introuvable."
 chmod +x "$SERVICE_FILE" || die "Impossible de rendre le service de mise à jour exécutable."
+if [[ -e "$LEGACY_SERVICE_FILE" ]]; then
+    if command -v batocera-services >/dev/null 2>&1; then
+        batocera-services disable quiver_update >/dev/null 2>&1 || true
+    fi
+    rm -f -- "$LEGACY_SERVICE_FILE" \
+        || die "Impossible de retirer l'ancien service quiver_update."
+    log "Ancien service quiver_update remplacé par dcg_quiver_update."
+fi
 if [[ "$FIRST_SERVICE_INSTALL" -eq 1 ]]; then
-    batocera-services enable quiver_update \
+    batocera-services enable dcg_quiver_update \
         || die "Impossible d'activer le service de mise à jour Quiver."
     log "Service de mise à jour activé pour le prochain démarrage."
 fi
