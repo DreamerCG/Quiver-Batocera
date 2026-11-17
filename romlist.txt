@@ -1,0 +1,24 @@
+CUSA00068 - Knack.quiver
+CUSA00076 - The Order.quiver
+CUSA00093 - DriveClub.quiver
+CUSA00190 - Killzone Shadow Fall.quiver
+CUSA00223 - Infamous Second Son.quiver
+CUSA01113 - Gravity Rush Remastered.quiver
+CUSA01127-PT.quiver
+CUSA01715 - God Of War III Remastered.quiver
+CUSA02475 - Matterfall.quiver
+CUSA03173 - Bloodborne.quiver
+CUSA03627 - The Last Guardian.quiver
+CUSA04943 - Gravity Rush 2.quiver
+CUSA05083 - Odin Sphere Leifthrasir.quiver
+CUSA05670 - Wipeout Omega Collection.quiver
+CUSA06545 - Prototype Biohazard Bundle.quiver
+CUSA08809 - Shadow of the Colossus.quiver
+CUSA10454 - Dragons Crown Pro.quiver
+CUSA12982 - Medievil.quiver
+CUSA13795 - Crash Team Racing Nitro.quiver
+NGC - Super Mario Sunshine.quiver
+SNES - Super Mario All Star USA.quiver
+Uncharted 1 Drakes Fortune.quiver
+Uncharted 2 Among Thieves.quiver
+Uncharted 3 Illusion de Drake.quiver
