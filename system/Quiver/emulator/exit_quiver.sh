@@ -5,6 +5,7 @@ LOG_DIR="/userdata/system/Quiver"
 PROFILES_DIR="/userdata/system/Quiver/systemprofils"
 APPS_DIR="/userdata/system/Quiver/emulator/Apps"
 ROM_DIR="/userdata/roms/quiver"
+EXIT_STATE_FILE="/userdata/system/configs/Quiver/exit-state"
 
 # Racines autorisées pour la suppression (une par clé de la section [Roms])
 GAME_ROOT="$ROM_DIR/GAME"
@@ -100,6 +101,16 @@ release_lock() {
 }
 trap release_lock EXIT
 trap 'exit 1' INT TERM
+
+EXIT_STATE=""
+if [ -f "$EXIT_STATE_FILE" ] && [ ! -L "$EXIT_STATE_FILE" ]; then
+    IFS= read -r EXIT_STATE < "$EXIT_STATE_FILE"
+fi
+if rm -f -- "$EXIT_STATE_FILE"; then
+    echo "[INFO] État de session consommé : ${EXIT_STATE:-inconnu}"
+else
+    echo "[ERREUR] Impossible de consommer l'état de session : $EXIT_STATE_FILE"
+fi
 
 stop_dragons_crown_pro() {
     # Le binaire dans le montage AppImage ne contient pas "Quiver" dans son chemin.
@@ -928,6 +939,16 @@ for pid in $(pgrep -f 'python /userdata/system/Quiver/configgen/run.py'); do
     echo "[INFO] Arrêt du PID $pid"
     kill -9 "$pid" 2>/dev/null
 done
+
+if [ "$EXIT_STATE" = "launcher" ]; then
+    if curl -fsS --max-time 5 -X POST \
+        http://127.0.0.1:1234/notify \
+        -d '[Quiver] Merci de rafraichir la liste apres avoir installer un nouveau launcher'; then
+        echo "[INFO] Notification de rafraîchissement envoyée"
+    else
+        echo "[ERREUR] Impossible d'envoyer la notification de rafraîchissement"
+    fi
+fi
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Fin du script"
 echo "=========================================="
