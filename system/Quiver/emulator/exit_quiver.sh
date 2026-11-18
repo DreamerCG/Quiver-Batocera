@@ -943,7 +943,7 @@ done
 if [ "$EXIT_STATE" = "launcher" ]; then
     if curl -fsS --max-time 5 -X POST \
         http://127.0.0.1:1234/notify \
-        -d '[Quiver] Merci de rafraichir la liste apres avoir installer un nouveau launcher'; then
+        -d '[Quiver] Merci de rafraichir la liste apres avoir installé un nouveau launcher'; then
         echo "[INFO] Notification de rafraîchissement envoyée"
     else
         echo "[ERREUR] Impossible d'envoyer la notification de rafraîchissement"
