@@ -115,11 +115,6 @@
     "slug": "wipeout-omega-collection-wipeout-pc"
   },
   {
-    "addedAt": 1793807482974,
-    "id": "k171m360c3x94mtgk1tprp1zz98gng37",
-    "slug": "shadow-of-the-colossus-shadowofthecolossus-pc-2"
-  },
-  {
     "addedAt": 1793897893952,
     "id": "k170wdx3xafv0r4atphdzx90j98hjp3b",
     "slug": "matterfall-matterfall-pc-port"
@@ -128,5 +123,10 @@
     "addedAt": 1793958113831,
     "id": "k170x0fz9nmk98dj1cqxw7141n8ftrwh",
     "slug": "super-mario-sunshine-sms-launcher"
+  },
+  {
+    "addedAt": 1794982290935,
+    "id": "k17axa78jrhyrf3s526d1pc9918g808r",
+    "slug": "shadow-of-the-colossus-shadowofthecolossus-pc"
   }
 ]
