@@ -50,15 +50,22 @@ if [[ -n "$(tail -c1 "$BATOCERA_CONF")" ]]; then
     echo >> "$BATOCERA_CONF" || die "Impossible d'écrire dans ${BATOCERA_CONF}."
 fi
 
-grep -q '^quiver\.bezel=' "$BATOCERA_CONF" \
-    || { echo 'quiver.bezel=none' >> "$BATOCERA_CONF" \
-         && log "Paramètre quiver.bezel=none ajouté."; } \
-    || die "Impossible d'ajouter quiver.bezel."
-
 grep -q '^quiver\.LAUNCHER_QUIVER=' "$BATOCERA_CONF" \
     || { echo 'quiver.LAUNCHER_QUIVER=off' >> "$BATOCERA_CONF" \
          && log "Paramètre quiver.LAUNCHER_QUIVER=off ajouté."; } \
     || die "Impossible d'ajouter quiver.LAUNCHER_QUIVER."
+
+for setting in 'quiver.emulator=quiver' 'quiver.bezel=none'; do
+    key="${setting%%=*}"
+    pattern="${key//./\\.}"
+    if grep -q "^${pattern}=" "$BATOCERA_CONF"; then
+        sed -i "s|^${pattern}=.*|${setting}|" "$BATOCERA_CONF" \
+            || die "Impossible de modifier ${key}."
+    else
+        echo "$setting" >> "$BATOCERA_CONF" \
+            || die "Impossible d'ajouter ${key}."
+    fi
+done
 
 if command -v curl >/dev/null 2>&1; then
     DOWNLOAD_CMD="curl"

@@ -5,6 +5,7 @@ REPO_RAW="https://raw.githubusercontent.com/DreamerCG/Quiver-Batocera/main"
 VERSION_FILE="/userdata/system/Quiver/VERSION"
 LAUNCHER_UPDATER="/userdata/system/Quiver/bin/quiver-update-launcher"
 LOG="/userdata/system/logs/quiver_update.log"
+BATOCERA_CONF="/userdata/system/batocera.conf"
 
 log() { echo "$(date '+%F %T') $*" >> "$LOG"; }
 
@@ -23,6 +24,32 @@ check_update() (
             "$@" 2>&1 | tee -a "$LOG"
         fi
     }
+
+    if ! touch "$BATOCERA_CONF"; then
+        log "ERREUR : impossible de créer $BATOCERA_CONF"
+        echo "Configuration impossible : consulte $LOG"
+        return 1
+    fi
+    if [ -n "$(tail -c1 "$BATOCERA_CONF")" ]; then
+        if ! echo >> "$BATOCERA_CONF"; then
+            log "ERREUR : impossible d'écrire dans $BATOCERA_CONF"
+            return 1
+        fi
+    fi
+    local setting key pattern
+    for setting in 'quiver.emulator=quiver' 'quiver.bezel=none'; do
+        key="${setting%%=*}"
+        pattern="${key//./\\.}"
+        if grep -q "^${pattern}=" "$BATOCERA_CONF"; then
+            if ! sed -i "s|^${pattern}=.*|${setting}|" "$BATOCERA_CONF"; then
+                log "ERREUR : impossible de modifier $key"
+                return 1
+            fi
+        elif ! echo "$setting" >> "$BATOCERA_CONF"; then
+            log "ERREUR : impossible d'ajouter $key"
+            return 1
+        fi
+    done
 
     if command -v curl >/dev/null 2>&1; then
         download_version() { curl -fsSL --max-time 5 "$REPO_RAW/VERSION"; }

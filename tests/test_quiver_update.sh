@@ -71,6 +71,7 @@ sed \
     -e "s|^VERSION_FILE=.*|VERSION_FILE=\"$TEST_ROOT/userdata/system/Quiver/VERSION\"|" \
     -e "s|^LAUNCHER_UPDATER=.*|LAUNCHER_UPDATER=\"$TEST_ROOT/launcher-updater\"|" \
     -e "s|^LOG=.*|LOG=\"$TEST_ROOT/update.log\"|" \
+    -e "s|^BATOCERA_CONF=.*|BATOCERA_CONF=\"$TEST_ROOT/userdata/system/batocera.conf\"|" \
     "$ROOT/system/services/dcg_quiver_update" > "$TEST_ROOT/service"
 sed "s|^BASE_DIR=.*|BASE_DIR=\"$TEST_ROOT/userdata\"|" \
     "$ROOT/install.sh" > "$TEST_ROOT/installer"
@@ -91,7 +92,11 @@ exit "${FAKE_LAUNCHER_FAILURE:-0}"
 EOF
 
 echo 1.1.0 > "$VERSION_FILE"
+printf 'other.setting=kept\nquiver.emulator=other\nquiver.bezel=other' > "$TEST_ROOT/userdata/system/batocera.conf"
 bash "$TEST_ROOT/service" update > "$TEST_ROOT/output"
+grep -qx 'other.setting=kept' "$TEST_ROOT/userdata/system/batocera.conf"
+grep -qx 'quiver.emulator=quiver' "$TEST_ROOT/userdata/system/batocera.conf"
+grep -qx 'quiver.bezel=none' "$TEST_ROOT/userdata/system/batocera.conf"
 [ "$(wc -l < "$TEST_ROOT/installer-calls")" -eq 1 ]
 grep -q 'mise à jour terminée' "$TEST_ROOT/update.log"
 grep -q 'Installation du launcher' "$TEST_ROOT/output"
@@ -102,7 +107,10 @@ bash "$TEST_ROOT/service" update > "$TEST_ROOT/output"
 [ "$(wc -l < "$TEST_ROOT/installer-calls")" -eq 2 ]
 
 echo 1.2.0 > "$VERSION_FILE"
+rm "$TEST_ROOT/userdata/system/batocera.conf"
 bash "$TEST_ROOT/service" update > "$TEST_ROOT/output"
+grep -qx 'quiver.emulator=quiver' "$TEST_ROOT/userdata/system/batocera.conf"
+grep -qx 'quiver.bezel=none' "$TEST_ROOT/userdata/system/batocera.conf"
 [ "$(wc -l < "$TEST_ROOT/installer-calls")" -eq 2 ]
 [ "$(wc -l < "$TEST_ROOT/launcher-checks")" -eq 1 ]
 echo 1.3.0 > "$VERSION_FILE"
@@ -172,7 +180,11 @@ cp "$ROOT/system/services/dcg_quiver_update" "$FAKE_SOURCE/system/services/dcg_q
 sed "s|^INSTALL_DIR=.*|INSTALL_DIR=\"$TEST_ROOT/userdata/system/Quiver\"|" \
     "$ROOT/system/Quiver/bin/quiver-update-launcher" > "$FAKE_SOURCE/system/Quiver/bin/quiver-update-launcher"
 rm "$VERSION_FILE"
+printf 'other.setting=kept\nquiver.emulator=other\nquiver.bezel=other' > "$TEST_ROOT/userdata/system/batocera.conf"
 bash "$TEST_ROOT/installer" > "$TEST_ROOT/output"
+grep -qx 'other.setting=kept' "$TEST_ROOT/userdata/system/batocera.conf"
+grep -qx 'quiver.emulator=quiver' "$TEST_ROOT/userdata/system/batocera.conf"
+grep -qx 'quiver.bezel=none' "$TEST_ROOT/userdata/system/batocera.conf"
 [ "$(cat "$VERSION_FILE")" = 1.2.0 ]
 [ "$(cat "$TEST_ROOT/userdata/system/Quiver/LAUNCHER_VERSION")" = v4.0.0-beta.5 ]
 cmp "$FAKE_APPIMAGE" "$TEST_ROOT/userdata/system/Quiver/emulator/QuiverLauncher-linux-x64.AppImage"
@@ -181,6 +193,8 @@ cmp "$FAKE_APPIMAGE" "$TEST_ROOT/userdata/system/Quiver/emulator/QuiverLauncher-
 [ -x "$TEST_ROOT/userdata/system/services/dcg_quiver_update" ]
 
 bash "$TEST_ROOT/installer" > "$TEST_ROOT/output"
+[ "$(grep -c '^quiver\.emulator=' "$TEST_ROOT/userdata/system/batocera.conf")" -eq 1 ]
+[ "$(grep -c '^quiver\.bezel=' "$TEST_ROOT/userdata/system/batocera.conf")" -eq 1 ]
 [ "$(wc -l < "$TEST_ROOT/enabled")" -eq 1 ]
 [ "$(wc -l < "$TEST_ROOT/launcher-downloads")" -eq 1 ]
 
@@ -188,6 +202,7 @@ sed \
     -e "s|^VERSION_FILE=.*|VERSION_FILE=\"$VERSION_FILE\"|" \
     -e "s|^LAUNCHER_UPDATER=.*|LAUNCHER_UPDATER=\"$FAKE_SOURCE/system/Quiver/bin/quiver-update-launcher\"|" \
     -e "s|^LOG=.*|LOG=\"$TEST_ROOT/update.log\"|" \
+    -e "s|^BATOCERA_CONF=.*|BATOCERA_CONF=\"$TEST_ROOT/userdata/system/batocera.conf\"|" \
     "$ROOT/system/services/dcg_quiver_update" > "$TEST_ROOT/service-with-launcher"
 printf 'next launcher\n' > "$FAKE_APPIMAGE"
 next_digest="$(sha256sum "$FAKE_APPIMAGE" | cut -d ' ' -f 1)"
