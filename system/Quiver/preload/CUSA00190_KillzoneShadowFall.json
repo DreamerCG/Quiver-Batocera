@@ -22,5 +22,6 @@
   "quick_menu": true,
   "quick_menu_hint": true,
   "prompt_style": 0,
-  "upscale_quality": "quality"
+  "upscale_quality": "native",
+  "rcas": false
 }

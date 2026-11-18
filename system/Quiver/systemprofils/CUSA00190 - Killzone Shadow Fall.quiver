@@ -12,6 +12,7 @@ mode=wine
 setting_file=/userdata/system/Quiver/emulator/Apps/KillzoneShadowFall-KillzoneShadowfallPc/user/launcher.json
 preload_file=CUSA00190_KillzoneShadowFall.json
 
+
 [Roms]
 game_directory=/userdata/roms/quiver/GAME/CUSA00190 - Killzone Shadow Fall
 dlc_directory=/userdata/roms/quiver/DLC/CUSA00190 - Killzone Shadow Fall
