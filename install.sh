@@ -37,7 +37,7 @@ if [[ ! -e "$SERVICE_FILE" || -e "$LEGACY_SERVICE_FILE" || ! -f "${INSTALL_DIR}/
     FIRST_SERVICE_INSTALL=1
 fi
 
-# Configuration Batocera : ajout des paramètres Quiver manquants (sans doublon)
+# Configuration Batocera : application des paramètres Quiver
 BATOCERA_CONF="${BASE_DIR}/system/batocera.conf"
 touch "$BATOCERA_CONF" || die "Impossible de créer ${BATOCERA_CONF}."
 
@@ -50,12 +50,7 @@ if [[ -n "$(tail -c1 "$BATOCERA_CONF")" ]]; then
     echo >> "$BATOCERA_CONF" || die "Impossible d'écrire dans ${BATOCERA_CONF}."
 fi
 
-grep -q '^quiver\.LAUNCHER_QUIVER=' "$BATOCERA_CONF" \
-    || { echo 'quiver.LAUNCHER_QUIVER=off' >> "$BATOCERA_CONF" \
-         && log "Paramètre quiver.LAUNCHER_QUIVER=off ajouté."; } \
-    || die "Impossible d'ajouter quiver.LAUNCHER_QUIVER."
-
-for setting in 'quiver.emulator=quiver' 'quiver.bezel=none'; do
+for setting in 'quiver.emulator=quiver' 'quiver.bezel=none' 'quiver.LAUNCHER_QUIVER=off'; do
     key="${setting%%=*}"
     pattern="${key//./\\.}"
     if grep -q "^${pattern}=" "$BATOCERA_CONF"; then

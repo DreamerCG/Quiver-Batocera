@@ -37,7 +37,7 @@ check_update() (
         fi
     fi
     local setting key pattern
-    for setting in 'quiver.emulator=quiver' 'quiver.bezel=none'; do
+    for setting in 'quiver.emulator=quiver' 'quiver.bezel=none' 'quiver.LAUNCHER_QUIVER=off'; do
         key="${setting%%=*}"
         pattern="${key//./\\.}"
         if grep -q "^${pattern}=" "$BATOCERA_CONF"; then
