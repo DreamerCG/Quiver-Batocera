@@ -31,6 +31,9 @@
   "close_on_play": true,
   "discord_rpc": false,
   "check_updates": true,
+  "vsync": 0,
+  "display_mode": "fullscreen",
+  "fps_limit": 60,
   "game_patches": {},
   "controls": {
     "key": {},
