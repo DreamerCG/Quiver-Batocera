@@ -9,12 +9,19 @@
   "groupBy": "console",
   "language": "fr",
   "launched": true,
+  "library": {
+    "details": [
+      "subtitle",
+      "version",
+      "update"
+    ]
+  },
   "oldInstallsChecked": true,
   "oldLibraryNoticeSeen": true,
   "setupDone": true,
-  "systemTitleBar": true,
+  "systemTitleBar": false,
   "telemetryNoticeSeen": true,
   "telemetryOff": true,
-  "theme": "light",
+  "theme": "dark",
   "tvMode": "off"
 }
