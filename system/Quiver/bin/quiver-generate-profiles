@@ -194,6 +194,10 @@ def main() -> int:
         existing = existing_profile_references(profiles_dir)
         skipped = 0
         for app_dir in sorted((p for p in apps_dir.iterdir() if p.is_dir()), key=lambda p: p.name.casefold()):
+            if app_dir.name.startswith("."):
+                print(f"[ignoré] {app_dir} : dossier caché ou temporaire")
+                skipped += 1
+                continue
             if app_dir.name.casefold() in IGNORED_NAMES:
                 print(f"[ignoré] {app_dir} : dossier du launcher Quiver")
                 skipped += 1
