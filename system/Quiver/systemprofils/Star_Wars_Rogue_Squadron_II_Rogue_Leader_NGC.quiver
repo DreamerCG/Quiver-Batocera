@@ -1,0 +1,17 @@
+[Game]
+name=Star Wars: Rogue Squadron II – Rogue Leader (NGC)
+Folder=StarWarsRogueSquadronIIRogueLeader-RedTwo
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/StarWarsRogueSquadronIIRogueLeader-RedTwo
+executable=RedTwo-v1.2-x86_64.AppImage
+args= --play
+
+[Config]
+setting_file=/userdata/system/configs/Quiver/data/Red Two/settings.ini
+preload_file=Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC
+dlc_directory=/userdata/roms/quiver/DLC/Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC
+mods_directory=/userdata/roms/quiver/MODS/Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC

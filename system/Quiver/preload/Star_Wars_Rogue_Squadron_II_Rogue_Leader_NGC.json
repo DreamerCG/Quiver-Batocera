@@ -1,0 +1,160 @@
+# Red Two settings (also editable in game: F1 or the controller's Back/Select button)
+# your Rogue Leader disc image (chosen in the launcher); empty: one next to Red Two, else it asks
+disc_path=/userdata/roms/quiver/GAME/Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC/Star Wars - Rogue Squadron II - Rogue Leader (USA).rvz
+# the launcher (these settings before the game starts); 0: straight into the game
+launcher=0
+fullscreen=1
+# 0 window size, 1 480p, 2 960p, 3 1440p, 4 2160p (4K)
+resolution=3
+# multisample anti-aliasing: 1 off, 4 (4x); from the next start
+msaa=4
+# anisotropic filtering forced on: 1 off (the game's own), 2, 4, 8, 16
+anisotropy=2
+# 0 4:3, 1 16:9, 2 16:10, 3 21:9, 5 match the window (at most 21:9)
+aspect=1
+fps=90
+show_fps=0
+# a generic shader draws objects whose own shader is still compiling (no pop-in)
+ubershaders=1
+# every shader this PC has seen compiled before the game starts (0: start at once, shaders compile in play)
+precompile_shaders=1
+hud_edges=1
+tile_menus=1
+# the game's own dither pattern (made for 640x480: a grid at higher resolutions)
+game_dither=0
+# master volume 0..100
+volume=100
+background_audio=1
+# ask GitHub for a newer release at start (the menu offers to install it)
+check_updates=1
+# auto (the system's speaker setup), stereo (Pro Logic II matrix-encoded), 5.1 or 7.1
+speakers=auto
+skip_logos=0
+skip_cutscenes=0
+# disc reads at SSD speed rather than the GameCube drive's 3 MB/s (shorter loading)
+fast_disc=1
+invincible=0
+infinite_lives=0
+infinite_ammo=0
+perfect_stats=0
+# every craft a mission allows in its hangar (the craft passcodes and medal rewards)
+all_craft=0
+# texture packs in the textures folder next to this file (Dolphin's format)
+custom_textures=1
+# texture packs loaded into memory before the game starts (up to half the RAM)
+prefetch_textures=1
+# another folder whose texture packs load too (the folder holding GSWE64, or GSWE64 itself); empty: none
+textures_folder=/userdata/roms/quiver/GAME/Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC/texture_hd
+# on-screen button prompts: auto (PlayStation symbols for a PlayStation controller, else Xbox), xbox, playstation, gamecube
+button_prompts=auto
+# controller sticks: a round deadzone in % of the travel (0-50, both sticks), the control stick's sensitivity in % (25-200)
+stick_deadzone=15
+stick_sensitivity=100
+# gyro aiming in flight: 0 off, 1 always, 2 while the button is held, 3 the button toggles it, 4 off while held
+gyro=0
+# the triggers' clicks (full boost / brake) on LB / RB, the triggers analog only, Z on the right stick click
+bumper_clicks=0
+# SDL gamepad button name: misc3 / misc4 the Steam Deck's left / right stick touch, paddle1-4 R4 L4 R5 L5
+gyro_button=misc3
+# percent (10-400): turning (left / right) and pitch (up / down)
+gyro_speed_x=100
+gyro_speed_y=100
+gyro_invert_y=0
+# RetroAchievements (softcore): the account and its login token (not the password)
+achievements=0
+ra_user=
+ra_token=
+ra_notifications=1
+ra_encore=0
+# save states: the slot (1-8) and the hotkeys, buttons or keys held together (SDL names, " + " between)
+state_slot=1
+hotkey_save_state_pad=back + rightshoulder
+hotkey_save_state_keys=F5
+hotkey_load_state_pad=back + leftshoulder
+hotkey_load_state_keys=F8
+hotkey_next_slot_pad=back + dpright
+hotkey_next_slot_keys=F7
+hotkey_previous_slot_pad=back + dpleft
+hotkey_previous_slot_keys=F6
+hotkey_toggle_textures_pad=back + dpup
+hotkey_toggle_textures_keys=F9
+# Red Two settings (also editable in game: F1 or the controller's Back/Select button)
+# your Rogue Leader disc image (chosen in the launcher); empty: one next to Red Two, else it asks
+disc_path=/userdata/roms/quiver/GAME/Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC/Star Wars - Rogue Squadron II - Rogue Leader (USA).rvz
+# the launcher (these settings before the game starts); 0: straight into the game
+launcher=1
+fullscreen=1
+# 0 window size, 1 480p, 2 960p, 3 1440p, 4 2160p (4K)
+resolution=3
+# multisample anti-aliasing: 1 off, 4 (4x); from the next start
+msaa=4
+# anisotropic filtering forced on: 1 off (the game's own), 2, 4, 8, 16
+anisotropy=2
+# 0 4:3, 1 16:9, 2 16:10, 3 21:9, 5 match the window (at most 21:9)
+aspect=1
+fps=60
+show_fps=1
+# a generic shader draws objects whose own shader is still compiling (no pop-in)
+ubershaders=1
+# every shader this PC has seen compiled before the game starts (0: start at once, shaders compile in play)
+precompile_shaders=1
+hud_edges=1
+tile_menus=1
+# the game's own dither pattern (made for 640x480: a grid at higher resolutions)
+game_dither=0
+# master volume 0..100
+volume=100
+background_audio=1
+# ask GitHub for a newer release at start (the menu offers to install it)
+check_updates=1
+# auto (the system's speaker setup), stereo (Pro Logic II matrix-encoded), 5.1 or 7.1
+speakers=auto
+skip_logos=0
+skip_cutscenes=0
+# disc reads at SSD speed rather than the GameCube drive's 3 MB/s (shorter loading)
+fast_disc=1
+invincible=0
+infinite_lives=0
+infinite_ammo=0
+perfect_stats=0
+# every craft a mission allows in its hangar (the craft passcodes and medal rewards)
+all_craft=0
+# texture packs in the textures folder next to this file (Dolphin's format)
+custom_textures=1
+# texture packs loaded into memory before the game starts (up to half the RAM)
+prefetch_textures=1
+# another folder whose texture packs load too (the folder holding GSWE64, or GSWE64 itself); empty: none
+textures_folder=/userdata/roms/quiver/GAME/Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC/texture_hd/GSWE64
+# on-screen button prompts: auto (PlayStation symbols for a PlayStation controller, else Xbox), xbox, playstation, gamecube
+button_prompts=auto
+# controller sticks: a round deadzone in % of the travel (0-50, both sticks), the control stick's sensitivity in % (25-200)
+stick_deadzone=15
+stick_sensitivity=100
+# gyro aiming in flight: 0 off, 1 always, 2 while the button is held, 3 the button toggles it, 4 off while held
+gyro=0
+# the triggers' clicks (full boost / brake) on LB / RB, the triggers analog only, Z on the right stick click
+bumper_clicks=0
+# SDL gamepad button name: misc3 / misc4 the Steam Deck's left / right stick touch, paddle1-4 R4 L4 R5 L5
+gyro_button=misc3
+# percent (10-400): turning (left / right) and pitch (up / down)
+gyro_speed_x=100
+gyro_speed_y=100
+gyro_invert_y=0
+# RetroAchievements (softcore): the account and its login token (not the password)
+achievements=0
+ra_user=
+ra_token=
+ra_notifications=1
+ra_encore=0
+# save states: the slot (1-8) and the hotkeys, buttons or keys held together (SDL names, " + " between)
+state_slot=1
+hotkey_save_state_pad=back + rightshoulder
+hotkey_save_state_keys=F5
+hotkey_load_state_pad=back + leftshoulder
+hotkey_load_state_keys=F8
+hotkey_next_slot_pad=back + dpright
+hotkey_next_slot_keys=F7
+hotkey_previous_slot_pad=back + dpleft
+hotkey_previous_slot_keys=F6
+hotkey_toggle_textures_pad=back + dpup
+hotkey_toggle_textures_keys=F9
