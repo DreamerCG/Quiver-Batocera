@@ -11,6 +11,7 @@ EXIT_STATE_FILE="/userdata/system/configs/Quiver/exit-state"
 GAME_ROOT="$ROM_DIR/GAME"
 DLC_ROOT="$ROM_DIR/DLC"
 MODS_ROOT="$ROM_DIR/MODS"
+SAVES_ROOT="/userdata/saves/quiver"
 
 # DRY_RUN=1 : journalise ce qui serait supprimé sans rien toucher.
 # Passer à 0 (ici ou via l'environnement) pour activer les suppressions réelles.
@@ -398,76 +399,88 @@ create_rom_directory() {
 }
 
 # Crée Apps/<jeu>/game -> GAME/<jeu>, sans écraser de contenu existant.
-create_app_game_symlink() {
-    link_path="$app_path/game"
-    target_path="$1"
+create_app_symlink() {
+    link_name="$1"
+    link_root="$2"
+    link_root_real="$3"
+    target_path="$4"
+    link_relative_path="$5"
+    [ -n "$link_relative_path" ] || link_relative_path="$link_name"
+    case "$link_relative_path" in
+        /*|*../*|../*|*/..|*/.|.|*./*|./*|*//*)
+            echo "[ANOMALIE] $link_name : chemin de lien invalide : $link_relative_path"
+            return 1
+            ;;
+    esac
+    link_path="$app_path/$link_relative_path"
 
     case "$target_path" in
-        "$GAME_ROOT"/*) ;;
-        *)
-            echo "[ANOMALIE] GAME : cible hors de sa racine : $target_path"
-            return 1
-            ;;
+        "$link_root"/*) ;;
+        *) echo "[ANOMALIE] $link_name : cible hors de sa racine : $target_path"; return 1 ;;
     esac
     case "$target_path/" in
-        */../*|*/./*|*//*)
-            echo "[ANOMALIE] GAME : cible non normalisée : $target_path"
-            return 1
-            ;;
+        */../*|*/./*|*//*) echo "[ANOMALIE] $link_name : cible non normalisee : $target_path"; return 1 ;;
     esac
-    if [ "$ROM_DIR_SAFE" -ne 1 ] || [ -L "$GAME_ROOT" ]; then
-        echo "[ANOMALIE] GAME : racine non sûre : $GAME_ROOT"
+    if [ -L "$link_root" ]; then
+        echo "[ANOMALIE] $link_name : racine non sure : $link_root"
         return 1
     fi
-
-    root_real=$(realpath "$GAME_ROOT" 2>/dev/null)
-    if [ -z "$root_real" ] || [ "$root_real" != "$ROM_DIR_REAL/${GAME_ROOT##*/}" ]; then
-        echo "[ANOMALIE] GAME : racine résolue hors de son emplacement"
+    root_real=$(realpath "$link_root" 2>/dev/null)
+    if [ -z "$root_real" ] || { [ -n "$link_root_real" ] && [ "$root_real" != "$link_root_real" ]; }; then
+        echo "[ANOMALIE] $link_name : racine resolue hors de son emplacement"
         return 1
     fi
-
     target_real=$(realpath "$target_path" 2>/dev/null)
     case "$target_real" in
         "$root_real"/*) ;;
-        *)
-            echo "[ANOMALIE] GAME : cible absente ou résolue hors de sa racine : $target_path"
-            return 1
-            ;;
+        *) echo "[ANOMALIE] $link_name : cible absente ou resolue hors de sa racine : $target_path"; return 1 ;;
     esac
     if [ ! -d "$target_real" ]; then
-        echo "[ERREUR] GAME : cible absente ou invalide : $target_path"
+        echo "[ERREUR] $link_name : cible absente ou invalide : $target_path"
         return 1
     fi
 
     app_real=$(realpath "$app_path" 2>/dev/null)
-    link_parent_real=$(realpath "${link_path%/*}" 2>/dev/null)
-    if [ -z "$app_real" ] || [ "$link_parent_real" != "$app_real" ]; then
+    link_parent="$link_path"
+    case "$link_path" in */*) link_parent="${link_path%/*}" ;; esac
+    link_parent_candidate=$(realpath -m "$link_parent" 2>/dev/null)
+    case "$link_parent_candidate" in
+        "$app_real"|"$app_real"/*) ;;
+        *) echo "[ANOMALIE] Dossier parent du lien hors de l'application : $link_parent"; return 1 ;;
+    esac
+    if [ "$link_parent" != "$app_path" ] && ! mkdir -p "$link_parent"; then
+        echo "[ERREUR] Impossible de créer le dossier parent : $link_parent"
+        return 1
+    fi
+    link_parent_real=$(realpath "$link_parent" 2>/dev/null)
+    case "$link_parent_real" in
+        "$app_real"|"$app_real"/*) ;;
+        *) echo "[ANOMALIE] Dossier parent du lien hors de l'application : $link_parent"; return 1 ;;
+    esac
+    if [ -z "$app_real" ] || [ -z "$link_parent_real" ]; then
         echo "[ANOMALIE] Dossier application invalide : $app_path"
         return 1
     fi
-
     if [ -L "$link_path" ]; then
         existing_real=$(realpath "$link_path" 2>/dev/null)
         if [ "$existing_real" = "$target_real" ]; then
-            echo "[OK] Lien déjà présent : $link_path -> $target_real"
+            echo "[OK] Lien deja present : $link_path -> $target_real"
             return 0
         fi
         echo "[ERREUR] Lien existant vers une autre cible : $link_path"
         return 1
     fi
-
     if [ -e "$link_path" ]; then
         if [ ! -d "$link_path" ] || ! rmdir "$link_path" 2>/dev/null; then
-            echo "[ERREUR] $link_path existe et n'est pas vide; lien non créé"
+            echo "[ERREUR] $link_path existe et n'est pas vide; lien non cree"
             return 1
         fi
-        echo "[INFO] Dossier vide remplacé par le lien : $link_path"
+        echo "[INFO] Dossier vide remplace par le lien : $link_path"
     fi
-
     if ln -s "$target_real" "$link_path"; then
-        echo "[OK] Lien créé : $link_path -> $target_real"
+        echo "[OK] Lien cree : $link_path -> $target_real"
     else
-        echo "[ERREUR] Impossible de créer le lien : $link_path"
+        echo "[ERREUR] Impossible de creer le lien : $link_path"
         return 1
     fi
 }
@@ -866,7 +879,15 @@ for profile in "$PROFILES_DIR"/*; do
     game_directory=$(get_ini_value "$profile" "Roms" "game_directory")
     dlc_directory=$(get_ini_value "$profile" "Roms" "dlc_directory")
     mods_directory=$(get_ini_value "$profile" "Roms" "mods_directory")
+    saves_directory=$(get_ini_value "$profile" "Roms" "saves_directory")
     game_symlink_target=$(get_ini_value "$profile" "Command" "game_symlink_target")
+    dlc_symlink_target=$(get_ini_value "$profile" "Command" "dlc_symlink_target")
+    mods_symlink_target=$(get_ini_value "$profile" "Command" "mods_symlink_target")
+    saves_symlink_target=$(get_ini_value "$profile" "Command" "saves_symlink_target")
+    game_symlink_name=$(get_ini_value "$profile" "Command" "game_symlink_name")
+    dlc_symlink_name=$(get_ini_value "$profile" "Command" "dlc_symlink_name")
+    mods_symlink_name=$(get_ini_value "$profile" "Command" "mods_symlink_name")
+    saves_symlink_name=$(get_ini_value "$profile" "Command" "saves_symlink_name")
 
     # Les trois chemins sont indépendants.
     directories_ok=1
@@ -875,7 +896,7 @@ for profile in "$PROFILES_DIR"/*; do
         case "$game_symlink_target" in
             game_directory)
                 create_rom_directory "$game_directory" "GAME" || directories_ok=0
-                create_app_game_symlink "$game_directory" || directories_ok=0
+                create_app_symlink "game" "$GAME_ROOT" "$GAME_ROOT_REAL" "$game_directory" "$game_symlink_name" || directories_ok=0
                 ;;
             *)
                 echo "[ANOMALIE] Cible de symlink non prise en charge : $game_symlink_target"
@@ -885,8 +906,39 @@ for profile in "$PROFILES_DIR"/*; do
     else
         create_rom_directory "$game_directory" "GAME" || directories_ok=0
     fi
-    create_rom_directory "$dlc_directory" "DLC" || directories_ok=0
-    create_rom_directory "$mods_directory" "MODS" || directories_ok=0
+    if [ -n "$dlc_symlink_target" ]; then
+        case "$dlc_symlink_target" in
+            dlc_directory) create_rom_directory "$dlc_directory" "DLC" || directories_ok=0; create_app_symlink "dlc" "$DLC_ROOT" "$DLC_ROOT_REAL" "$dlc_directory" "$dlc_symlink_name" || directories_ok=0 ;;
+            *) echo "[ANOMALIE] Cible de symlink DLC non prise en charge : $dlc_symlink_target"; directories_ok=0 ;;
+        esac
+    else
+        create_rom_directory "$dlc_directory" "DLC" || directories_ok=0
+    fi
+    if [ -n "$mods_symlink_target" ]; then
+        case "$mods_symlink_target" in
+            mods_directory) create_rom_directory "$mods_directory" "MODS" || directories_ok=0; create_app_symlink "mods" "$MODS_ROOT" "$MODS_ROOT_REAL" "$mods_directory" "$mods_symlink_name" || directories_ok=0 ;;
+            *) echo "[ANOMALIE] Cible de symlink MODS non prise en charge : $mods_symlink_target"; directories_ok=0 ;;
+        esac
+    else
+        create_rom_directory "$mods_directory" "MODS" || directories_ok=0
+    fi
+    if [ -n "$saves_symlink_target" ]; then
+        case "$saves_symlink_target" in
+            saves_directory)
+                case "$saves_directory" in "$SAVES_ROOT"/*) ;; *) echo "[ANOMALIE] SAVES : chemin hors de sa racine : $saves_directory"; directories_ok=0 ;; esac
+                case "$saves_directory/" in */../*|*/./*|*//*) echo "[ANOMALIE] SAVES : chemin non normalise : $saves_directory"; directories_ok=0 ;; esac
+                if [ "$directories_ok" -eq 1 ]; then
+                    if [ -L "$SAVES_ROOT" ]; then echo "[ANOMALIE] SAVES : racine symbolique non sure"; directories_ok=0; fi
+                    if [ "$directories_ok" -eq 1 ]; then mkdir -p "$SAVES_ROOT" "$saves_directory" || directories_ok=0; fi
+                    saves_root_real=$(realpath "$SAVES_ROOT" 2>/dev/null)
+                    saves_target_real=$(realpath "$saves_directory" 2>/dev/null)
+                    case "$saves_target_real" in "$saves_root_real"/*) ;; *) echo "[ANOMALIE] SAVES : cible hors de sa racine"; directories_ok=0 ;; esac
+                    if [ "$directories_ok" -eq 1 ]; then create_app_symlink "saves" "$SAVES_ROOT" "$saves_root_real" "$saves_directory" "$saves_symlink_name" || directories_ok=0; fi
+                fi
+                ;;
+            *) echo "[ANOMALIE] Cible de symlink SAVES non prise en charge : $saves_symlink_target"; directories_ok=0 ;;
+        esac
+    fi
 
     if [ "$directories_ok" -ne 1 ]; then
         echo "[ERREUR] Création des répertoires incomplète : profil non copié"

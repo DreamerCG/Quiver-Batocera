@@ -150,6 +150,7 @@ def make_profile(
         f"game_directory=/userdata/roms/quiver/GAME/{rom_folder}\n"
         f"dlc_directory=/userdata/roms/quiver/DLC/{rom_folder}\n"
         f"mods_directory=/userdata/roms/quiver/MODS/{rom_folder}\n"
+        f"saves_directory=/userdata/saves/quiver/{rom_folder}\n"
     )
     return profile_name, content
 
