@@ -116,8 +116,64 @@ rsync -a \
     --exclude='/Quiver/emulator/Apps/' \
     --exclude='/Quiver/emulator/Backups/' \
     --exclude='/Quiver/emulator/Cache/' \
+    --exclude='/configs/Quiver/data/com.quiverlauncher.app/library.json' \
     "${SOURCE_DIR}/system/" "${BASE_DIR}/system/" \
     || die "Échec de la copie de system/."
+
+# library.json : conserver les entrées utilisateur et ajouter celles du dépôt.
+SRC_LIBRARY="${SOURCE_DIR}/system/configs/Quiver/data/com.quiverlauncher.app/library.json"
+DST_LIBRARY="${BASE_DIR}/system/configs/Quiver/data/com.quiverlauncher.app/library.json"
+if [[ -f "$SRC_LIBRARY" ]]; then
+    log "Fusion de library.json (sans supprimer les entrées utilisateur)..."
+    command -v python3 >/dev/null 2>&1 || die "python3 est nécessaire pour fusionner library.json."
+    python3 - "$SRC_LIBRARY" "$DST_LIBRARY" <<'PY' \
+        || die "Échec de la fusion de library.json (fichier existant conservé)."
+import json, os, shutil, sys, tempfile
+
+src_path, dst_path = sys.argv[1], sys.argv[2]
+
+def load(path):
+    with open(path, encoding="utf-8-sig") as f:
+        data = json.load(f)
+    if not isinstance(data, list):
+        raise ValueError(f"{path} : la bibliothèque doit être une liste JSON")
+    return data
+
+src = load(src_path)
+dst = load(dst_path) if os.path.exists(dst_path) else []
+
+# Les entrées existantes sont prioritaires ; id identifie une entrée Quiver.
+seen = {str(item["id"]).strip() for item in dst
+        if isinstance(item, dict) and item.get("id") is not None and str(item["id"]).strip()}
+merged = list(dst)
+added = 0
+for item in src:
+    if not isinstance(item, dict) or item.get("id") is None or not str(item["id"]).strip():
+        raise ValueError(f"{src_path} : entrée sans id valide")
+    key = str(item["id"]).strip()
+    if key not in seen:
+        seen.add(key)
+        merged.append(item)
+        added += 1
+
+if os.path.exists(dst_path):
+    shutil.copy2(dst_path, dst_path + ".bak")
+os.makedirs(os.path.dirname(dst_path), exist_ok=True)
+fd, tmp = tempfile.mkstemp(dir=os.path.dirname(dst_path))
+try:
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        json.dump(merged, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+    os.replace(tmp, dst_path)
+except BaseException:
+    try:
+        os.unlink(tmp)
+    except FileNotFoundError:
+        pass
+    raise
+print(f"[Quiver] library.json : {added} entrée(s) ajoutée(s), {len(merged)} au total.")
+PY
+fi
 
 # settings.json / apps.json : ne jamais écraser les données utilisateur
 SRC_EMU="${SOURCE_DIR}/system/Quiver/emulator"
