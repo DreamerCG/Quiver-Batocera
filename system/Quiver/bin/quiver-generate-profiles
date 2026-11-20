@@ -1,0 +1,236 @@
+#!/usr/bin/env python3
+"""Generate Quiver profiles for launchers found in apps-folder.json."""
+
+from __future__ import annotations
+
+import argparse
+import configparser
+import json
+import os
+import re
+import sys
+from pathlib import Path
+
+
+INSTALL_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_APPS_CONFIG = Path("/userdata/system/configs/Quiver/data/com.quiverlauncher.app/apps-folder.json")
+DEFAULT_CATALOG = DEFAULT_APPS_CONFIG.with_name("catalog.json")
+DEFAULT_PROFILES = INSTALL_ROOT / "systemprofils"
+IGNORED_NAMES = {"quiver launcher", "quiverlauncher"}
+IGNORED_EXECUTABLE_PATTERNS = (
+    "gpu-capabilities", "gpu_capabilities", "probe", "capabilities",
+    "createdump", "crashpad", "unins", "uninstall", "setup",
+)
+LINUX_EXECUTABLE_SUFFIXES = {".appimage", ".appimages", ".bin", ".sh", ".x86_64", ".x86", ".run"}
+IGNORED_FILE_PATTERNS = (
+    "gpu-capabilities", "gpu_capabilities", "-probe", "_probe", "probe.exe",
+    "createdump", "crashpad", "unins", "uninstall", "setup", "vcredist",
+)
+
+
+def slug(value: str) -> str:
+    return re.sub(r"[^A-Za-z0-9._-]+", "_", value).strip("._-") or "launcher"
+
+
+def executable_pattern(path: Path) -> str:
+    """Replace an embedded AppImage version with a wildcard for future updates."""
+    if path.suffix.casefold() not in {".appimage", ".appimages"}:
+        return path.name
+    version = re.compile(r"(?<![A-Za-z0-9])v?\d+(?:[.-]\d+)+(?![A-Za-z0-9])", re.IGNORECASE)
+    return version.sub("*", path.name)
+
+
+def read_apps_path(config_file: Path) -> Path:
+    try:
+        config = json.loads(config_file.read_text(encoding="utf-8-sig"))
+        raw_path = config["path"]
+    except (OSError, json.JSONDecodeError, KeyError, TypeError) as error:
+        raise ValueError(f"Impossible de lire le chemin 'path' dans {config_file}: {error}") from error
+    if not isinstance(raw_path, str) or not raw_path.strip():
+        raise ValueError(f"Chemin 'path' invalide dans {config_file}")
+    return Path(raw_path).expanduser()
+
+
+def read_catalog_names(catalog_file: Path) -> dict[str, tuple[str, str | None]]:
+    """Map launcher.folderName to friendly names and optional console labels."""
+    try:
+        catalog = json.loads(catalog_file.read_text(encoding="utf-8-sig"))
+    except FileNotFoundError:
+        return {}
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"Impossible de lire le catalogue {catalog_file}: {error}") from error
+    if not isinstance(catalog, dict):
+        raise ValueError(f"Format de catalogue invalide : {catalog_file}")
+    names: dict[str, tuple[str, str | None]] = {}
+    for item in catalog.values():
+        if not isinstance(item, dict):
+            continue
+        launcher = item.get("launcher")
+        if not isinstance(launcher, dict):
+            continue
+        folder_name = launcher.get("folderName")
+        friendly_name = item.get("name")
+        if isinstance(folder_name, str) and folder_name.strip() and isinstance(friendly_name, str) and friendly_name.strip():
+            based_on = item.get("basedOn")
+            console = based_on.get("console") if isinstance(based_on, dict) else None
+            if not isinstance(console, str) or not console.strip():
+                consoles = item.get("consoles")
+                console = consoles[0] if isinstance(consoles, list) and consoles and isinstance(consoles[0], str) else None
+            console_labels = {"ps4": "PS4", "gcn": "NGC", "pc": "PC"}
+            console_label = console_labels.get(console.casefold(), console.upper()) if isinstance(console, str) and console.strip() else None
+            names[folder_name.casefold()] = (friendly_name.strip(), console_label)
+    return names
+
+
+def discover_launchers(apps_dir: Path) -> list[tuple[Path, str]]:
+    """Return (working directory, executable name), one candidate per app folder."""
+    files = sorted(
+        (path for path in apps_dir.rglob("*") if path.is_file()),
+        key=lambda path: str(path).casefold(),
+    )
+    candidates = [
+        path for path in files
+        if path.suffix.casefold() in LINUX_EXECUTABLE_SUFFIXES | {".exe"}
+        or (not path.suffix and os.access(path, os.X_OK))
+    ]
+    launchers = [
+        path for path in candidates
+        if not any(
+            marker in path.name.casefold()
+            for marker in IGNORED_EXECUTABLE_PATTERNS + IGNORED_FILE_PATTERNS
+        )
+    ]
+    if launchers:
+        candidates = launchers
+    if not candidates:
+        return []
+
+    # Favor launchers over diagnostics, and root-level binaries over bundled tools.
+    candidates.sort(key=lambda path: (
+        0 if path.suffix.casefold() in {".appimage", ".appimages", ".exe"} else 1,
+        0 if any(word in path.name.casefold() for word in ("launcher", "start", "game")) else 1,
+        len(path.relative_to(apps_dir).parts),
+        path.name.casefold(),
+    ))
+    chosen = candidates[0]
+    return [(chosen.parent, chosen.name)]
+
+
+def make_profile(
+    app_dir: Path,
+    workdir: Path,
+    executable: str,
+    friendly_name: str | None = None,
+    console: str | None = None,
+) -> tuple[str, str]:
+    app_name = app_dir.name
+    display_name = friendly_name or re.sub(r"\s+", " ", re.sub(r"[_-]+", " ", app_name)).strip() or app_name
+    if console and not re.search(rf"\b{re.escape(console)}\b", display_name, re.IGNORECASE):
+        display_name = f"{display_name} ({console})"
+    profile_name = f"{slug(display_name)}.quiver"
+    is_windows = Path(executable).suffix.casefold() == ".exe"
+    executable = executable_pattern(Path(executable))
+    content = (
+        "[Game]\n"
+        f"name={display_name}\n"
+        f"Folder={app_name}\n\n"
+        "[Launcher]\n"
+        f"path={workdir}\n"
+        f"executable={executable}\n"
+        "args= --play\n"
+    )
+    if is_windows:
+        content += "mode=wine\n"
+    rom_folder = slug(display_name)
+    content += (
+        "\n[Config]\n"
+        "setting_file=\n"
+        "preload_file=\n\n"
+        "[Roms]\n"
+        f"game_directory=/userdata/roms/quiver/GAME/{rom_folder}\n"
+        f"dlc_directory=/userdata/roms/quiver/DLC/{rom_folder}\n"
+        f"mods_directory=/userdata/roms/quiver/MODS/{rom_folder}\n"
+    )
+    return profile_name, content
+
+
+def existing_profile_references(profiles_dir: Path) -> dict[str, Path]:
+    """Map existing app folder names and launcher paths to their profile."""
+    references: dict[str, Path] = {}
+    if not profiles_dir.is_dir():
+        return references
+    for profile in sorted(profiles_dir.glob("*.quiver"), key=lambda p: p.name.casefold()):
+        config = configparser.ConfigParser(interpolation=None)
+        try:
+            config.read(profile, encoding="utf-8-sig")
+        except (OSError, configparser.Error):
+            continue
+        folder = config.get("Game", "Folder", fallback="").strip()
+        launcher_path = config.get("Launcher", "path", fallback="").strip()
+        # Older profiles may store the app directory itself as Launcher.path.
+        for value in (folder, launcher_path):
+            if value:
+                references[value.casefold().rstrip("/\\")] = profile
+        if launcher_path:
+            references[Path(launcher_path).name.casefold()] = profile
+    return references
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--config", type=Path, default=DEFAULT_APPS_CONFIG, help="apps-folder.json")
+    parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG, help="Quiver catalog.json")
+    parser.add_argument("--profiles", type=Path, default=DEFAULT_PROFILES, help="destination for .quiver profiles")
+    parser.add_argument("--dry-run", action="store_true", help="list profiles without writing them")
+    args = parser.parse_args()
+
+    try:
+        apps_dir = read_apps_path(args.config)
+        if not apps_dir.is_dir():
+            raise ValueError(f"Dossier des applications introuvable : {apps_dir}")
+        profiles_dir = args.profiles
+        catalog_names = read_catalog_names(args.catalog)
+        created = 0
+        existing = existing_profile_references(profiles_dir)
+        skipped = 0
+        for app_dir in sorted((p for p in apps_dir.iterdir() if p.is_dir()), key=lambda p: p.name.casefold()):
+            if app_dir.name.casefold() in IGNORED_NAMES:
+                print(f"[ignoré] {app_dir} : dossier du launcher Quiver")
+                skipped += 1
+                continue
+            matches = discover_launchers(apps_dir / app_dir.name)
+            if not matches:
+                print(f"[ignoré] {app_dir} : aucun exécutable reconnu")
+                skipped += 1
+                continue
+            workdir, executable = matches[0]
+            catalog_entry = catalog_names.get(app_dir.name.casefold())
+            friendly_name, console = catalog_entry if catalog_entry else (None, None)
+            filename, content = make_profile(app_dir, workdir, executable, friendly_name, console)
+            target = profiles_dir / filename
+            profile = existing.get(app_dir.name.casefold())
+            if profile:
+                print(f"[ignoré] {app_dir} déjà référencé par {profile}")
+                skipped += 1
+            elif target.exists():
+                print(f"[ignoré] {target} existe déjà")
+                skipped += 1
+            elif args.dry_run:
+                print(f"[aperçu] {target} <- {workdir / executable}")
+            else:
+                profiles_dir.mkdir(parents=True, exist_ok=True)
+                target.write_text(content, encoding="utf-8")
+                print(f"[créé] {target} ({'Wine' if Path(executable).suffix.casefold() == '.exe' else 'Linux'})")
+                created += 1
+        if args.dry_run:
+            print(f"Aperçu terminé : {created} candidat(s), {skipped} ignoré(s), aucun fichier créé ({profiles_dir}).")
+        else:
+            print(f"Terminé : {created} profil(s) créé(s), {skipped} ignoré(s).")
+        return 0
+    except (OSError, ValueError) as error:
+        print(f"Erreur : {error}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

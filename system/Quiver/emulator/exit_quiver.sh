@@ -112,35 +112,67 @@ else
     echo "[ERREUR] Impossible de consommer l'état de session : $EXIT_STATE_FILE"
 fi
 
-stop_dragons_crown_pro() {
-    # Le binaire dans le montage AppImage ne contient pas "Quiver" dans son chemin.
-    pattern='^/tmp/\.mount_[^/]*/usr/bin/dragons_crown_pro --user /userdata/saves/quiver/CUSA10454 - Dragons Crown Pro($| )'
-    if pkill -TERM -f "$pattern"; then
-        result=0
-    else
-        result=$?
-    fi
-    case "$result" in
-        0)
-            echo "[INFO] Arrêt de Dragons Crown Pro demandé"
-            sleep 2
-            if pkill -KILL -f "$pattern"; then
-                result=0
-            else
-                result=$?
-            fi
-            case "$result" in
-                0) echo "[INFO] Arrêt forcé de Dragons Crown Pro" ;;
-                1) echo "[INFO] Dragons Crown Pro arrêté" ;;
-                *) echo "[ERREUR] Échec de l'arrêt forcé de Dragons Crown Pro (pkill : $result)" ;;
-            esac
+stop_active_quiver_game() {
+    pid_file="/userdata/system/configs/Quiver/active-game.pid"
+    [ -f "$pid_file" ] && [ ! -L "$pid_file" ] || {
+        echo "[INFO] Aucun PID de jeu Quiver enregistre"
+        return
+    }
+
+    read -r game_pid expected_start_time extra < "$pid_file"
+    case "$game_pid" in
+        ""|*[!0-9]*)
+            echo "[ANOMALIE] PID Quiver invalide : $pid_file"
+            rm -f -- "$pid_file"
+            return
             ;;
-        1) echo "[INFO] Dragons Crown Pro n'est pas en cours d'exécution" ;;
-        *) echo "[ERREUR] Échec de l'arrêt de Dragons Crown Pro (pkill : $result)" ;;
     esac
+    case "$expected_start_time" in
+        ""|*[!0-9]*)
+            echo "[ANOMALIE] Heure de demarrage Quiver invalide : $pid_file"
+            rm -f -- "$pid_file"
+            return
+            ;;
+    esac
+    if [ -n "$extra" ]; then
+        echo "[ANOMALIE] Contenu PID Quiver invalide : $pid_file"
+        rm -f -- "$pid_file"
+        return
+    fi
+
+    proc_stat="/proc/$game_pid/stat"
+    if [ ! -r "$proc_stat" ]; then
+        echo "[INFO] Le processus Quiver $game_pid est deja arrete"
+        rm -f -- "$pid_file"
+        return
+    fi
+
+    stat_rest=$(sed 's/^.*) //' "$proc_stat")
+    set -- $stat_rest
+    actual_start_time=${20}
+    process_group=$(ps -o pgid= -p "$game_pid" 2>/dev/null | tr -d ' ')
+    if [ "$actual_start_time" != "$expected_start_time" ] \
+        || [ "$process_group" != "$game_pid" ]; then
+        echo "[ANOMALIE] PID Quiver reutilise ou groupe inattendu : $game_pid"
+        rm -f -- "$pid_file"
+        return
+    fi
+
+    echo "[INFO] Arret du groupe de processus Quiver $game_pid"
+    kill -TERM -- "-$game_pid" 2>/dev/null || true
+    attempts=0
+    while kill -0 -- "-$game_pid" 2>/dev/null && [ "$attempts" -lt 5 ]; do
+        sleep 1
+        attempts=$((attempts + 1))
+    done
+    if kill -0 -- "-$game_pid" 2>/dev/null; then
+        echo "[INFO] Arret force du groupe Quiver $game_pid"
+        kill -KILL -- "-$game_pid" 2>/dev/null || true
+    fi
+    rm -f -- "$pid_file"
 }
 
-stop_dragons_crown_pro
+stop_active_quiver_game
 
 batocera-mouse hide
 echo "[INFO] Souris masquée"
@@ -165,6 +197,21 @@ fi
 if [ ! -d "$APPS_DIR" ]; then
     echo "[ERREUR] Dossier des applications introuvable : $APPS_DIR"
     exit 1
+fi
+
+# Generate profiles for newly installed launchers before copying them to ROM_DIR.
+# The generator never overwrites existing profiles.
+PROFILE_GENERATOR="/userdata/system/Quiver/bin/quiver-generate-profiles"
+if [ -f "$PROFILE_GENERATOR" ] && command -v python3 >/dev/null 2>&1; then
+    echo "[INFO] Generating profiles for newly installed launchers"
+    if python3 "$PROFILE_GENERATOR"; then
+        echo "[INFO] Automatic profile generation completed"
+    else
+        generator_status=$?
+        echo "[ERROR] Profile generator failed (code $generator_status); continuing exit"
+    fi
+else
+    echo "[WARNING] Profile generator or python3 missing; skipping generation"
 fi
 
 # ------------------------------------------------------------------
@@ -679,6 +726,13 @@ cleanup_orphan() {
         fi
     done
 
+    # Reconfirmer que le launcher est toujours absent avant de nettoyer les ROMs.
+    co_folder=$(get_ini_value "$co_profile" "Game" "Folder")
+    if ! valid_folder "$co_folder" || [ -d "$APPS_DIR/$co_folder" ]; then
+        echo "[INFO] Application present or folder invalid; cleanup cancelled: $co_name"
+        return 1
+    fi
+
     # 4) Suppression des dossiers
     co_fail=0
     for co_r in "$co_r_game" "$co_r_dlc" "$co_r_mods"; do
@@ -711,8 +765,8 @@ cleanup_orphan() {
         return 0
     fi
 
-    if [ -e "$PROFILES_DIR/$co_name" ] || [ -L "$PROFILES_DIR/$co_name" ]; then
-        echo "[ANOMALIE] Profil système apparu pendant le nettoyage, conservé : $co_name"
+    if [ -d "$APPS_DIR/$co_folder" ]; then
+        echo "[INFO] Application reappeared during cleanup; keeping ROM profile: $co_name"
         return 1
     fi
     if [ -L "$co_profile" ] || [ ! -f "$co_profile" ] \
@@ -888,8 +942,7 @@ else
         fi
         if [ -e "$PROFILES_DIR/$profile_name" ] \
             || [ -L "$PROFILES_DIR/$profile_name" ]; then
-            echo "[IGNORÉ] Profil système conservé : $profile_name"
-            continue
+            echo "[INFO] Profile source exists; still checking whether its app folder is present"
         fi
 
         if [ -L "$rom_profile" ]; then

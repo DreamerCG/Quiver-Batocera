@@ -380,6 +380,26 @@ class QuiverGenerator(Generator):
 
         clear_game_cache(parser, game_path)
         os.chdir(workdir)
+        # Keep a foreground supervisor alive while the game runs. AppImages can
+        # leave child processes behind when their launcher process is stopped.
+        game_command = command
+        command = [
+            sys.executable,
+            str(Path(__file__).resolve().parents[2] / "quiver_process.py"),
+            "--",
+            *command,
+        ]
+        print(
+            f"[Quiver] commande jeu={game_command!r}",
+            file=sys.stderr,
+            flush=True,
+        )
+        print(
+            f"[Quiver] commande supervisee={command!r}",
+            file=sys.stderr,
+            flush=True,
+        )
+
         print(
             f"[Quiver] lancement de {name} ({mode}, runner {runner or 'défaut'})",
             file=sys.stderr,
