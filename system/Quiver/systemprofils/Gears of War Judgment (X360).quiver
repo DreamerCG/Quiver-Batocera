@@ -1,0 +1,18 @@
+[Game]
+name=Gears of War Judgment (X360)
+Folder=GearsOfWar2GearsOfWar3GearsOfWarJudgment-COGBox
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/GearsOfWar2GearsOfWar3GearsOfWarJudgment-COGBox
+executable=CogBox.exe
+args= --play judgment
+mode=wine
+
+[Config]
+setting_file=/userdata/system/Quiver/emulator/Apps/GearsOfWar2GearsOfWar3GearsOfWarJudgment-COGBox/CogBox.ini
+preload_file=X360_COGBOX.ini
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/X360 - Gears of War Judgment
+dlc_directory=/userdata/roms/quiver/DLC/X360 - Gears of War Judgment
+mods_directory=/userdata/roms/quiver/MODS/X360 -Gears of War Judgment

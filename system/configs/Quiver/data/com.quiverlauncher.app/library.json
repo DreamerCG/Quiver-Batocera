@@ -51,11 +51,6 @@
   },
   {
     "addedAt": 1793807482974,
-    "id": "k17dybj5v7jj6nrve6qt2ws02x8gynnd",
-    "slug": "gravity-rush-2-gravity-rush-2-native-port-for-pc"
-  },
-  {
-    "addedAt": 1793807482974,
     "id": "k172zy6nbbrpqj77yk6ana0sen8gyhte",
     "slug": "bloodborne-bloodborne-for-linux"
   },
@@ -133,5 +128,15 @@
     "addedAt": 1795175418802,
     "id": "k170hp1c9bq89g7b8gzk4rmhmh8je7df",
     "slug": "star-wars-rogue-squadron-ii-rogue-leader-red-two"
+  },
+  {
+    "addedAt": 1793807482974,
+    "id": "k17dybj5v7jj6nrve6qt2ws02x8gynnd",
+    "slug": "gravity-rush-2-gravity-rush-2-native-port-for-pc"
+  },
+  {
+    "addedAt": 1795192066161,
+    "id": "k174zamaqpx1ehkbf9gxynyjh18h2x8m",
+    "slug": "gears-of-war-2-gears-of-war-3-gears-of-war-judgment-cogbox"
   }
 ]

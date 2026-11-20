@@ -23,3 +23,7 @@ Uncharted 1 Drakes Fortune.quiver
 Uncharted 2 Among Thieves.quiver
 Uncharted 3 Illusion de Drake.quiver
 Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC.quiver
+Gears of War (X360).quiver
+Gears of War 2 (X360).quiver
+Gears of War 3 (X360).quiver
+Gears of War Judgment (X360).quiver
