@@ -1,0 +1,17 @@
+[Game]
+name=Mortal Kombat: Shaolin Monks (OG XBOX)
+Folder=MortalKombatShaolinMonks-ShaolinMonksRecomp
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/MortalKombatShaolinMonks-ShaolinMonksRecomp
+executable=OpenShao
+args= --no-launcher --disc '/userdata/roms/quiver/GAME/XBOX - Mortal Komba Shaoling Monks/Mortal Kombat - Shaolin Monks (USA, Europe) (En,Fr,De,Es,It).xiso.iso' --save-dir '/userdata/saves/quiver/XBOX - Mortal Komba Shaoling Monks'
+
+[Config]
+setting_file=/userdata/system/configs/Quiver/data/OpenShao/settings.toml
+preload_file=Xbox_Mortal_Kombat_Shaolin_Monks.toml
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/XBOX - Mortal Komba Shaoling Monks
+dlc_directory=/userdata/roms/quiver/DLC/XBOX - Mortal Komba Shaoling Monks
+mods_directory=/userdata/roms/quiver/MODS/XBOX - Mortal Komba Shaoling Monks

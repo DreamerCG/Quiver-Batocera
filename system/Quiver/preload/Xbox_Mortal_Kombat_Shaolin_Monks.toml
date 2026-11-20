@@ -1,0 +1,101 @@
+anisotropic_filtering = 16
+aspect_ratio = '16:9'
+bloom_effect = true
+display_mode = 'fullscreen'
+fps_cap = 60
+height = 0
+language = 'fr'
+master_volume = 100
+render_percent = 100
+show_fps = false
+voice_language = 'fr'
+vsync = true
+width = 0
+
+[controller]
+deadzone = 0.14999999999999999
+rumble = true
+
+    [controller.bindings]
+    a = 'a'
+    b = 'b'
+    back = 'back'
+    black = 'rightshoulder'
+    camera_down = 'righty+'
+    camera_left = 'rightx-'
+    camera_right = 'rightx+'
+    camera_up = 'righty-'
+    dpad_down = 'dpdown'
+    dpad_left = 'dpleft'
+    dpad_right = 'dpright'
+    dpad_up = 'dpup'
+    left_stick = 'leftstick'
+    left_trigger = 'lefttrigger'
+    move_down = 'lefty+'
+    move_left = 'leftx-'
+    move_right = 'leftx+'
+    move_up = 'lefty-'
+    right_stick = 'rightstick'
+    right_trigger = 'righttrigger'
+    start = 'start'
+    white = 'leftshoulder'
+    x = 'x'
+    y = 'y'
+
+[enhancements]
+cinematic_bars = false
+improved_difficulty = true
+restore_dialogue = true
+scorpion_unfiltered = false
+
+[game]
+audio_output = 1
+brightness = 50
+camera_reverse = false
+effects_volume = 75
+music_volume = 75
+override_original = false
+speech_volume = 75
+versus_rounds = 3
+versus_time = 120
+
+[keyboard.bindings]
+a = [ 32, 0 ]
+b = [ 27, 17 ]
+back = [ 8, 0 ]
+black = [ 67, 0 ]
+camera_down = [ 0, 0 ]
+camera_left = [ 0, 0 ]
+camera_right = [ 0, 0 ]
+camera_up = [ 0, 0 ]
+dpad_down = [ 40, 0 ]
+dpad_left = [ 37, 0 ]
+dpad_right = [ 39, 0 ]
+dpad_up = [ 38, 0 ]
+left_stick = [ 0, 0 ]
+left_trigger = [ 16, 0 ]
+move_down = [ 83, 0 ]
+move_left = [ 65, 0 ]
+move_right = [ 68, 0 ]
+move_up = [ 87, 0 ]
+right_stick = [ 0, 0 ]
+right_trigger = [ 69, 0 ]
+start = [ 13, 0 ]
+white = [ 81, 0 ]
+x = [ 74, 0 ]
+y = [ 75, 0 ]
+
+[mouse]
+invert_x = false
+invert_y = false
+motion = 'right_stick'
+sensitivity = 100
+
+    [mouse.bindings]
+    left = 'x'
+    middle = 'y'
+    right = 'b'
+    side1 = 'black'
+    side2 = 'white'
+    wheel_down = 'none'
+    wheel_up = 'none'
