@@ -22,3 +22,4 @@ SNES - Super Mario All Star USA.quiver
 Uncharted 1 Drakes Fortune.quiver
 Uncharted 2 Among Thieves.quiver
 Uncharted 3 Illusion de Drake.quiver
+Star_Wars_Rogue_Squadron_II_Rogue_Leader_NGC.quiver
