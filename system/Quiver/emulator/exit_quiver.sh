@@ -46,10 +46,16 @@ if ! mkdir -p "$LOG_DIR"; then
     exit 1
 fi
 
+# Éviter de suivre un lien symbolique inattendu pour le fichier de log.
+if [ -L "$LOG" ]; then
+    echo "[ERREUR] Le fichier de log est un lien symbolique : $LOG" >&2
+    exit 1
+fi
+
 # Vérifier que le fichier de log est accessible en écriture
 # Réinitialiser le log au début de chaque exécution.
-if ! : > "$LOG"; then
-    echo "[ERREUR] Impossible d'écrire dans $LOG" >&2
+if ! log_error=$( ( : > "$LOG" ) 2>&1 ); then
+    echo "[ERREUR] Impossible d'écrire dans $LOG${log_error:+ : $log_error}" >&2
     exit 1
 fi
 
