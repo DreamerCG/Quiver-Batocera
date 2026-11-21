@@ -1,0 +1,23 @@
+[Game]
+name=
+Folder=
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/
+executable=RR6 Launcher.exe
+args= --play
+mode=wine
+
+[Config]
+setting_file=
+preload_file=
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/XBOX360 - Ridge Racer 6
+dlc_directory=/userdata/roms/quiver/DLC/XBOX360 - Ridge Racer 6
+mods_directory=/userdata/roms/quiver/MODS/XBOX360 - Ridge Racer 6
+
+[Command]
+game_symlink_target=game_directory
+dlc_symlink_target=dlc_directory
+dlc_symlink_name=DLC
