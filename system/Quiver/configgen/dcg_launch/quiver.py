@@ -180,10 +180,14 @@ class Quiver(Emulator):
             fallback=parser.get("Game", "setting_file", fallback="")
         ).strip()
 
+        setting_file2 = parser.get("Config", "setting_file2", fallback="").strip()
+
         preload_file = parser.get(
             "Config", "preload_file",
             fallback=parser.get("Game", "preload_file", fallback="")
         ).strip()
+
+        preload_file2 = parser.get("Config", "preload_file2", fallback="").strip()
 
         # Mode et runner restent dans [Game].
         mode = parser.get(
@@ -293,70 +297,55 @@ class Quiver(Emulator):
             )
 
         # Gestion du launcher Quiver.
-        setting_path = None
-
-        if setting_file:
-            setting_relative_path = Path(setting_file).expanduser()
-
-            if setting_relative_path.is_absolute():
-                setting_path = setting_relative_path
-
+        setting_paths = []
+        for configured_path in (setting_file, setting_file2):
+            if not configured_path:
+                setting_paths.append(None)
+                continue
+            relative_path = Path(configured_path).expanduser()
+            if relative_path.is_absolute():
+                setting_paths.append(relative_path)
             elif mode == "wine":
                 effective_runner = runner or "wine-proton"
-
-                setting_path = (
+                setting_paths.append(
                     Path("/userdata/system/wine-bottles/quiver")
                     / effective_runner
                     / f"{_safe_name(name)}.wine"
                     / "drive_c"
-                    / setting_relative_path
+                    / relative_path
                 )
-
             else:
-                setting_path = (
-                    workdir / setting_relative_path
-                ).resolve()
+                setting_paths.append((workdir / relative_path).resolve())
 
-        # Installation automatique du fichier preload.
-        settings_exists = bool(
-            setting_path and setting_path.is_file()
-        )
-
-        if not settings_exists and setting_path and preload_file:
-            preload_name = Path(preload_file).name
-            preload_path = QUIVER_PRELOAD_ROOT / preload_name
-
-            if preload_path.is_file():
-                try:
-                    setting_path.parent.mkdir(
-                        parents=True,
-                        exist_ok=True
-                    )
-
-                    # Copie uniquement si le fichier de destination
-                    # n'existe pas déjà.
-                    if not setting_path.exists():
-                        shutil.copy2(preload_path, setting_path)
-
-                    settings_exists = setting_path.is_file()
-
-                    if settings_exists:
-                        _logger.info(
-                            "Quiver : configuration initiale installée : %s",
-                            preload_name,
-                        )
-
-                except OSError as error:
-                    _logger.error(
-                        "Quiver : impossible de copier le preload %s : %s",
-                        preload_path,
-                        error
-                    )
-
-            else:
+        setting_path = setting_paths[0]
+        settings_exists = bool(setting_path and setting_path.is_file())
+        for destination, configured_preload in zip(
+            setting_paths, (preload_file, preload_file2)
+        ):
+            if not destination or destination.is_file() or not configured_preload:
+                continue
+            preload_path = QUIVER_PRELOAD_ROOT / Path(configured_preload).name
+            if not preload_path.is_file():
                 _logger.warning(
-                    "Quiver : fichier preload introuvable : %s",
-                    preload_path
+                    "Quiver : fichier preload introuvable : %s", preload_path
+                )
+                continue
+            try:
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                if not destination.exists():
+                    shutil.copy2(preload_path, destination)
+                if destination == setting_path:
+                    settings_exists = destination.is_file()
+                if destination.is_file():
+                    _logger.info(
+                        "Quiver : configuration initiale install?e : %s",
+                        preload_path.name,
+                    )
+            except OSError as error:
+                _logger.error(
+                    "Quiver : impossible de copier le preload %s : %s",
+                    preload_path,
+                    error,
                 )
 
         launcher_quiver = self.config.get(

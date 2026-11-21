@@ -1,0 +1,22 @@
+[Game]
+name=Demon's Souls (PS3)
+Folder=DemonsSouls-Soulbrandt
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/DemonsSouls-Soulbrandt
+executable=Soulbrandt
+args= --play
+
+[Config]
+setting_file=/userdata/system/configs/Quiver/data/DemonsSoulsRecomp/DemonsSouls/settings.ini
+preload_file=PS3_DemonsSouls.ini
+
+setting_file2=/userdata/system/configs/Quiver/data/DemonsSoulsRecomp/setup-folder.txt
+preload_file2=PS3_DemonsSouls_pathfolder.ini
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/Demon_s_Souls_PS3
+dlc_directory=/userdata/roms/quiver/DLC/Demon_s_Souls_PS3
+mods_directory=/userdata/roms/quiver/MODS/Demon_s_Souls_PS3
+saves_directory=/userdata/saves/quiver/Demon_s_Souls_PS3
+

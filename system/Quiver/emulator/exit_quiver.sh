@@ -407,12 +407,19 @@ create_app_symlink() {
     link_relative_path="$5"
     [ -n "$link_relative_path" ] || link_relative_path="$link_name"
     case "$link_relative_path" in
-        /*|*../*|../*|*/..|*/.|.|*./*|./*|*//*)
+        *../*|../*|*/..|*/.|.|*./*|./*|*//*)
             echo "[ANOMALIE] $link_name : chemin de lien invalide : $link_relative_path"
             return 1
             ;;
     esac
-    link_path="$app_path/$link_relative_path"
+    case "$link_relative_path" in
+        /*)
+            link_path="$link_relative_path"
+            ;;
+        *)
+            link_path="$app_path/$link_relative_path"
+            ;;
+    esac
 
     case "$target_path" in
         "$link_root"/*) ;;
@@ -444,19 +451,15 @@ create_app_symlink() {
     link_parent="$link_path"
     case "$link_path" in */*) link_parent="${link_path%/*}" ;; esac
     link_parent_candidate=$(realpath -m "$link_parent" 2>/dev/null)
-    case "$link_parent_candidate" in
-        "$app_real"|"$app_real"/*) ;;
-        *) echo "[ANOMALIE] Dossier parent du lien hors de l'application : $link_parent"; return 1 ;;
-    esac
+    if [ -z "$link_parent_candidate" ]; then
+        echo "[ANOMALIE] Dossier parent du lien invalide : $link_parent"
+        return 1
+    fi
     if [ "$link_parent" != "$app_path" ] && ! mkdir -p "$link_parent"; then
         echo "[ERREUR] Impossible de créer le dossier parent : $link_parent"
         return 1
     fi
     link_parent_real=$(realpath "$link_parent" 2>/dev/null)
-    case "$link_parent_real" in
-        "$app_real"|"$app_real"/*) ;;
-        *) echo "[ANOMALIE] Dossier parent du lien hors de l'application : $link_parent"; return 1 ;;
-    esac
     if [ -z "$app_real" ] || [ -z "$link_parent_real" ]; then
         echo "[ANOMALIE] Dossier application invalide : $app_path"
         return 1
