@@ -420,6 +420,9 @@ create_app_symlink() {
             link_path="$app_path/$link_relative_path"
             ;;
     esac
+    while [ "${#link_path}" -gt 1 ] && [ "${link_path%/}" != "$link_path" ]; do
+        link_path=${link_path%/}
+    done
 
     case "$target_path" in
         "$link_root"/*) ;;
@@ -455,13 +458,41 @@ create_app_symlink() {
         echo "[ANOMALIE] Dossier parent du lien invalide : $link_parent"
         return 1
     fi
-    if [ "$link_parent" != "$app_path" ] && ! mkdir -p "$link_parent"; then
+    if [ -z "$app_real" ]; then
+        echo "[ANOMALIE] Dossier application invalide : $app_path"
+        return 1
+    fi
+    case "$link_path" in
+        "$app_real"|"$app_real"/*)
+            ;;
+        /*)
+            # Les liens absolus sont permis hors de l'application, mais
+            # leurs parents existants ne doivent pas rediriger ailleurs.
+            link_check="$link_parent"
+            while [ "$link_check" != "/" ]; do
+                if [ -L "$link_check" ]; then
+                    echo "[ANOMALIE] Parent symbolique refuse : $link_check"
+                    return 1
+                fi
+                link_check=${link_check%/*}
+                [ -n "$link_check" ] || link_check="/"
+            done
+            ;;
+        *)
+            echo "[ANOMALIE] Chemin de lien relatif hors du dossier application : $link_path"
+            return 1
+            ;;
+    esac
+    if [ ! -d "$link_parent" ]; then
+        echo "[INFO] Création forcée du dossier parent du lien : $link_parent"
+    fi
+    if [ ! -d "$link_parent" ] && ! mkdir -p -- "$link_parent"; then
         echo "[ERREUR] Impossible de créer le dossier parent : $link_parent"
         return 1
     fi
     link_parent_real=$(realpath "$link_parent" 2>/dev/null)
-    if [ -z "$app_real" ] || [ -z "$link_parent_real" ]; then
-        echo "[ANOMALIE] Dossier application invalide : $app_path"
+    if [ -z "$link_parent_real" ] || [ "$link_parent_real" != "$link_parent_candidate" ]; then
+        echo "[ANOMALIE] Dossier parent du lien invalide ou redirige : $link_parent"
         return 1
     fi
     if [ -L "$link_path" ]; then

@@ -1,0 +1,27 @@
+[Game]
+name=Lost Odyssey (X360)
+Folder=LostOdyssey-LostOdysseyRecompiled
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/LostOdyssey-LostOdysseyRecompiled
+executable=LostOdysseyRecomp-linux-x64-*.AppImage
+args= --play
+
+[Config]
+setting_file=/userdata/system/configs/Quiver/config/lost-odyssey-recomp/settings.ini
+preload_file=X360_Lost_Odyssey_Settings.ini
+
+setting_file2=/userdata/system/configs/Quiver/config/lost-odyssey-recomp/game-path.txt
+preload_file2=X360_Lost_Odyssey_path.txt
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/X360 - Lost Odyssey
+dlc_directory=/userdata/roms/quiver/DLC/X360 - Lost Odyssey
+mods_directory=/userdata/roms/quiver/MODS/X360 - Lost Odyssey
+saves_directory=/userdata/saves/quiver/X360 - Lost Odyssey
+
+[Command]
+mods_symlink_target=mods_directory
+mods_symlink_name=/userdata/system/configs/Quiver/data/lost-odyssey-recomp/mods/
+saves_symlink_target=saves_directory
+saves_symlink_name=/userdata/system/configs/Quiver/data/lost-odyssey-recomp/save
