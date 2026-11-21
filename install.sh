@@ -251,6 +251,7 @@ if ! bash "$LAUNCHER_UPDATER"; then
 fi
 [[ -f "$APPIMAGE" ]] || die "AppImage Quiver introuvable."
 [[ -f "$EXIT_SCRIPT" ]] || die "exit_quiver.sh introuvable."
+dos2unix "$EXIT_SCRIPT" || die "Impossible de convertir exit_quiver.sh au format Unix."
 [[ -f "$WINE_LAUNCHER" ]] || die "Launcher Wine Quiver introuvable."
 
 log "Application des permissions..."
