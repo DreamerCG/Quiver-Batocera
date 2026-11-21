@@ -3,10 +3,9 @@ name=Ridge Racer 6 (X360)
 Folder=RidgeRacer6-RidgeRacer6Recompilation
 
 [Launcher]
-path=/userdata/system/Quiver/emulator/Apps/
-executable=RR6 Launcher.exe
+path=/userdata/system/Quiver/emulator/Apps/RidgeRacer6-RidgeRacer6Recompilation
+executable=ridge-racer-6.sh
 args= --play
-mode=wine
 
 [Config]
 setting_file=
@@ -19,5 +18,7 @@ mods_directory=/userdata/roms/quiver/MODS/XBOX360 - Ridge Racer 6
 
 [Command]
 game_symlink_target=game_directory
+game_symlink_name=GAME
+
 dlc_symlink_target=dlc_directory
 dlc_symlink_name=DLC
