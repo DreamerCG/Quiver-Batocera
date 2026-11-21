@@ -47,7 +47,7 @@ if ! mkdir -p "$LOG_DIR"; then
 fi
 
 # Vérifier que le fichier de log est accessible en écriture
-if ! touch "$LOG"; then
+# Reinitialiser le log au debut de chaque execution`nif ! : > "$LOG"; then
     echo "[ERREUR] Impossible d'écrire dans $LOG" >&2
     exit 1
 fi
