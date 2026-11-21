@@ -15,8 +15,7 @@ setting_file2=/userdata/system/configs/Quiver/data/DemonsSoulsRecomp/setup-folde
 preload_file2=PS3_DemonsSouls_pathfolder.ini
 
 [Roms]
-game_directory=/userdata/roms/quiver/GAME/PS3 Demons Souls
-dlc_directory=/userdata/roms/quiver/DLC/PS3 Demons Souls
-mods_directory=/userdata/roms/quiver/MODS/PS3 Demons Souls
-saves_directory=/userdata/saves/quiver/PS3 Demons Souls
-
+game_directory=/userdata/roms/quiver/GAME/Demon_s_Souls_PS3
+dlc_directory=/userdata/roms/quiver/DLC/Demon_s_Souls_PS3
+mods_directory=/userdata/roms/quiver/MODS/Demon_s_Souls_PS3
+saves_directory=/userdata/saves/quiver/Demon_s_Souls_PS3
