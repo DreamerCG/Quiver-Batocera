@@ -59,19 +59,20 @@ if ! log_error=$( ( : > "$LOG" ) 2>&1 ); then
     exit 1
 fi
 
-# Rediriger stdout et stderr vers le fichier de log
+# Horodater les messages du script tout en gardant la redirection POSIX.
 exec >> "$LOG" 2>&1
+echo() {
+    [ "$#" -gt 0 ] || return 0
+    command printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+}
 
-echo
-echo "=========================================="
-echo "[$(date '+%Y-%m-%d %H:%M:%S')] Démarrage exit_quiver.sh"
-echo "PID=$$"
-echo "PROFILES_DIR=$PROFILES_DIR"
-echo "APPS_DIR=$APPS_DIR"
-echo "ROM_DIR=$ROM_DIR"
-echo "DRY_RUN=$DRY_RUN"
-echo "MAX_DELETIONS=$MAX_DELETIONS"
-echo "[INFO] Redirection des logs opérationnelle"
+echo "[DÉBUT] exit_quiver.sh (PID=$$, DRY_RUN=$DRY_RUN, maximum suppressions=$MAX_DELETIONS)"
+copied_profiles=0
+new_profiles=0
+updated_profiles=0
+ignored_profiles=0
+orphan_profiles=0
+ORPHAN_COUNT=0
 
 # Verrou : éviter deux exécutions simultanées
 if ! mkdir "$LOCK_DIR" 2>/dev/null; then
@@ -336,7 +337,6 @@ create_rom_directory() {
     description="$2"
 
     if [ -z "$directory" ]; then
-        echo "[INFO] $description : chemin absent, ignoré"
         return 0
     fi
 
@@ -386,13 +386,10 @@ create_rom_directory() {
             ;;
     esac
 
-    echo "[INFO] Vérification $description : $directory"
-
     if mkdir -p "$directory"; then
         actual_real=$(realpath "$directory" 2>/dev/null)
         case "$actual_real" in
             "$root_real"/*)
-                echo "[OK] Répertoire disponible : $directory"
                 ;;
             *)
                 echo "[ANOMALIE] $description : chemin créé hors de sa racine"
@@ -505,7 +502,6 @@ create_app_symlink() {
     if [ -L "$link_path" ]; then
         existing_real=$(realpath "$link_path" 2>/dev/null)
         if [ "$existing_real" = "$target_real" ]; then
-            echo "[OK] Lien deja present : $link_path -> $target_real"
             return 0
         fi
         echo "[ERREUR] Lien existant vers une autre cible : $link_path"
@@ -884,14 +880,11 @@ done
 for profile in "$PROFILES_DIR"/*; do
     [ -f "$profile" ] || continue
 
-    echo
-    echo "[PROFIL] Analyse : $profile"
-
     # Seuls les fichiers .quiver sont copiés
     case "$profile" in
         *.quiver|*.QUIVER) ;;
         *)
-            echo "[IGNORÉ] Extension différente de .quiver"
+            ignored_profiles=$((ignored_profiles + 1))
             continue
             ;;
     esac
@@ -899,22 +892,16 @@ for profile in "$PROFILES_DIR"/*; do
     # Lecture de Folder dans [Game]
     folder=$(get_ini_value "$profile" "Game" "Folder")
 
-    echo "[INFO] Folder lu : '$folder'"
-
     if ! valid_folder "$folder"; then
-        echo "[IGNORÉ] Clé [Game] Folder absente, vide ou invalide"
+        ignored_profiles=$((ignored_profiles + 1))
         continue
     fi
 
     app_path="$APPS_DIR/$folder"
-    echo "[INFO] Vérification du dossier : $app_path"
-
     if [ ! -d "$app_path" ]; then
-        echo "[IGNORÉ] Dossier application introuvable"
+        ignored_profiles=$((ignored_profiles + 1))
         continue
     fi
-
-    echo "[OK] Dossier application trouvé"
 
     # Lecture des trois répertoires dans [Roms]
     game_directory=$(get_ini_value "$profile" "Roms" "game_directory")
@@ -986,9 +973,28 @@ for profile in "$PROFILES_DIR"/*; do
         continue
     fi
 
+    # Distinguer les nouveaux profils des profils déjà présents dans ROM_DIR.
+    destination="$ROM_DIR/${profile##*/}"
+    if [ -L "$destination" ]; then
+        echo "[ANOMALIE] Profil destination symbolique, copie refusée : $destination"
+        continue
+    fi
+    if [ -e "$destination" ]; then
+        profile_was_present=1
+    else
+        profile_was_present=0
+    fi
+
     # Copie du profil uniquement si toutes les vérifications sont bonnes.
-    if cp -fv "$profile" "$ROM_DIR/"; then
-        echo "[OK] Profil copié vers $ROM_DIR/"
+    if cp -f "$profile" "$ROM_DIR/"; then
+        copied_profiles=$((copied_profiles + 1))
+        if [ "$profile_was_present" -eq 1 ]; then
+            updated_profiles=$((updated_profiles + 1))
+            echo "[PROFIL EXISTANT ACTUALISÉ] ${profile##*/}"
+        else
+            new_profiles=$((new_profiles + 1))
+            echo "[NOUVEAU PROFIL] ${profile##*/}"
+        fi
     else
         echo "[ERREUR] Échec de la copie de $profile"
     fi
@@ -998,8 +1004,7 @@ done
 # Nettoyage des profils orphelins (application absente de APPS_DIR)
 # ------------------------------------------------------------------
 
-echo
-echo "[INFO] Vérification des profils .quiver déjà installés dans $ROM_DIR"
+echo "[INFO] Vérification des profils installés dans $ROM_DIR"
 
 # Garde-fou : un dossier Apps sans aucune application est suspect
 # (montage absent, erreur...) : on ne supprime rien.
@@ -1033,28 +1038,17 @@ else
             echo "[IGNORÉ] Profil réservé : $profile_name"
             continue
         fi
-        if [ -e "$PROFILES_DIR/$profile_name" ] \
-            || [ -L "$PROFILES_DIR/$profile_name" ]; then
-            echo "[INFO] Profile source exists; still checking whether its app folder is present"
-        fi
-
         if [ -L "$rom_profile" ]; then
             echo "[IGNORÉ] Profil ROM symbolique : $profile_name"
             continue
         fi
 
-        echo "[PROFIL] Vérification : $rom_profile"
-
         folder=$(get_ini_value "$rom_profile" "Game" "Folder")
         if ! valid_folder "$folder"; then
-            echo "[IGNORÉ] Clé [Game] Folder absente, vide ou invalide : $profile_name"
             continue
         fi
 
-        if [ -d "$APPS_DIR/$folder" ]; then
-            echo "[OK] Application présente : $folder"
-        else
-            echo "[ORPHELIN] Application introuvable : $APPS_DIR/$folder"
+        if [ ! -d "$APPS_DIR/$folder" ]; then
             ORPHANS="${ORPHANS}${rom_profile}
 "
             ORPHAN_COUNT=$((ORPHAN_COUNT + 1))
@@ -1078,7 +1072,6 @@ EOF
     fi
 fi
 
-echo
 echo "[INFO] Arrêt des processus run.py de Quiver"
 
 for pid in $(pgrep -f 'python /userdata/system/Quiver/configgen/run.py'); do
@@ -1096,5 +1089,6 @@ if [ "$EXIT_STATE" = "launcher" ]; then
     fi
 fi
 
-echo "[$(date '+%Y-%m-%d %H:%M:%S')] Fin du script"
-echo "=========================================="
+orphan_profiles=$ORPHAN_COUNT
+echo "[RÉSUMÉ] nouveaux=$new_profiles, existants actualisés=$updated_profiles, ignorés=$ignored_profiles, orphelins=$orphan_profiles"
+echo "[FIN] exit_quiver.sh"
