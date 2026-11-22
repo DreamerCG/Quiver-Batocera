@@ -18,7 +18,7 @@ mods_directory=/userdata/roms/quiver/MODS/XBOX360 - Ridge Racer 6
 
 [Command]
 game_symlink_target=game_directory
-game_symlink_name=GAME
+game_symlink_name=game
 
 dlc_symlink_target=dlc_directory
 dlc_symlink_name=DLC
