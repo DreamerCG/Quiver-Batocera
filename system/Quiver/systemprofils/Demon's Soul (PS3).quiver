@@ -5,7 +5,7 @@ Folder=DemonsSouls-Soulbrandt
 [Launcher]
 path=/userdata/system/Quiver/emulator/Apps/DemonsSouls-Soulbrandt
 executable=Soulbrandt
-args= --play
+args=
 
 [Config]
 setting_file=/userdata/system/configs/Quiver/data/DemonsSoulsRecomp/DemonsSouls/settings.ini
