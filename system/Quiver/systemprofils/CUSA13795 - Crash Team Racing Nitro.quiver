@@ -4,7 +4,7 @@ Folder=CrashTeamRacingNitroFueled-CTRNitroFueledPC
 
 [Launcher]
 path=/userdata/system/Quiver/emulator/Apps/CrashTeamRacingNitroFueled-CTRNitroFueledPC
-executable=SacredFire-v*-x86_64.AppImage
+executable=SacredFire-x86_64.AppImage
 args= --play
 
 [Config]
