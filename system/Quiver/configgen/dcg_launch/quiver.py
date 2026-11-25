@@ -322,10 +322,40 @@ class Quiver(Emulator):
         for destination, configured_preload in zip(
             setting_paths, (preload_file, preload_file2)
         ):
-            if not destination or destination.is_file() or not configured_preload:
+            if not destination:
+                if configured_preload:
+                    print(
+                        "[Quiver] preload ignoré : aucun setting_file configuré",
+                        file=sys.stderr,
+                        flush=True,
+                    )
+                continue
+            if destination.is_file():
+                print(
+                    f"[Quiver] preload ignoré : setting_file déjà présent : {destination}",
+                    file=sys.stderr,
+                    flush=True,
+                )
+                continue
+            if not configured_preload:
+                print(
+                    f"[Quiver] aucun preload_file configuré pour : {destination}",
+                    file=sys.stderr,
+                    flush=True,
+                )
                 continue
             preload_path = QUIVER_PRELOAD_ROOT / Path(configured_preload).name
+            print(
+                f"[Quiver] copie preload demandée : {preload_path} -> {destination}",
+                file=sys.stderr,
+                flush=True,
+            )
             if not preload_path.is_file():
+                print(
+                    f"[Quiver] copie preload impossible : source absente : {preload_path}",
+                    file=sys.stderr,
+                    flush=True,
+                )
                 _logger.warning(
                     "Quiver : fichier preload introuvable : %s", preload_path
                 )
@@ -337,11 +367,27 @@ class Quiver(Emulator):
                 if destination == setting_path:
                     settings_exists = destination.is_file()
                 if destination.is_file():
+                    print(
+                        f"[Quiver] copie preload réussie : {destination}",
+                        file=sys.stderr,
+                        flush=True,
+                    )
                     _logger.info(
                         "Quiver : configuration initiale install?e : %s",
                         preload_path.name,
                     )
+                else:
+                    print(
+                        f"[Quiver] copie preload terminée mais fichier destination absent : {destination}",
+                        file=sys.stderr,
+                        flush=True,
+                    )
             except OSError as error:
+                print(
+                    f"[Quiver] copie preload échouée : {preload_path} -> {destination} : {error}",
+                    file=sys.stderr,
+                    flush=True,
+                )
                 _logger.error(
                     "Quiver : impossible de copier le preload %s : %s",
                     preload_path,

@@ -193,8 +193,13 @@ mkdir -p "$ROM_DIR" || {
 
 ROM_DIR_REAL=$(realpath "$ROM_DIR" 2>/dev/null)
 ROM_DIR_SAFE=1
-if [ -L "$ROM_DIR" ] || [ "$ROM_DIR_REAL" != "/userdata/roms/quiver" ]; then
-    echo "[ANOMALIE] Racine ROM inattendue ou symbolique : $ROM_DIR"
+if [ -z "$ROM_DIR_REAL" ] || [ ! -d "$ROM_DIR_REAL" ]; then
+    echo "[ANOMALIE] Racine ROM absente ou non résolue : $ROM_DIR"
+    ROM_DIR_SAFE=0
+elif [ -L "$ROM_DIR" ]; then
+    echo "[INFO] Racine ROM symbolique autorisée : $ROM_DIR -> $ROM_DIR_REAL"
+elif [ "$ROM_DIR_REAL" != "/userdata/roms/quiver" ]; then
+    echo "[ANOMALIE] Racine ROM inattendue : $ROM_DIR -> $ROM_DIR_REAL"
     ROM_DIR_SAFE=0
 fi
 
