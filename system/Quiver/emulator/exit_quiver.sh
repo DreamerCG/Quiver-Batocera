@@ -143,66 +143,75 @@ stop_active_quiver_game() {
         return
     }
 
-    read -r game_pid expected_start_time game_pgid extra < "$pid_file"
-    case "$game_pid" in
-        ""|*[!0-9]*)
-            echo "[ANOMALIE] PID Quiver invalide : $pid_file"
-            rm -f -- "$pid_file"
-            return
-            ;;
-    esac
-    case "$expected_start_time" in
-        ""|*[!0-9]*)
-            echo "[ANOMALIE] Heure de demarrage Quiver invalide : $pid_file"
-            rm -f -- "$pid_file"
-            return
-            ;;
-    esac
-    if [ -n "$extra" ]; then
-        echo "[ANOMALIE] Contenu PID Quiver invalide : $pid_file"
-        rm -f -- "$pid_file"
-        return
-    fi
-    # Backward compatibility with the previous two-field format.
-    if [ -z "$game_pgid" ]; then
-        game_pgid=$game_pid
-    fi
-    case "$game_pgid" in
-        ""|*[!0-9]*)
-            echo "[ANOMALIE] PGID Quiver invalide : $pid_file"
-            rm -f -- "$pid_file"
-            return
-            ;;
-    esac
+    echo "[INFO] Arret des processus Quiver enregistres"
+    while read -r game_pid expected_start_time game_pgid extra; do
+        [ -n "$game_pid" ] || continue
+        if [ -n "$extra" ]; then
+            echo "[ANOMALIE] Ligne PID Quiver ignoree (format invalide)"
+            continue
+        fi
+        case "$game_pid:$expected_start_time" in
+            *[!0-9:]*|:*|*:) echo "[ANOMALIE] Identite PID Quiver invalide : $game_pid"; continue ;;
+        esac
+        # Backward compatibility with the old two-field format.
+        [ -n "$game_pgid" ] || game_pgid=$game_pid
+        case "$game_pgid" in
+            ""|*[!0-9]*) echo "[ANOMALIE] PGID Quiver invalide pour PID $game_pid"; continue ;;
+        esac
+        proc_stat="/proc/$game_pid/stat"
+        [ -r "$proc_stat" ] || continue
+        stat_rest=$(sed 's/^.*) //' "$proc_stat")
+        actual_start_time=$(printf '%s\n' "$stat_rest" | awk '{print $20}')
+        process_group=$(ps -o pgid= -p "$game_pid" 2>/dev/null | tr -d ' ')
+        if [ "$actual_start_time" != "$expected_start_time" ] \
+            || [ "$process_group" != "$game_pgid" ]; then
+            echo "[ANOMALIE] PID Quiver reutilise ou groupe inattendu : pid=$game_pid pgid=${process_group:-absent} attendu=$game_pgid"
+            continue
+        fi
+        echo "[INFO] Signal TERM au PID $game_pid et au groupe $game_pgid"
+        kill -TERM -- "-$game_pgid" 2>/dev/null || true
+        kill -TERM "$game_pid" 2>/dev/null || true
+    done < "$pid_file"
 
-    proc_stat="/proc/$game_pid/stat"
-    if [ ! -r "$proc_stat" ]; then
-        echo "[INFO] Le processus Quiver $game_pid est deja arrete"
-        rm -f -- "$pid_file"
-        return
-    fi
-
-    stat_rest=$(sed 's/^.*) //' "$proc_stat")
-    set -- $stat_rest
-    actual_start_time=${20}
-    process_group=$(ps -o pgid= -p "$game_pid" 2>/dev/null | tr -d ' ')
-    if [ "$actual_start_time" != "$expected_start_time" ] \
-        || [ "$process_group" != "$game_pgid" ]; then
-        echo "[ANOMALIE] PID Quiver reutilise ou groupe inattendu : pid=$game_pid pgid=${process_group:-absent} attendu=$game_pgid"
-        rm -f -- "$pid_file"
-        return
-    fi
-
-    echo "[INFO] Arret du groupe de processus Quiver $game_pgid (PID cible $game_pid)"
-    kill -TERM -- "-$game_pgid" 2>/dev/null || true
     attempts=0
-    while kill -0 -- "-$game_pgid" 2>/dev/null && [ "$attempts" -lt 5 ]; do
+    while [ "$attempts" -lt 5 ]; do
+        remaining=0
+        while read -r game_pid expected_start_time game_pgid extra; do
+            [ -n "$game_pid" ] || continue
+            case "$game_pid:$expected_start_time" in *[!0-9:]*|:*|*:) continue ;; esac
+            [ -n "$game_pgid" ] || game_pgid=$game_pid
+            case "$game_pgid" in ""|*[!0-9]*) continue ;; esac
+            proc_stat="/proc/$game_pid/stat"
+            [ -r "$proc_stat" ] || continue
+            stat_rest=$(sed 's/^.*) //' "$proc_stat")
+            actual_start_time=$(printf '%s\n' "$stat_rest" | awk '{print $20}')
+            if [ "$actual_start_time" = "$expected_start_time" ]; then
+                remaining=1
+                break
+            fi
+        done < "$pid_file"
+        [ "$remaining" -eq 1 ] || break
         sleep 1
         attempts=$((attempts + 1))
     done
-    if kill -0 -- "-$game_pgid" 2>/dev/null; then
-        echo "[INFO] Arret force du groupe Quiver $game_pgid"
-        kill -KILL -- "-$game_pgid" 2>/dev/null || true
+    if [ "$remaining" -eq 1 ]; then
+        while read -r game_pid expected_start_time game_pgid extra; do
+            [ -n "$game_pid" ] || continue
+            case "$game_pid:$expected_start_time" in *[!0-9:]*|:*|*:) continue ;; esac
+            [ -n "$game_pgid" ] || game_pgid=$game_pid
+            case "$game_pgid" in ""|*[!0-9]*) continue ;; esac
+            proc_stat="/proc/$game_pid/stat"
+            [ -r "$proc_stat" ] || continue
+            stat_rest=$(sed 's/^.*) //' "$proc_stat")
+            actual_start_time=$(printf '%s\n' "$stat_rest" | awk '{print $20}')
+            process_group=$(ps -o pgid= -p "$game_pid" 2>/dev/null | tr -d ' ')
+            if [ "$actual_start_time" = "$expected_start_time" ] \
+                && [ "$process_group" = "$game_pgid" ]; then
+                echo "[INFO] Arret force du PID $game_pid et du groupe $game_pgid"
+                kill -KILL -- "-$game_pgid" 2>/dev/null || true
+                kill -KILL "$game_pid" 2>/dev/null || true
+            fi
+        done < "$pid_file"
     fi
     rm -f -- "$pid_file"
 }
