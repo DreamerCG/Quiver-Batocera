@@ -144,7 +144,6 @@ stop_active_quiver_game() {
     }
 
     read -r game_pid expected_start_time game_pgid extra < "$pid_file"
-    echo "[PID DEBUG] active-game.pid: pid=${game_pid:-vide} starttime=${expected_start_time:-vide} pgid=${game_pgid:-vide} extra=${extra:-vide}"
     case "$game_pid" in
         ""|*[!0-9]*)
             echo "[ANOMALIE] PID Quiver invalide : $pid_file"
@@ -167,7 +166,6 @@ stop_active_quiver_game() {
     # Backward compatibility with the previous two-field format.
     if [ -z "$game_pgid" ]; then
         game_pgid=$game_pid
-        echo "[PID DEBUG] ancien format PID, PGID suppose egal au PID: $game_pgid"
     fi
     case "$game_pgid" in
         ""|*[!0-9]*)
@@ -188,9 +186,6 @@ stop_active_quiver_game() {
     set -- $stat_rest
     actual_start_time=${20}
     process_group=$(ps -o pgid= -p "$game_pid" 2>/dev/null | tr -d ' ')
-    echo "[PID DEBUG] processus cible avant arret: pid=$game_pid pgid=${process_group:-absent} starttime=$actual_start_time"
-    echo "[PID DEBUG] membres du groupe $game_pgid avant arret:"
-    ps -eo pid=,ppid=,pgid=,sid=,stat=,args= | awk -v group="$game_pgid" '$3 == group { print "[PID DEBUG] " $0 }'
     if [ "$actual_start_time" != "$expected_start_time" ] \
         || [ "$process_group" != "$game_pgid" ]; then
         echo "[ANOMALIE] PID Quiver reutilise ou groupe inattendu : pid=$game_pid pgid=${process_group:-absent} attendu=$game_pgid"
@@ -206,13 +201,9 @@ stop_active_quiver_game() {
         attempts=$((attempts + 1))
     done
     if kill -0 -- "-$game_pgid" 2>/dev/null; then
-        echo "[PID DEBUG] membres du groupe $game_pgid apres TERM:"
-        ps -eo pid=,ppid=,pgid=,sid=,stat=,args= | awk -v group="$game_pgid" '$3 == group { print "[PID DEBUG] " $0 }'
         echo "[INFO] Arret force du groupe Quiver $game_pgid"
         kill -KILL -- "-$game_pgid" 2>/dev/null || true
     fi
-    echo "[PID DEBUG] membres du groupe $game_pgid apres arret:"
-    ps -eo pid=,ppid=,pgid=,sid=,stat=,args= | awk -v group="$game_pgid" '$3 == group { print "[PID DEBUG] " $0 }'
     rm -f -- "$pid_file"
 }
 
