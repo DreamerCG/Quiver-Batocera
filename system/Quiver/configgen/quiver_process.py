@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import os
-import re
 import shlex
 import subprocess
 import sys
@@ -25,6 +24,8 @@ def _proc_info(pid: int) -> tuple[int, int, str, str] | None:
     try:
         stat = Path(f"/proc/{pid}/stat").read_text(encoding="ascii")
         fields = stat[stat.rfind(")") + 2 :].split()
+        if fields[0] == "Z":
+            return None
         cmdline = Path(f"/proc/{pid}/cmdline").read_bytes().replace(b"\0", b" ").decode(
             "utf-8", errors="replace"
         ).strip()
@@ -33,9 +34,9 @@ def _proc_info(pid: int) -> tuple[int, int, str, str] | None:
         return None
 
 
-def _publish_pid(pid: int, start_time: str) -> None:
+def _publish_pid(pid: int, start_time: str, pgid: int) -> None:
     temporary = PID_FILE.with_name(f"{PID_FILE.name}.{os.getpid()}.tmp")
-    temporary.write_text(f"{pid} {start_time}\n", encoding="ascii")
+    temporary.write_text(f"{pid} {start_time} {pgid}\n", encoding="ascii")
     os.replace(temporary, PID_FILE)
 
 
@@ -69,12 +70,20 @@ def _find_game_process(root_pid: int, command: list[str]) -> tuple[int, int, str
         _ppid, pgid, start, cmdline = info
         argv = shlex.split(cmdline) if cmdline else []
         executable_match = any(Path(arg).name == executable for arg in argv)
+        # AppImage launchers commonly replace their original process with an
+        # internal binary, while keeping the game arguments on its command line.
+        # Track that process too; in the GT6 case it is rpcs3/AppRun.wrapped.
+        if not executable_match and executable.lower().endswith(".appimage"):
+            executable_match = any(
+                marker in cmdline.lower()
+                for marker in ("rpcs3", "apprun.wrapped")
+            )
         if not executable_match:
             continue
         # Prefer the actual application (which retains game arguments) to an
         # AppRun or mount helper, and only publish PIDs in the launch group.
-        args_match = all(arg in argv for arg in game_args if not arg.startswith("-"))
-        score = (int(args_match), int(pgid == root_pgid), len(argv))
+        args_match = any(arg.lower().endswith((".iso", ".bin", ".elf")) for arg in argv)
+        score = (int(args_match), int("rpcs3" in cmdline.lower()), int(pgid == root_pgid))
         candidates.append((score, pid, pgid, start))
     if not candidates:
         return None
@@ -108,14 +117,14 @@ def main() -> int:
     try:
         start_time = _proc_start_time(process.pid)
         tracked_pid, tracked_pgid = process.pid, process.pid
-        _publish_pid(tracked_pid, start_time)
+        _publish_pid(tracked_pid, start_time, tracked_pgid)
         print(
             f"[Quiver PID] enregistre pid_jeu={process.pid} pgid={process.pid} "
             f"starttime={start_time} fichier={PID_FILE}",
             file=sys.stderr,
             flush=True,
         )
-        while process.poll() is None:
+        while True:
             candidate = _find_game_process(process.pid, command)
             if candidate:
                 candidate_pid, candidate_pgid, candidate_start = candidate
@@ -125,13 +134,18 @@ def main() -> int:
                         candidate_pgid,
                         candidate_start,
                     )
-                    _publish_pid(tracked_pid, start_time)
+                    _publish_pid(tracked_pid, start_time, tracked_pgid)
                     print(
                         f"[Quiver PID] cible mise a jour pid_jeu={tracked_pid} "
                         f"pgid={tracked_pgid} starttime={start_time}",
                         file=sys.stderr,
                         flush=True,
                     )
+            root_running = process.poll() is None
+            tracked_info = _proc_info(tracked_pid)
+            tracked_running = tracked_info is not None and tracked_info[2] == start_time
+            if not root_running and (tracked_pid == process.pid or not tracked_running):
+                break
             time.sleep(0.25)
         return_code = process.wait()
         print(
@@ -159,6 +173,7 @@ def main() -> int:
             if PID_FILE.read_text(encoding="ascii").strip().split() == [
                 str(tracked_pid),
                 start_time,
+                str(tracked_pgid),
             ]:
                 PID_FILE.unlink()
                 print(

@@ -143,7 +143,8 @@ stop_active_quiver_game() {
         return
     }
 
-    read -r game_pid expected_start_time extra < "$pid_file"
+    read -r game_pid expected_start_time game_pgid extra < "$pid_file"
+    echo "[PID DEBUG] active-game.pid: pid=${game_pid:-vide} starttime=${expected_start_time:-vide} pgid=${game_pgid:-vide} extra=${extra:-vide}"
     case "$game_pid" in
         ""|*[!0-9]*)
             echo "[ANOMALIE] PID Quiver invalide : $pid_file"
@@ -163,6 +164,18 @@ stop_active_quiver_game() {
         rm -f -- "$pid_file"
         return
     fi
+    # Backward compatibility with the previous two-field format.
+    if [ -z "$game_pgid" ]; then
+        game_pgid=$game_pid
+        echo "[PID DEBUG] ancien format PID, PGID suppose egal au PID: $game_pgid"
+    fi
+    case "$game_pgid" in
+        ""|*[!0-9]*)
+            echo "[ANOMALIE] PGID Quiver invalide : $pid_file"
+            rm -f -- "$pid_file"
+            return
+            ;;
+    esac
 
     proc_stat="/proc/$game_pid/stat"
     if [ ! -r "$proc_stat" ]; then
@@ -175,24 +188,31 @@ stop_active_quiver_game() {
     set -- $stat_rest
     actual_start_time=${20}
     process_group=$(ps -o pgid= -p "$game_pid" 2>/dev/null | tr -d ' ')
+    echo "[PID DEBUG] processus cible avant arret: pid=$game_pid pgid=${process_group:-absent} starttime=$actual_start_time"
+    echo "[PID DEBUG] membres du groupe $game_pgid avant arret:"
+    ps -eo pid=,ppid=,pgid=,sid=,stat=,args= | awk -v group="$game_pgid" '$3 == group { print "[PID DEBUG] " $0 }'
     if [ "$actual_start_time" != "$expected_start_time" ] \
-        || [ "$process_group" != "$game_pid" ]; then
-        echo "[ANOMALIE] PID Quiver reutilise ou groupe inattendu : $game_pid"
+        || [ "$process_group" != "$game_pgid" ]; then
+        echo "[ANOMALIE] PID Quiver reutilise ou groupe inattendu : pid=$game_pid pgid=${process_group:-absent} attendu=$game_pgid"
         rm -f -- "$pid_file"
         return
     fi
 
-    echo "[INFO] Arret du groupe de processus Quiver $game_pid"
-    kill -TERM -- "-$game_pid" 2>/dev/null || true
+    echo "[INFO] Arret du groupe de processus Quiver $game_pgid (PID cible $game_pid)"
+    kill -TERM -- "-$game_pgid" 2>/dev/null || true
     attempts=0
-    while kill -0 -- "-$game_pid" 2>/dev/null && [ "$attempts" -lt 5 ]; do
+    while kill -0 -- "-$game_pgid" 2>/dev/null && [ "$attempts" -lt 5 ]; do
         sleep 1
         attempts=$((attempts + 1))
     done
-    if kill -0 -- "-$game_pid" 2>/dev/null; then
-        echo "[INFO] Arret force du groupe Quiver $game_pid"
-        kill -KILL -- "-$game_pid" 2>/dev/null || true
+    if kill -0 -- "-$game_pgid" 2>/dev/null; then
+        echo "[PID DEBUG] membres du groupe $game_pgid apres TERM:"
+        ps -eo pid=,ppid=,pgid=,sid=,stat=,args= | awk -v group="$game_pgid" '$3 == group { print "[PID DEBUG] " $0 }'
+        echo "[INFO] Arret force du groupe Quiver $game_pgid"
+        kill -KILL -- "-$game_pgid" 2>/dev/null || true
     fi
+    echo "[PID DEBUG] membres du groupe $game_pgid apres arret:"
+    ps -eo pid=,ppid=,pgid=,sid=,stat=,args= | awk -v group="$game_pgid" '$3 == group { print "[PID DEBUG] " $0 }'
     rm -f -- "$pid_file"
 }
 
