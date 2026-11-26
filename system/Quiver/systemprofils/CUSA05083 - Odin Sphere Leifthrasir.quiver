@@ -4,7 +4,7 @@ Folder=OdinSphereLeifthrasir-OdinSphereLeifthrasirPCPort
 
 [Launcher]
 path=/userdata/system/Quiver/emulator/Apps/OdinSphereLeifthrasir-OdinSphereLeifthrasirPCPort
-executable=OdinSphereLeifthrasirPC-v*-x86_64.AppImage
+executable=OdinSphereLeifthrasirPC-x86_64.AppImage
 args= --user "/userdata/saves/quiver/CUSA05083 - Odin Sphere Leifthrasir"
 
 [Config]
