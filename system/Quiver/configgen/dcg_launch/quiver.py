@@ -408,7 +408,7 @@ class Quiver(Emulator):
         launcher_is_on = _is_enabled(launcher_quiver)
 
         if launcher_is_on:
-            app_args = [arg for arg in app_args if arg != "--play"]
+            app_args = []
 
         if (
             _is_enabled(launcher_quiver)

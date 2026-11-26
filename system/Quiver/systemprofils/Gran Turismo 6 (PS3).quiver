@@ -1,0 +1,22 @@
+[Game]
+name=Gran Turismo 6 (PS3)
+Folder=GranTurismo6-GranTurismo6PC
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/GranTurismo6-GranTurismo6PC
+executable=GT6-Launcher-Ubuntu-SDL2-x86_64.AppImage
+args= --play
+
+[Config]
+setting_file=/userdata/system/configs/Quiver/data/gt6-launcher/launcher.json
+preload_file=gt6_launcher.json
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/Gran Turismo 6 (PS3)
+dlc_directory=/userdata/roms/quiver/DLC/Gran Turismo 6 (PS3)
+mods_directory=/userdata/roms/quiver/MODS/Gran Turismo 6 (PS3)
+saves_directory=/userdata/saves/quiver/Gran Turismo 6 (PS3)
+
+[Symlink]
+link1_source=/userdata/system/configs/Quiver/data/gt6-launcher/config/rpcs3
+link1_destination=/userdata/roms/quiver/GAME/Gran Turismo 6 (PS3)/rpcs3

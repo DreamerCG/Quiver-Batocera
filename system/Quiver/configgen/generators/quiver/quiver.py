@@ -365,7 +365,7 @@ class QuiverGenerator(Generator):
             )
         launcher_is_on = _is_enabled(launcher_quiver)
         if launcher_is_on:
-            app_args = [arg for arg in app_args if arg != "--play"]
+            app_args = []
 
         if launcher_is_on or rom.name.lower() == "quiver launcher.quiver":
             try:

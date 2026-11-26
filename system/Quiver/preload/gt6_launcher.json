@@ -1,0 +1,67 @@
+{
+ "profile_rev": 4,
+ "profile": {
+  "fullscreen": true,
+  "output_resolution": "1920x1080",
+  "resolution_scale": 150,
+  "aspect": "16:9",
+  "aa": "mlaa_sharp",
+  "upscaler": "bilinear",
+  "cas_sharpening": 50,
+  "anisotropic": 16,
+  "frame_mode": "60",
+  "unlock_menu_fps": true,
+  "motion_blur": "stock",
+  "depth_of_field": true,
+  "shadows": "sharp",
+  "lamp_glare": 1.0,
+  "fov_bumper": 0,
+  "fov_cockpit": 0,
+  "fov_roof": 0,
+  "fov_chase": 0,
+  "performance_overlay": false,
+  "renderer": "Vulkan",
+  "gpu_adapter": "",
+  "spu_block_size": "Safe",
+  "thread_scheduler": "Operating System",
+  "zcull_queries_disabled": true,
+  "render_path": "auto",
+  "accurate_rsx_reservation": true,
+  "multithreaded_rsx": false,
+  "async_texture_streaming": false,
+  "handle_tiled_memory": true,
+  "audio_time_stretch": true,
+  "audio_buffer_ms": 50,
+  "controller_mode": "auto",
+  "controller_device": "",
+  "wheel_enabled": false,
+  "wheel_name": "",
+  "wheel_mapping": {},
+  "use_gamemode": false,
+  "use_mangohud": false,
+  "console_language": "French",
+  "dev_menu": false,
+  "lan_enabled": false,
+  "lan_bind_address": "0.0.0.0",
+  "online_enabled": false,
+  "extra_patches": {}
+ },
+ "screen_checked": true,
+ "firmware_path": "/userdata/roms/quiver/GAME/Gran Turismo 6 (PS3)/PS3UPDAT.PUP",
+ "games": {
+  "BCES01893": {
+   "path": "/userdata/roms/quiver/GAME/Gran Turismo 6 (PS3)/Gran Turismo6 [BCES01893].iso",
+   "title": "Gran Turismo\u00ae6",
+   "disc_version": "01.00"
+  }
+ },
+ "active": "BCES01893",
+ "parallel": 1,
+ "delete_pkgs": true,
+ "installed_once": {
+  "BCES01893|01.22": true
+ },
+ "compiled": [
+  "BCES01893|01.22|rpcs3-gt6-x86_64.AppImage|Safe"
+ ]
+}

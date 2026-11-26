@@ -287,7 +287,57 @@ try:
 except (OSError, UnicodeError, json.JSONDecodeError):
     pass
 
-if force_rebuild == "1" or not installed.issubset(indexed_folders):
+needs_rebuild = force_rebuild == "1" or not installed.issubset(indexed_folders)
+
+# Detect profile renames, removals, and Folder edits even when installs.json
+# itself has not changed. The index is keyed by the stable Game.Folder value,
+# but its values are profile filenames, which can be renamed independently.
+if not needs_rebuild:
+    for name in os.listdir(profiles_dir):
+        if not name.lower().endswith(".quiver"):
+            continue
+        path = os.path.join(profiles_dir, name)
+        if not os.path.isfile(path):
+            continue
+        parser = configparser.ConfigParser(interpolation=None)
+        parser.optionxform = str.lower
+        try:
+            parser.read(path, encoding="utf-8")
+            folder = parser.get("Game", "Folder", fallback="").strip()
+        except (configparser.Error, UnicodeError, OSError):
+            continue
+        if folder in installed and name not in index.get(folder, []):
+            needs_rebuild = True
+            break
+    if not needs_rebuild:
+        for index_folder, names in index.items():
+            if not isinstance(names, list):
+                needs_rebuild = True
+                break
+            if any(
+                not isinstance(name, str)
+                or os.path.basename(name) != name
+                or not os.path.isfile(os.path.join(profiles_dir, name))
+                for name in names
+            ):
+                needs_rebuild = True
+                break
+            for name in names:
+                parser = configparser.ConfigParser(interpolation=None)
+                parser.optionxform = str.lower
+                try:
+                    parser.read(os.path.join(profiles_dir, name), encoding="utf-8")
+                    folder = parser.get("Game", "Folder", fallback="").strip()
+                except (configparser.Error, UnicodeError, OSError):
+                    needs_rebuild = True
+                    break
+                if folder != index_folder:
+                    needs_rebuild = True
+                    break
+            if needs_rebuild:
+                break
+
+if needs_rebuild:
     rebuilt = {}
     for name in os.listdir(profiles_dir):
         if not name.lower().endswith(".quiver"):
@@ -565,7 +615,7 @@ create_app_symlink() {
         "$root_real"/*) ;;
         *) echo "[ANOMALIE] $link_name : cible absente ou resolue hors de sa racine : $target_path"; return 1 ;;
     esac
-    if [ ! -d "$target_real" ]; then
+    if [ ! -e "$target_real" ]; then
         echo "[ERREUR] $link_name : cible absente ou invalide : $target_path"
         return 1
     fi
@@ -1107,6 +1157,64 @@ while IFS= read -r profile; do
                 ;;
             *) echo "[ANOMALIE] Cible de symlink SAVES non prise en charge : $saves_symlink_target"; directories_ok=0 ;;
         esac
+    fi
+
+    # Liens personnalises : chaque cle linkN_source doit avoir la cle
+    # linkN_destination correspondante dans [Symlink].
+    custom_symlink_keys=$(mktemp "/tmp/exit_quiver_symlinks.XXXXXX") || custom_symlink_keys=""
+    if [ -z "$custom_symlink_keys" ]; then
+        echo "[ERREUR] Impossible de creer la liste des symlinks personnalises"
+        directories_ok=0
+    else
+        awk '
+            BEGIN { inside = 0 }
+            {
+                line = $0
+                sub(/\r$/, "", line)
+                if (line ~ /^[[:space:]]*[#;]/ || line ~ /^[[:space:]]*$/) next
+                if (line ~ /^[[:space:]]*\[/) {
+                    section = line
+                    sub(/^[[:space:]]*\[/, "", section)
+                    sub(/\][[:space:]]*$/, "", section)
+                    gsub(/^[[:space:]]+|[[:space:]]+$/, "", section)
+                    inside = (tolower(section) == "symlink")
+                    next
+                }
+                if (inside && index(line, "=")) {
+                    key = line
+                    sub(/=.*/, "", key)
+                    gsub(/^[[:space:]]+|[[:space:]]+$/, "", key)
+                    key = tolower(key)
+                    if (key ~ /^link[[:alnum:]_]*_source$/) print key
+                }
+            }
+        ' "$profile" > "$custom_symlink_keys"
+
+        while IFS= read -r custom_key; do
+            [ -n "$custom_key" ] || continue
+            custom_id=${custom_key%_source}
+            custom_source=$(get_ini_value "$profile" "Symlink" "$custom_key")
+            custom_destination=$(get_ini_value "$profile" "Symlink" "${custom_id}_destination")
+            if [ -z "$custom_source" ] || [ -z "$custom_destination" ]; then
+                echo "[ANOMALIE] [Symlink] $custom_id doit definir source et destination"
+                directories_ok=0
+                continue
+            fi
+            case "$custom_source" in
+                /*) ;;
+                *) echo "[ANOMALIE] [Symlink] source doit etre un chemin absolu : $custom_source"; directories_ok=0; continue ;;
+            esac
+            case "$custom_source/" in */../*|*/./*|*//*) echo "[ANOMALIE] [Symlink] source non normalisee : $custom_source"; directories_ok=0; continue ;; esac
+            if [ ! -e "$custom_source" ] || [ -L "$custom_source" ]; then
+                echo "[ANOMALIE] [Symlink] source absente ou symbolique : $custom_source"
+                directories_ok=0
+                continue
+            fi
+            custom_source_parent=${custom_source%/*}
+            [ -n "$custom_source_parent" ] || custom_source_parent="/"
+            create_app_symlink "$custom_id" "$custom_source_parent" "" "$custom_source" "$custom_destination" || directories_ok=0
+        done < "$custom_symlink_keys"
+        rm -f -- "$custom_symlink_keys"
     fi
 
     if [ "$directories_ok" -ne 1 ]; then
