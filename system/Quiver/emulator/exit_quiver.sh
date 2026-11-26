@@ -1195,6 +1195,14 @@ while IFS= read -r profile; do
             custom_id=${custom_key%_source}
             custom_source=$(get_ini_value "$profile" "Symlink" "$custom_key")
             custom_destination=$(get_ini_value "$profile" "Symlink" "${custom_id}_destination")
+            custom_source=$(printf '%s' "$custom_source" | sed 's#\\#/#g')
+            custom_destination=$(printf '%s' "$custom_destination" | sed 's#\\#/#g')
+            while [ "$custom_source" != "/" ] && [ "${custom_source%/}" != "$custom_source" ]; do
+                custom_source=${custom_source%/}
+            done
+            while [ "$custom_destination" != "/" ] && [ "${custom_destination%/}" != "$custom_destination" ]; do
+                custom_destination=${custom_destination%/}
+            done
             if [ -z "$custom_source" ] || [ -z "$custom_destination" ]; then
                 echo "[ANOMALIE] [Symlink] $custom_id doit definir source et destination"
                 directories_ok=0
@@ -1205,8 +1213,21 @@ while IFS= read -r profile; do
                 *) echo "[ANOMALIE] [Symlink] source doit etre un chemin absolu : $custom_source"; directories_ok=0; continue ;;
             esac
             case "$custom_source/" in */../*|*/./*|*//*) echo "[ANOMALIE] [Symlink] source non normalisee : $custom_source"; directories_ok=0; continue ;; esac
-            if [ ! -e "$custom_source" ] || [ -L "$custom_source" ]; then
-                echo "[ANOMALIE] [Symlink] source absente ou symbolique : $custom_source"
+            if [ -L "$custom_source" ]; then
+                echo "[ANOMALIE] [Symlink] source symbolique refusee : $custom_source"
+                directories_ok=0
+                continue
+            fi
+            if [ ! -e "$custom_source" ]; then
+                echo "[INFO] Creation du dossier source [Symlink] : $custom_source"
+                if ! mkdir -p -- "$custom_source"; then
+                    echo "[ERREUR] Impossible de creer le dossier source [Symlink] : $custom_source"
+                    directories_ok=0
+                    continue
+                fi
+            fi
+            if [ ! -d "$custom_source" ]; then
+                echo "[ANOMALIE] [Symlink] source non repertoire : $custom_source"
                 directories_ok=0
                 continue
             fi
