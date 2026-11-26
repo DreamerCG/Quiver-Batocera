@@ -1,0 +1,32 @@
+[Game]
+name=Virtua Striker 4 Ver.2006 (ARCADE)
+Folder=VirtuaStriker4Ver2006-VS42006Enhanced
+
+[Launcher]
+path=/userdata/system/Quiver/emulator/Apps/VirtuaStriker4Ver2006-VS42006Enhanced
+executable=vs4-2006-enhanced.exe
+args=
+mode=wine
+
+[Config]
+setting_file=
+preload_file=
+
+[Roms]
+game_directory=/userdata/roms/quiver/GAME/Virtua Striker 4 Ver 2006 (Arcade)
+dlc_directory=/userdata/roms/quiver/DLC/Virtua Striker 4 Ver 2006 (Arcade)
+mods_directory=/userdata/roms/quiver/MODS/Virtua Striker 4 Ver 2006 (Arcade)
+saves_directory=/userdata/saves/quiver/Virtua Striker 4 Ver 2006 (Arcade)
+
+[Symlink]
+link1_destination=/userdata/system/Quiver/emulator/Apps/VirtuaStriker4Ver2006-VS42006Enhanced/build
+link1_source=/userdata/roms/quiver/GAME/Virtua Striker 4 Ver 2006 (Arcade)/build
+
+link2_destination=/userdata/system/Quiver/emulator/Apps/VirtuaStriker4Ver2006-VS42006Enhanced/user
+link2_source=/userdata/roms/quiver/GAME/Virtua Striker 4 Ver 2006 (Arcade)/user
+
+link3_destination=/userdata/system/Quiver/emulator/Apps/VirtuaStriker4Ver2006-VS42006Enhanced/toolchain
+link3_source=/userdata/roms/quiver/GAME/Virtua Striker 4 Ver 2006 (Arcade)/toolchain
+
+link4_destination=/userdata/system/Quiver/emulator/Apps/VirtuaStriker4Ver2006-VS42006Enhanced/ISO
+link4_source=/userdata/roms/quiver/GAME/Virtua Striker 4 Ver 2006 (Arcade)/ISO
