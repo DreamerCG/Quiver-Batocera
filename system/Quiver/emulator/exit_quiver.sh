@@ -694,12 +694,12 @@ create_app_symlink() {
         return 1
     fi
     if [ -e "$link_path" ]; then
-        if [ "$link_name" = "dlc" ] && [ ! -L "$link_path" ] && [ -d "$link_path" ]; then
+        if { [ "$link_name" = "dlc" ] || { [ "$link_name" != "game" ] && [ "$link_name" != "mods" ] && [ "$link_name" != "saves" ]; }; } && [ ! -L "$link_path" ] && [ -d "$link_path" ]; then
             # Certains jeux/launchers déposent un fichier d'information par
             # défaut dans le dossier DLC. Supprimer uniquement le dossier de
             # lien DLC configuré, après les contrôles de chemin ci-dessus.
             if ! rm -rf -- "$link_path"; then
-                echo "[ERREUR] Impossible de supprimer le dossier DLC existant : $link_path"
+                echo "[ERREUR] Impossible de supprimer le dossier existant : $link_path"
                 return 1
             fi
             echo "[INFO] Dossier DLC existant supprimé avant création du lien : $link_path"
