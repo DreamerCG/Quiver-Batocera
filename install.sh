@@ -238,6 +238,23 @@ rsync -a --ignore-existing \
     "${SOURCE_DIR}/roms/" "${BASE_DIR}/roms/" \
     || die "Échec de la copie de roms/."
 
+# Mettre à jour les profils déjà installés dans roms/quiver avec les profils
+# système téléchargés. Les fichiers absents restent gérés par --ignore-existing.
+SOURCE_PROFILES="${SOURCE_DIR}/system/Quiver/systemprofils"
+DEST_QUIVER_ROMS="${BASE_DIR}/roms/quiver"
+updated_rom_profiles=0
+if [[ -d "$DEST_QUIVER_ROMS" ]]; then
+    for downloaded_profile in "$SOURCE_PROFILES"/*.quiver; do
+        [[ -f "$downloaded_profile" ]] || continue
+        existing_profile="${DEST_QUIVER_ROMS}/${downloaded_profile##*/}"
+        [[ -f "$existing_profile" && ! -L "$existing_profile" ]] || continue
+        cp -p "$downloaded_profile" "$existing_profile" \
+            || die "Impossible de mettre à jour ${existing_profile}."
+        updated_rom_profiles=$((updated_rom_profiles + 1))
+    done
+fi
+log "Profils .quiver existants mis à jour dans roms/quiver : ${updated_rom_profiles}."
+
 # Permissions d'exécution
 APPIMAGE="${INSTALL_DIR}/emulator/QuiverLauncher-linux-x64.AppImage"
 LAUNCHER_UPDATER="${INSTALL_DIR}/bin/quiver-update-launcher"

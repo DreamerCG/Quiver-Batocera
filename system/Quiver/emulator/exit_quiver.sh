@@ -4,6 +4,8 @@ LOG="/userdata/system/Quiver/exit_quiver.log"
 LOG_DIR="/userdata/system/Quiver"
 PROFILES_DIR="/userdata/system/Quiver/systemprofils"
 APPS_DIR="/userdata/system/Quiver/emulator/Apps"
+INSTALLS_JSON="/userdata/system/configs/Quiver/data/com.quiverlauncher.app/installs.json"
+PROFILE_INDEX_JSON="/userdata/system/configs/Quiver/data/com.quiverlauncher.app/profile-index.json"
 ROM_DIR="/userdata/roms/quiver"
 EXIT_STATE_FILE="/userdata/system/configs/Quiver/exit-state"
 
@@ -112,9 +114,22 @@ trap release_lock EXIT
 trap 'exit 1' INT TERM
 
 EXIT_STATE=""
-if [ -f "$EXIT_STATE_FILE" ] && [ ! -L "$EXIT_STATE_FILE" ]; then
-    IFS= read -r EXIT_STATE < "$EXIT_STATE_FILE"
+
+# Identify the active Quiver Launcher AppImage before its process group is stopped.
+ACTIVE_GAME_PID_FILE="/userdata/system/configs/Quiver/active-game.pid"
+if [ -f "$ACTIVE_GAME_PID_FILE" ] && [ ! -L "$ACTIVE_GAME_PID_FILE" ]; then
+    read -r active_game_pid active_game_start extra < "$ACTIVE_GAME_PID_FILE"
+    case "$active_game_pid" in
+        ""|*[!0-9]*) ;;
+        *)
+            active_game_cmdline=$(tr '\000' ' ' < "/proc/$active_game_pid/cmdline" 2>/dev/null)
+            case "$active_game_cmdline" in
+                *QuiverLauncher-linux-x64.AppImage*) EXIT_STATE="launcher" ;;
+            esac
+            ;;
+    esac
 fi
+
 if rm -f -- "$EXIT_STATE_FILE"; then
     echo "[INFO] État de session consommé : ${EXIT_STATE:-inconnu}"
 else
@@ -215,17 +230,113 @@ fi
 
 # Generate profiles for newly installed launchers before copying them to ROM_DIR.
 # The generator never overwrites existing profiles.
-PROFILE_GENERATOR="/userdata/system/Quiver/bin/quiver-generate-profiles"
-if [ -f "$PROFILE_GENERATOR" ] && command -v python3 >/dev/null 2>&1; then
-    echo "[INFO] Generating profiles for newly installed launchers"
-    if python3 "$PROFILE_GENERATOR"; then
-        echo "[INFO] Automatic profile generation completed"
+if [ "$EXIT_STATE" = "launcher" ]; then
+    PROFILE_GENERATOR="/userdata/system/Quiver/bin/quiver-generate-profiles"
+    if [ -f "$PROFILE_GENERATOR" ] && command -v python3 >/dev/null 2>&1; then
+        echo "[INFO] Generating profiles for newly installed launchers"
+        if python3 "$PROFILE_GENERATOR"; then
+            echo "[INFO] Automatic profile generation completed"
+        else
+            generator_status=$?
+            echo "[ERROR] Profile generator failed (code $generator_status); continuing exit"
+        fi
     else
-        generator_status=$?
-        echo "[ERROR] Profile generator failed (code $generator_status); continuing exit"
+        echo "[WARNING] Profile generator or python3 missing; skipping generation"
+    fi
+
+# Resolve installed launcher folders through a persistent Folder -> profile index.
+# The index is rebuilt only when an installed folder is not yet represented.
+PROFILES_TO_COPY=$(mktemp "/tmp/exit_quiver_profiles.XXXXXX") || PROFILES_TO_COPY=""
+if [ -n "$PROFILES_TO_COPY" ] && [ -f "$INSTALLS_JSON" ] && command -v python3 >/dev/null 2>&1; then
+    REBUILD_PROFILE_INDEX=0
+    if [ ! -f "$PROFILE_INDEX_JSON" ] || [ "$INSTALLS_JSON" -nt "$PROFILE_INDEX_JSON" ]; then
+        REBUILD_PROFILE_INDEX=1
+    fi
+    if ! python3 - "$INSTALLS_JSON" "$PROFILE_INDEX_JSON" "$PROFILES_DIR" "$REBUILD_PROFILE_INDEX" > "$PROFILES_TO_COPY" <<'PY'
+import configparser
+import json
+import os
+import sys
+import tempfile
+
+installs_path, index_path, profiles_dir, force_rebuild = sys.argv[1:]
+try:
+    with open(installs_path, encoding="utf-8") as source:
+        installs = json.load(source)
+    if not isinstance(installs, dict):
+        raise ValueError("installs.json root is not an object")
+    installed = {
+        item.get("folder", "").strip()
+        for item in installs.values()
+        if isinstance(item, dict) and isinstance(item.get("folder"), str)
+    }
+    installed = {folder for folder in installed if folder and folder not in (".", "..") and "/" not in folder and "\\" not in folder}
+except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as error:
+    print(f"[WARNING] installs.json invalide : {error}", file=sys.stderr)
+    raise SystemExit(1)
+
+index = {}
+indexed_folders = set()
+try:
+    with open(index_path, encoding="utf-8") as source:
+        cached = json.load(source)
+    if isinstance(cached, dict) and isinstance(cached.get("profiles"), dict):
+        index = cached["profiles"]
+        if isinstance(cached.get("indexedFolders"), list):
+            indexed_folders = {value for value in cached["indexedFolders"] if isinstance(value, str)}
+except (OSError, UnicodeError, json.JSONDecodeError):
+    pass
+
+if force_rebuild == "1" or not installed.issubset(indexed_folders):
+    rebuilt = {}
+    for name in os.listdir(profiles_dir):
+        if not name.lower().endswith(".quiver"):
+            continue
+        path = os.path.join(profiles_dir, name)
+        if not os.path.isfile(path):
+            continue
+        parser = configparser.ConfigParser(interpolation=None)
+        parser.optionxform = str.lower
+        try:
+            parser.read(path, encoding="utf-8")
+            folder = parser.get("Game", "Folder", fallback="").strip()
+        except (configparser.Error, UnicodeError, OSError):
+            continue
+        if folder and folder not in (".", "..") and "/" not in folder and "\\" not in folder:
+            rebuilt.setdefault(folder, []).append(name)
+    index = rebuilt
+    indexed_folders = installed
+    os.makedirs(os.path.dirname(index_path), exist_ok=True)
+    fd, temporary = tempfile.mkstemp(prefix=".profile-index.", dir=os.path.dirname(index_path), text=True)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as destination:
+            json.dump({"indexedFolders": sorted(indexed_folders), "profiles": index}, destination, ensure_ascii=False, separators=(",", ":"))
+            destination.write("\n")
+        os.replace(temporary, index_path)
+    except BaseException:
+        try:
+            os.unlink(temporary)
+        except OSError:
+            pass
+        raise
+
+for folder in sorted(installed):
+    for name in index.get(folder, []):
+        if isinstance(name, str) and os.path.basename(name) == name and name.lower().endswith(".quiver"):
+            path = os.path.join(profiles_dir, name)
+            if os.path.isfile(path):
+                print(path)
+PY
+    then
+        echo "[WARNING] Index des profils indisponible : repli sur le scan complet"
+        rm -f "$PROFILES_TO_COPY"
+        PROFILES_TO_COPY=""
     fi
 else
-    echo "[WARNING] Profile generator or python3 missing; skipping generation"
+    echo "[WARNING] installs.json, python3 ou fichier temporaire indisponible : scan complet des profils"
+    [ -n "$PROFILES_TO_COPY" ] && rm -f "$PROFILES_TO_COPY"
+    PROFILES_TO_COPY=""
+fi
 fi
 
 # ------------------------------------------------------------------
@@ -892,7 +1003,22 @@ done
 # Copie des profils valides vers ROM_DIR
 # ------------------------------------------------------------------
 
-for profile in "$PROFILES_DIR"/*; do
+if [ "$EXIT_STATE" = "launcher" ]; then
+if [ -z "$PROFILES_TO_COPY" ]; then
+    PROFILES_TO_COPY=$(mktemp "/tmp/exit_quiver_profiles.XXXXXX") || PROFILES_TO_COPY=""
+    if [ -n "$PROFILES_TO_COPY" ]; then
+        for fallback_profile in "$PROFILES_DIR"/*; do
+            [ -f "$fallback_profile" ] || continue
+            case "$fallback_profile" in *.quiver|*.QUIVER) printf '%s\n' "$fallback_profile" >> "$PROFILES_TO_COPY" ;; esac
+        done
+    fi
+fi
+
+if [ -z "$PROFILES_TO_COPY" ]; then
+    echo "[ERROR] Cannot create temporary profile list; profile transfer skipped"
+else
+while IFS= read -r profile; do
+    [ -n "$profile" ] || continue
     [ -f "$profile" ] || continue
 
     # Seuls les fichiers .quiver sont copiés
@@ -1013,7 +1139,9 @@ for profile in "$PROFILES_DIR"/*; do
     else
         echo "[ERREUR] Échec de la copie de $profile"
     fi
-done
+done < "$PROFILES_TO_COPY"
+rm -f "$PROFILES_TO_COPY"
+fi
 
 # ------------------------------------------------------------------
 # Nettoyage des profils orphelins (application absente de APPS_DIR)
@@ -1087,10 +1215,12 @@ EOF
     fi
 fi
 
+fi
+
 echo "[INFO] Arrêt des processus run.py de Quiver"
 
 for pid in $(pgrep -f 'python /userdata/system/Quiver/configgen/run.py'); do
-    echo "[INFO] Arrêt du PID $pid"
+echo "[INFO] Arrêt du PID $pid"
     kill -9 "$pid" 2>/dev/null
 done
 
