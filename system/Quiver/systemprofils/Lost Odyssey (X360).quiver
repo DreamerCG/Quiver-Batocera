@@ -4,7 +4,7 @@ Folder=LostOdyssey-LostOdysseyRecompiled
 
 [Launcher]
 path=/userdata/system/Quiver/emulator/Apps/LostOdyssey-LostOdysseyRecompiled
-executable=LostOdysseyRecomp-linux-x64-*.AppImage
+executable=LostOdysseyRecomp-linux-x64.AppImage
 args= --play
 
 [Config]
