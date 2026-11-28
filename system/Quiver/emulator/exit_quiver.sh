@@ -686,12 +686,22 @@ create_app_symlink() {
         return 1
     fi
     if [ -L "$link_path" ]; then
+        # Un lien symbolique cassé ne résout pas vers une cible existante.
+        # Le retirer permet de le recréer vers la cible validée ci-dessus.
+        if [ ! -e "$link_path" ]; then
+            if ! rm -f -- "$link_path"; then
+                echo "[ERREUR] Impossible de supprimer le lien symbolique cassé : $link_path"
+                return 1
+            fi
+            echo "[INFO] Lien symbolique cassé supprimé : $link_path"
+        else
         existing_real=$(realpath "$link_path" 2>/dev/null)
         if [ "$existing_real" = "$target_real" ]; then
             return 0
         fi
         echo "[ERREUR] Lien existant vers une autre cible : $link_path"
         return 1
+        fi
     fi
     if [ -e "$link_path" ]; then
         if { [ "$link_name" = "dlc" ] || { [ "$link_name" != "game" ] && [ "$link_name" != "mods" ] && [ "$link_name" != "saves" ]; }; } && [ ! -L "$link_path" ] && [ -d "$link_path" ]; then
